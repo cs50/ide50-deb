@@ -1,4 +1,0 @@
-*/10 * * * * root /usr/bin/nice /usr/bin/rsnapshot minutely
-2 * * * * root /usr/bin/nice /usr/bin/rsnapshot hourly
-4 0 * * * root /usr/bin/nice /usr/bin/rsnapshot daily
-6 0 * * 0 root /usr/bin/nice /usr/bin/rsnapshot weekly

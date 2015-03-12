@@ -1,6 +1,0 @@
-Command=/usr/bin/appliance50 -v --xml
-UseLabel=0
-Text=Appliance Version
-UpdatePeriod=30000
-Font=Sans Bold 10
-
