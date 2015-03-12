@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+# Read this appliance's unique ID
+#
+
+cat /etc/id50

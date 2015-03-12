@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# requires GNU getopt (default on Linux); see:
+# http://stackoverflow.com/questions/402377/using-getopts-in-bash-shell-script-to-get-long-and-short-command-line-options
+
+TEMP=`getopt -o v --long xml \
+             -n 'appliance50' -- "$@"`
+
+if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
+
+
+VERBOSE=false
+XML=false
+while true; do
+    case "$1" in
+	-v ) VERBOSE=true; shift ;;
+	--xml ) XML=true; shift ;;
+	* ) break ;;
+    esac
+done
+
+if [ $VERBOSE = true ]; then
+    # determine version
+    . /etc/appliance50
+
+    if [ "$version" == "" ]; then
+	version="unknown version"
+    fi
+
+    if [ $XML = true ]; then
+	echo "<tool>version</tool>"
+	echo "<txt>$version</txt>"
+    else
+	echo $version
+    fi
+fi

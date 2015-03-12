@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=Calculator
+Comment=Perform arithmetic, scientific or financial calculations
+Keywords=calculation;arithmetic;scientific;financial;
+Exec=gnome-calculator
+Icon=accessories-calculator
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Utility;Calculator;
+X-GNOME-Bugzilla-Bugzilla=GNOME
+X-GNOME-Bugzilla-Product=gnome-calculator
+X-GNOME-Bugzilla-Component=general
+X-Ubuntu-Gettext-Domain=gnome-calculator
+NoDisplay=true

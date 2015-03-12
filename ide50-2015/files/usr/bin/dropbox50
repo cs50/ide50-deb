@@ -1,0 +1,9 @@
+#!/bin/bash
+
+declare dropbox=$(/usr/bin/dropbox status)
+declare regex="isn't running"
+if [[ "$dropbox" =~ $regex ]]; then
+    dropbox start -i
+else
+    nautilus $HOME/Dropbox
+fi

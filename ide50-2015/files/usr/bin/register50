@@ -1,0 +1,89 @@
+#!/usr/bin/env python
+
+import getpass
+import os
+import re
+import subprocess
+import sys
+import urllib2 as urllib
+
+if len(sys.argv) > 2 or (len(sys.argv) == 2 and sys.argv[1] != '-f'):
+    print "Only valid flag is -f"
+    sys.exit(1)
+
+registered_file = "/home/jharvard/.registered"
+if os.path.exists(registered_file) and len(sys.argv) != 2:
+    sys.exit()
+
+# repeating this function here, so that
+# if log50 module is deleted
+def get_appliance_id():
+    try:
+        output = subprocess.check_output(['id50'])
+        return output.rstrip()
+    except:
+        return None
+
+def get_appliance_version():
+    try:
+        output = subprocess.check_output(['appliance50', '-v'])
+        return output.rstrip()
+    except:
+        return None
+
+# from http://stackoverflow.com/questions/3764291/checking-network-connectionk
+def check_connectivity(reference):
+    try:
+        urllib.urlopen(reference, timeout=1)
+        return True
+    except urllib.URLError:
+        return False
+
+
+def main():
+    id = get_appliance_id()
+    if id is None:
+        id = '0'
+
+    version = get_appliance_version()
+    if version is None:
+        version = '0'
+
+    # create url
+    url = "https://register.cs50.net/index.php?version=" + version + "&id="+id
+    message = "Please visit " + url + " to register."
+
+    # check if internet is on
+    connected = check_connectivity(url)
+
+    # if not connected and output is a terminal, print error message
+    if not connected:
+        # if we have a display, but we're not in a terminal, spawn a terminal.
+        # XXX: if you're piping register50, it might open a new terminal window
+        if os.environ.get('DISPLAY') and not sys.stdout.isatty():
+            with open(os.devnull, "w") as fnull:
+                subprocess.call(['xfce4-terminal', '-H', '-e', 'echo '+ message], stderr=fnull)
+        else:
+            print message
+
+    # else we are connected
+    else:
+        # only open chrome if display is available and user is not root
+        # (chrome fails to open as root)
+        if os.environ.get('DISPLAY') and getpass.getuser() != "root":
+            # for piping to /dev/null
+            with open(os.devnull, "w") as fnull:
+                subprocess.call(['google-chrome', '--app='+url], stderr=fnull)
+        else:
+            print message
+
+
+    # touch .registered file
+    try:
+        with open(registered_file, 'a'):
+            os.utime(registered_file, None)
+    except:
+        pass
+
+if __name__ == "__main__":
+    main()

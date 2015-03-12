@@ -1,0 +1,52 @@
+#!/usr/bin/env python
+import argparse
+import os
+import sys
+
+import log50
+
+# get command line arguments
+parser = argparse.ArgumentParser(description='Upload logs for log50')
+parser.add_argument('-d', dest='debug', action='store_true', help='debug mode')
+parser.add_argument('-f', dest='force', action='store_true', help='force an upload')
+
+args = parser.parse_args()
+
+# set debug mode
+log50.DEBUG = args.debug
+
+if not log50.lock_upload():
+    if log50.DEBUG:
+        print "failed to lock upload"
+    sys.exit()
+
+else:
+    if log50.DEBUG:
+        print "upload lock acquired"
+
+id = log50.get_appliance_id()
+if id is None:
+    id = '0'
+
+# check if we should upload
+if args.force or log50.should_upload():
+    if log50.DEBUG:
+        print "Attempting to upload"
+    if log50.copy_log():
+        if log50.DEBUG:
+            print "Log copied"
+        log50.send_log(id, log50.UPLOADDIR, log50.LOGURL)
+
+        path = log50.UPLOADDIR + log50.METADATAFILE
+
+        # record that an upload attempt occurred
+        # this will create the file, or update the mod time if it exists
+        with open(path, 'a'):
+            os.utime(path, None)
+    else:
+        if log50.DEBUG:
+            print "Failed to copy log"
+else:
+    if log50.DEBUG:
+        print "no upload attempted"
+

@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+<?php
+
+// curl -s still gives output on success, so pipe to /dev/null
+$network_command = "curl -s http://www.google.com/ > /dev/null";
+exec($network_command, $output, $return_var);
+if ($return_var !== 0) {
+    print("Appliance does not seem to have Internet access. Restarting networking...\n");
+    exec("sudo service network restart > /dev/null 2>&1");
+    print("Restarted networking.\n");
+    exec($network_command, $output, $return_var);
+    if ($return_var !== 0) {
+	print("Appliance still does not seem to have Internet access.\n");
+	print("Try restarting the appliance and also your computer!\n");
+	exit(1);
+    }
+}
+
+print("Appliance has Internet access!\n");

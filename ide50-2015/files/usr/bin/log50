@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+import log50
+import json
+import sys
+
+# check input
+# args: user, command, exitcode
+if (len(sys.argv) < 5):
+        sys.exit()
+
+# load in argv (the obj)
+obj = {'_type':sys.argv[1], 'username':sys.argv[2], 'pwd':sys.argv[3], 'command':sys.argv[4], 'exit_code':sys.argv[5]}
+
+# log the object
+log50.log_obj(obj)
+

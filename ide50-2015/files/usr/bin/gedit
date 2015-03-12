@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# hide gedit's Gtk errors
+/usr/bin/gedit.appliance50-orig "$@" 2> /dev/null

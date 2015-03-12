@@ -1,0 +1,48 @@
+#!/bin/bash
+#
+# This is CS50 update!
+#
+# To run, execute "update50" at the command line.
+
+echo -e "\nDO NOT CLOSE THIS WINDOW OR PUT YOUR COMPUTER TO SLEEP <3\n"
+sleep 2
+
+sudo echo -e "\n\n\nUpdate50 - $(date -R)" > /var/log/appliance50.log
+
+echo 'Updating sources...'
+# try to fix dpkg before updating
+sudo dpkg --configure -a 2>&1 | sudo tee -a /var/log/appliance50.log > /dev/null
+sudo apt-get update 2>&1 | sudo tee -a /var/log/appliance50.log
+if [ $? -ne 0 ]
+then
+    echo 'Something went wrong! The output has been logged in /var/log/appliance50'
+    exit 1
+fi
+
+echo 'Reinstalling appliance package...'
+sudo apt-get -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite" install --reinstall --yes --force-yes --assume-yes appliance50 2>&1 | sudo tee -a /var/log/appliance50.log
+if [ $? -ne 0 ]
+then
+    echo 'Something went wrong! The output has been logged in /var/log/appliance50'
+    exit 1
+fi
+
+echo 'Upgrading packages...'
+# fix annoying samba conf issue
+sudo rm -f /etc/samba/smb.*
+sudo apt-get -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"  --yes --force-yes --assume-yes dist-upgrade 2>&1 | sudo tee -a /var/log/appliance50.log
+if [ $? -ne 0 ]
+then
+    echo 'Something went wrong! The output has been logged in /var/log/appliance50'
+    exit 1
+fi
+
+echo 'Reinstalling appliance package again...'
+sudo apt-get -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite" install --reinstall --yes --force-yes --assume-yes appliance50 2>&1 | sudo tee -a /var/log/appliance50.log
+if [ $? -ne 0 ]
+then
+    echo 'Something went wrong! The output has been logged in /var/log/appliance50'
+    exit 1
+fi
+
+echo 'Update complete!'
