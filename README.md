@@ -1,4 +1,6 @@
 ## IDE 50
+NOTE THESE COMMANDS WILL LIKELY NOT WORK
+
 
 ### Rolling a new version of appliance50 deb
 1. `cd ~/ide50/ide50-2015/files`
