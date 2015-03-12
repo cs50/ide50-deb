@@ -1,0 +1,9 @@
+cd build/chroot
+sudo mount --bind /dev dev
+# sudo mount --bind /dev/pts dev/pts
+# sudo mount --bind /proc proc
+# sudo mount --bind /sys sys
+
+sudo cp /etc/hosts etc/hosts
+sudo cp /etc/resolv.conf etc/resolv.conf
+sudo cp /etc/apt/sources.list etc/apt/sources.list

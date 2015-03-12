@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "post"
+
+exit 0

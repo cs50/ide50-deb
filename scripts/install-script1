@@ -1,0 +1,50 @@
+#!/bin/bash
+
+mount none -t proc /proc
+mount none -t sysfs /sys
+mount none -t devpts /dev/pts
+
+export HOME=/root
+export LC_ALL=C
+
+# generate /etc/resolve.conf
+resolvconf -u
+
+# install add-apt-repository
+apt-get install --yes software-properties-common
+add-apt-repository universe
+
+apt-get update
+apt-get install --yes dbus
+dbus-uuidgen > /var/lib/dbus/machine-id
+dpkg-divert --local --rename --add /sbin/initctl
+ln -s /bin/true /sbin/initctl
+
+apt-get --yes dist-upgrade
+apt-get install --yes xubuntu-desktop --no-install-recommends
+
+export DEBIAN_FRONTEND=noninteractive
+apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --force-yes -y install grub-pc
+
+# install wget for adding repo public keys
+apt-get install --yes wget
+
+# adds Appliance50 repository
+wget -O - http://mirror.cs50.net/appliance50/2014/debs/keyFile | apt-key add -
+add-apt-repository "deb http://mirror.cs50.net/appliance50/2014/debs/dists/trusty/main/binary-i386 /"
+
+# adds Dropbox repository
+apt-key adv --keyserver pgp.mit.edu --recv-keys 5044912E
+add-apt-repository "deb http://linux.dropbox.com/ubuntu trusty main"
+
+# adds Chrome repository
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+add-apt-repository "deb http://dl.google.com/linux/deb/ stable main"
+
+# prevents packages from asking questions
+debconf-set-selections <<< 'mysql-server mysql-server/root_password password crimson'
+debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password crimson'
+
+# for phpmyadmin
+apt-get install --yes php5-common php5-mcrypt mysql-server
+php5enmod mcrypt
