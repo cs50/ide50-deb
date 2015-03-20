@@ -1,62 +1,53 @@
 #!/bin/bash
 
-chmod -R g+w /home/ubuntu/workspace && \
+chmod -R g+w /home/ubuntu/workspace 
 chown -R ubuntu:ubuntu /home/ubuntu
+
+pwd
     
-apt-get install clang -y
-
-apt-get install whois -y
-
-apt-get install gdbserver -y 
-
-apt-get install manpages-dev -y
-
 chmod 755 /usr/bin/version50 
 
-wget http://mirror.cs50.net/library50/c/library50-c-5.zip && \ 
-unzip library50-c-5.zip && \
-rm -f library50-c-5.zip && \
-cd library50-c-5 && \
-clang -c -ggdb -std=c99 cs50.c -o cs50.o && \
-ar rcs libcs50.a cs50.o && \
-chmod 0644 cs50.h libcs50.a && \
-mkdir -p /usr/local/include && \
-chmod 0755 /usr/local/include && \
-mv -f cs50.h /usr/local/include && \
-mkdir -p /usr/local/lib && \
-chmod 0755 /usr/local/lib && \
-mv -f libcs50.a /usr/local/lib && \
-cd .. && \
+wget http://mirror.cs50.net/library50/c/library50-c-5.zip 
+unzip library50-c-5.zip 
+rm -f library50-c-5.zip 
+cd library50-c-5 
+clang -c -ggdb -std=c99 cs50.c -o cs50.o 
+ar rcs libcs50.a cs50.o 
+chmod 0644 cs50.h libcs50.a 
+mkdir -p /usr/local/include
+chmod 0755 /usr/local/include
+mv -f cs50.h /usr/local/include
+mkdir -p /usr/local/lib
+chmod 0755 /usr/local/lib
+mv -f libcs50.a /usr/local/lib
+cd .. 
 rm -rf library50-c-5
    
-mv /home/ubuntu/cs50/app.sh /etc/profile.d && \
-mv /home/ubuntu/cs50/cs50.conf /etc/apache2/conf-available && \
+mv /home/ubuntu/cs50/app.sh /etc/profile.d
+mv /home/ubuntu/cs50/cs50.conf /etc/apache2/conf-available 
 ln -s /etc/apache2/conf-available/cs50.conf /etc/apache2/conf-enabled/cs50.conf 
 
 mv /home/ubuntu/cs50/dropbox50 /home/ubuntu/.dropbox50
 
 echo "source /home/ubuntu/.dropbox50" >> /home/ubuntu/.bashrc
 
-curl -sL https://deb.nodesource.com/setup | bash - && \ 
-apt-get install nodejs -y
-
-cd /opt/check50/lib && \
-npm install optimist && \
-npm install async && \
-npm install underscore && \
-npm install request && \
-npm install node-zip && \
-npm install wrench && \
-ln -s /opt/check50/bin/check50 /usr/bin/check50 && \
-chmod 755 /usr/bin/check50 && \
+cd /opt/check50/lib
+npm install optimist
+npm install async 
+npm install underscore 
+npm install request 
+npm install node-zip 
+npm install wrench 
+ln -s /opt/check50/bin/check50 /usr/bin/check50 
+chmod 755 /usr/bin/check50 
 chmod 755 /opt/check50/bin/*
 
-ln -s /opt/style50/bin/style50 /usr/bin/style50 && \
-chmod 755 /usr/bin/style50 && \
-chmod 755 /opt/style50/bin/* && \
+ln -s /opt/style50/bin/style50 /usr/bin/style50
+chmod 755 /usr/bin/style50 
+chmod 755 /opt/style50/bin/* 
 chmod 755 /opt/style50/opt/* 
 
-rm -f /var/www/html/index.html && \
+rm -f /var/www/html/index.html
 mv /home/ubuntu/cs50/index.html /var/www/html/index.html
 
 rm -rf /home/ubuntu/cs50

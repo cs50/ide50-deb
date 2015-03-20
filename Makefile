@@ -7,7 +7,7 @@ deb:
 	cd ide50 && sudo dpkg-buildpackage -us -uc > /dev/null
 	rm -rf build/deb
 	mkdir -p build/deb
-	mv ide50-* build/deb
+	mv ide50_* build/deb
 
 clean:
 	sudo umount -lf build/chroot/dev/pts 2> /dev/null || true

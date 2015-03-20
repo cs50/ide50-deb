@@ -1,7 +1,4 @@
 #!/bin/bash
 
-echo "pre"
-
-
 exit 0
 
