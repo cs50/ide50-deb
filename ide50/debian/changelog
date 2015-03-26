@@ -1,15 +1,27 @@
+ide50 (4) GM; urgency=medium
+
+  * Added GDB runner.
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 15 Jan 2015 15:12:00 -0500
+
+ide50 (3) GM; urgency=medium
+
+  * Changed redirect to pipe in update50.
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 15 Jan 2015 15:00:00 -0500
+
 ide50 (2) GM; urgency=medium
 
   * Fixed dependencies.
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 15 Jan 2015 18:42:55 -0500
+ -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 26 Mar 2015 11:30:00 -0500
 
 
 ide50 (1) UNRELEASED; urgency=medium
 
   * Changed conf link.
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 15 Jan 2015 18:42:55 -0500
+ -- CS50 <sysadmins@cs50.harvard.edu>  Wed, 25 Mar 2015 18:42:55 -0500
 
 
 ide50 (0) UNRELEASED; urgency=medium

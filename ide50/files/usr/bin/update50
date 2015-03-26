@@ -10,7 +10,7 @@ sleep 2
 
 LOG=/home/ubuntu/lib/ide50.log
 
-echo -e "\n\n\nUpdate50 - $(date -R)" > sudo tee -a $LOG
+echo -e "\n\n\nUpdate50 - $(date -R)" | sudo tee -a $LOG
 
 echo 'Updating sources...'
 # try to fix dpkg before updating
