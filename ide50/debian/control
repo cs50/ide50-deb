@@ -7,8 +7,8 @@ Build-Depends: debhelper (>= 9.20131227ubuntu1)
 
 Package: ide50
 Architecture: any
-Depends: apache2, nodejs
-Recommends: clang, whois, gdbserver, manpages-dev
+Depends: apache2
+Recommends: whois, gdbserver, manpages-dev, clang, nodejs
 Provides:
 Replaces:
 Description: install the cs50 ide software
