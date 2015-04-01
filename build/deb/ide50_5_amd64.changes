@@ -1,0 +1,30 @@
+Format: 1.8
+Date: Thu, 15 Jan 2015 15:12:00 -0500
+Source: ide50
+Binary: ide50
+Architecture: source amd64
+Version: 5
+Distribution: GM
+Urgency: medium
+Maintainer: CS50 <sysadmins@cs50.harvard.edu>
+Changed-By: CS50 <sysadmins@cs50.harvard.edu>
+Description: 
+ ide50      - install the cs50 ide software
+Changes: 
+ ide50 (5) GM; urgency=medium
+ .
+   * Changed README.
+   * Added dependencies
+   * Added "vhost" support
+Checksums-Sha1: 
+ 671a9c35946f0e65c73fc17c91a70171a8be1c9b 495 ide50_5.dsc
+ d04c09f16ea7c001b5ab6510ffe114ab4e2a946d 18358799 ide50_5.tar.gz
+ 350cb2edaf18143b4a58bd829eb56daa6cf6604d 14230852 ide50_5_amd64.deb
+Checksums-Sha256: 
+ 63e746c6140e05e422ca5c91b9f7382a59904f9c9910d58e4bbbdc2d7a2fc25c 495 ide50_5.dsc
+ 608d3093deb8a20172e5799b497443a97f134fcc2f64fb60d172e6b24a22d06e 18358799 ide50_5.tar.gz
+ b7ac3eed29037b80fb086f1a00831b3a740c08c2474b0d73ba3815c65b74621f 14230852 ide50_5_amd64.deb
+Files: 
+ f48254219e303b949428c8dc043e96d5 495 misc optional ide50_5.dsc
+ f56e5585914f4b01165a77f030102fff 18358799 misc optional ide50_5.tar.gz
+ 44dcf38e2414b9cbc5c36dfd5eff6610 14230852 misc optional ide50_5_amd64.deb
