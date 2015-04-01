@@ -24,8 +24,9 @@ find /home/cs50 -type f -exec chmod 644 {} \;
 chmod 711 /home/cs50/pset1/{mario,greedy} /home/cs50/hacker1/{credit,mario} /home/cs50/hacker2/initials /home/cs50/pset2/{initials,caesar,vigenere,devigenere} /home/cs50/pset3/find /home/cs50/hacker3/find /home/cs50/pset4/{peek,resize} /home/cs50/hacker4/{peek,resize} /home/cs50/pset5/speller /home/cs50/pset6/server
 chmod 755 /home/cs50/pset5/challenge
 
-rm -f /var/www/html/index.html
-mv /home/ubuntu/cs50/index.html /var/www/html/index.html
+mv /home/ubuntu/cs50/index.php /var/www/html/index.php
+rm /var/www/html/index.html
+chmod 644 /var/www/html/index.php
 
 rm -rf /home/ubuntu/cs50
 
