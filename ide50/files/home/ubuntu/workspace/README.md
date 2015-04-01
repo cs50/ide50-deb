@@ -187,7 +187,7 @@ It is possible to implement Problem Set 6 in the CS50 IDE. In fact, we
 developed the first version of it entirely in Cloud9! But it requires some
 changes from the spec to work properly:
 
-* Be sure Apache is stopped! Use `apachectl stop` before working on this
+* ***Be sure Apache is stopped!*** Use `apachectl stop` before working on this
   problem set, or you will get a `Port already in use` error.
 
 * Use port `8080` to access your web server from your own web browser. The
@@ -208,8 +208,8 @@ changes from the spec to work properly:
     knows how to properly direct your request. For instance:
     
     ```
-    Host: IDE_HOST
     GET /cat.html HTTP/1.1
+    Host: IDE_HOST
     ```
 
 ## Problem Sets 7 (C$50 Finance)
