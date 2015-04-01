@@ -85,7 +85,7 @@ Setting it up is easy:
 To compile and run your C programs you can either use the terminal or
 the built-in C debugger.
 
-* Terminal
+### Terminal
 
   * To compile, `cd` to the directory with the C file, and type 
     `make <filename>` into the terminal, where `<filename>` 
@@ -93,7 +93,7 @@ the built-in C debugger.
 
   * Run the compiled executable with `./<filename>`.
 
-* Debugger
+### Debugger
 
   * Click on the `Debug` button above. Your source code will automatically 
     be compiled and run.
@@ -111,7 +111,7 @@ the built-in C debugger.
   * Add breakpoints by clicking in the space directly to the left of a line
     number. A red dot will appear, which annotates the breakpoint.
 
-* Process Management
+## Process Management
 
 Sometimes you need to force a program to quit, like if you accidentally
 write a program that has an infinite loop!
@@ -139,7 +139,7 @@ You can later stop it with `apachectl stop`.
 
 The `vhosts/example` directory in your workspace contains a sample layout
 for how you should structure your own sites. You may want to emulate this
-structure for problem set 7 and 8 in `vhosts/pset7` and `vhosts/pset8`
+structure for Problem Set 7 and 8 in `vhosts/pset7` and `vhosts/pset8`
 directories, respectively.
 
 Find the domain by typing `hostname50` and copy that URL into a new window
@@ -150,9 +150,16 @@ For example, the URL for the `vhosts/example` directory is:
 `http://WORKSPACE-USER.c9.io/example` where `WORKSPACE`
 is your workspace name and `USER` is your Cloud9 username.
 
+If you're curious, Cloud9's domain acts as a proxy to your workspace. The
+Apache webserver runs on port 8080 on your instance, and Cloud9 forwards
+requests from *both* `http://WORKSPACE-USER.c9.io:80` and
+`https://WORKSPACE-USER.c9.io:443` to port 8080 on the instance in the
+`WORKSPACE` owned by `USER`. This impacts the directions for Problem Set 6,
+as we'll discuss below.
+
 ## Problem Sets
 
-To begin work on your problem set, simply follow the instructions on the
+To begin work on your Problem Set, simply follow the instructions on the
 specification from the beginning.
 
 If you have set up Dropbox in your workspace, any files that are present in
@@ -163,6 +170,61 @@ your `~/workspace/` directory are automatically synced to Dropbox in the
 
 If you wish to enable more advanced features of the CS50 IDE, disable the
 `Less Comfortable` mode by unchecking that option in the `View` menu.
+
+# Known Issues
+
+## Problem Set 3 (Breakout)
+
+Please use the existing CS50 Appliance for Problem Set 3. Because the
+CS50 IDE does not provide access to the underlying Ubuntu instance's
+Graphical User Interface, it is not possible to implement Breakout in
+the IDE in a manner that works well. However, you may use the IDE to
+work on `find`, if you wish.
+
+## Problem Set 6 (Web Server)
+
+It is possible to implement Problem Set 6 in the CS50 IDE. In fact, we
+developed the first version of it entirely in Cloud9! But it requires some
+changes from the spec to work properly:
+
+* Be sure Apache is stopped! Use `apachectl stop` before working on this
+  problem set, or you will get a `Port already in use` error.
+
+* Use port `8080` to access your webserver from your own web browser. The
+  URL to access it is given by the `hostname50` command.
+
+* For testing, it's easiest to use `telnet` on your workspace instance using
+  `telnet localhost 8080`.
+
+* It is possible to access it remotely (using `telnet` on your own computer, 
+  for instance) if you do the following:
+
+  * First, find your instance's hostname using `hostname50`.
+
+  * On an external computer, `telnet HOST 80`, where `HOST` is the result of
+    `hostname50` without the `http://`.
+
+  * You must add a `Host` header to the HTTP headers so that the Cloud9 proxy
+    knows how to properly direct your request. For instance:
+    
+    ```
+    Host: HOST
+    GET /cat.html HTTP/1.1
+    ```
+
+## Problem Sets 7 (C$50 Finance)
+
+Unlike the URLs provided by the Appliance, the URL for Problem Set 7 will be:
+`http://HOST/pset7/`. You can find the `HOST` by running `hostname50` in the
+Console.
+
+The location of the folder is in the `vhosts` directory in your workspace, so
+the directory structure is instead: `~/workspace/vhosts/pset7/`
+
+## Problem Set 8 (Mashup)
+
+Like Problem Set 7, above, the URL and `vhosts` directory are changed to:
+`http://HOST/pset8/` and `~/workspace/vhosts/pset8/`, respectively.
 
 # Bug Reports
 
