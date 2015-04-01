@@ -30,6 +30,9 @@ to file bug reports if you come across problems.
 
 # Getting Started
 
+To be sure you're completely up-to-date with our latest workspace,
+be sure to run `update50` in the Console window below!
+
 ## Files
 
 * Create a new C file by clicking **File > New File** and then begin coding. 
@@ -118,8 +121,7 @@ Setting it up is easy:
 ## Problem Sets
 
 To begin work on your problem set, simply follow the instructions on the
-specification from the beginning. **Please note that for the time being,
-`update50` will not work, but you can safely ignore that error for now!**
+specification from the beginning.
 
 If you have set up Dropbox in your workspace, any files that are present in
 your `~/workspace/` directory are automatically synced to Dropbox in the

@@ -1,14 +1,15 @@
 ## IDE 50
 
-### Rolling a new version of ide50 deb (assumes your cwd is the root of this repo) 
-1. `cd ide50/files`
-2. Make desired changes. Be sure to ovewrite `ide50/files/etc/version50` with the new version
-3. Use your favorite text editor to add a new changelog entry to
-4. `ide50/debian/changelog`
-5. If you'd like to chmod stuff, do so in `ide50/debian/postinst` after jharvard user is created
-6. Now make the local deb with
-7. `make deb`
-8. New deb can be found at `build/deb/` At this point if you'd like to test the deb in your machine before pushing to mirror you can do `sudo dpkg -i ide50_*.deb`
+### Rolling a new version of ide50 deb 
+
+Assumes your cwd is the root of this repo.
+
+1. Make desired changes to files within `ide50/files`
+1. Be sure to ovewrite `ide50/files/etc/version50` with the new version.
+1. Use your favorite text editor to add a new changelog entry to `ide50/debian/changelog`
+1. If you'd like to chmod stuff, do so in `ide50/debian/postinst`
+1. Now make the local deb with `make deb`
+1. New deb can be found at `build/deb/`! At this point if you'd like to test the deb in your machine before pushing to mirror you can do `sudo dpkg -i ide50_*.deb`
 
 ### Pushing deb to mirror
 1. Build new version of deb as described above.
