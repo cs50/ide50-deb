@@ -188,7 +188,7 @@ developed the first version of it entirely in Cloud9! But it requires some
 changes from the spec to work properly:
 
 * ***Be sure Apache is stopped!*** Use `apachectl stop` before working on this
-  problem set, or you will get a `Port already in use` error.
+  problem set, or you will get a `Address already in use` error.
 
 * Use port `8080` to access your web server from your own web browser. The
   URL to access it is given by the `hostname50` command.
