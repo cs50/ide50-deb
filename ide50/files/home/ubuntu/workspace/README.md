@@ -212,7 +212,7 @@ changes from the spec to work properly:
     Host: IDE_HOST
     ```
 
-## Problem Sets 7 (C$50 Finance)
+## Problem Set 7 (C$50 Finance)
 
 Unlike the URLs provided by the Appliance, the URL for Problem Set 7 will be
 `https://HOST/pset7/`. You can find the `HOST` by running `hostname50` in the
