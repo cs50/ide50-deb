@@ -82,41 +82,75 @@ Setting it up is easy:
 
 ## Compiling and Running
 
-* There are a couple ways to compile and run your C programs, using the terminal, or using the built in C debugger.
+* There are a couple ways to compile and run your C programs: 
+  using the terminal or using the built-in C debugger.
 
 * Terminal
 
-  * To compile, `cd` to the directory with the C file, and type `make <filename>` into the terminal, where `<filename>` is the name of your C file without the extension
+  * To compile, `cd` to the directory with the C file, and type 
+    `make <filename>` into the terminal, where `<filename>` 
+    is the name of your C file without the extension.
 
-  * When it finishes compiling, you can run the compiled file with `./<filename>`
+  * Run the compiled executable with `./<filename>`.
 
 * Debugger
 
-  * Click on the `Debug` button above. Your source code will automatically be 
-    compiled and run.
+  * Click on the `Debug` button above. Your source code will automatically 
+    be compiled and run.
 
-      * Your program's input and output (including any errors during compilation) 
-        occur in a new tab in the Console panel, below.
+    * Your program's input and output (including any errors during 
+      compilation) occur in a new tab in the Console panel, below.
 
-      * You can only `Debug` one program at a time, so please quit a running
-        program before trying to run `Debug` on another!
+    * You can only `Debug` one program at a time, so please quit a running
+      program before trying to run `Debug` on another!
 
-  * The `Debug` option will open a GUI-based debugger panel on the right side
-    of the workspace. You can view the stack, step through the code, and
-    manipulate variables in this interface.
+  * The `Debug` option will open a GUI-based debugger panel on the right 
+    side of the workspace. You can view the stack, step through the code,
+    and manipulate variables in this interface.
 
   * Add breakpoints by clicking in the space directly to the left of a line
     number. A red dot will appear, which annotates the breakpoint.
 
 * Process Management
 
-  * Sometimes, you need to force a program to quit. 
+Sometimes you need to force a program to quit, like if you accidentally
+write a program that has an infinite loop!
 
-    * When you're using the debugger, you can hit the `Stop` button, or type CTRL-C into the Console panel.
+  * If you're using the GUI debugger, find the tab in the Console panel,
+    below, that corresponds to the program and either hit the `Stop` button
+    or type Ctrl-C. Please be patient as the process is shut down.
 
-    * If you're running a program in the terminal, you can type CTRL-C to stop the program. Sometimes this takes several seconds.
+  * If you're manually running a program in the terminal, you can type 
+    Ctrl-C to stop the program. It may take several seconds to respond.
 
-    * In either case you can also open a new terminal window, and
+  * As a last resort, you can force kill a process by clicking on the
+    workspace stats in the upper-right hand corner (it is a graph of
+    `Disk`, `Memory`, and `CPU`), and click `Show Process List`. Find
+    your program in the process list, and `Kill` it. If, after a few
+    seconds it does not respond, try `Force Kill`.
+
+## Web Server
+
+The instance is configured to use the Apache web server in a manner similar
+to, but not exactly the same as, the Appliance.
+
+To get the web server started, type `apachectl start` in the Console below.
+
+You can find out the domain by typing `hostname50`; copy that URL into
+a new window in your browser to visit your instance's web server!
+
+The `vhosts/example` directory in your workspace contains a sample layout
+for how you can structure your own sites. You may want to emulate this
+structure for problem set 7 and 8.
+
+You can access the contents of a directory in the `vhosts` folder by typing
+the directory name after your instance's domain.
+
+Find the domain by typing `hostname50` and copy that URL into a new window
+or tab in your browser!
+
+For example, visit `http://WORKSPACE-USER.c9.io/example` where `WORKSPACE`
+is your workspace name and `USER` is your Cloud9 username.
 
 ## Problem Sets
 
