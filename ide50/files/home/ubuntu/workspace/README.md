@@ -82,8 +82,8 @@ Setting it up is easy:
 
 ## Compiling and Running
 
-* There are a couple ways to compile and run your C programs: 
-  using the terminal or using the built-in C debugger.
+To compile and run your C programs you can either use the terminal or
+the built-in C debugger.
 
 * Terminal
 
@@ -134,22 +134,20 @@ write a program that has an infinite loop!
 The instance is configured to use the Apache web server in a manner similar
 to, but not exactly the same as, the Appliance.
 
-To get the web server started, type `apachectl start` in the Console below.
-
-You can find out the domain by typing `hostname50`; copy that URL into
-a new window in your browser to visit your instance's web server!
+Start the web server with `apachectl start` in the Console below. 
+You can later stop it with `apachectl stop`.
 
 The `vhosts/example` directory in your workspace contains a sample layout
-for how you can structure your own sites. You may want to emulate this
-structure for problem set 7 and 8.
-
-You can access the contents of a directory in the `vhosts` folder by typing
-the directory name after your instance's domain.
+for how you should structure your own sites. You may want to emulate this
+structure for problem set 7 and 8 in `vhosts/pset7` and `vhosts/pset8`
+directories, respectively.
 
 Find the domain by typing `hostname50` and copy that URL into a new window
-or tab in your browser!
+or tab in your browser! You can access the contents of a directory in the 
+`vhosts` folder by typing the directory name after your instance's domain.
 
-For example, visit `http://WORKSPACE-USER.c9.io/example` where `WORKSPACE`
+For example, the URL for the `vhosts/example` directory is:
+`http://WORKSPACE-USER.c9.io/example` where `WORKSPACE`
 is your workspace name and `USER` is your Cloud9 username.
 
 ## Problem Sets
