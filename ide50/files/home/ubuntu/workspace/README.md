@@ -139,7 +139,7 @@ You can later stop it with `apachectl stop`.
 
 The `vhosts/example` directory in your workspace contains a sample layout
 for how you should structure your own sites. You may want to emulate this
-structure for Problem Set 7 and 8 in `vhosts/pset7` and `vhosts/pset8`
+structure for Problem Set 7 and 8 in the `vhosts/pset7` and `vhosts/pset8`
 directories, respectively.
 
 Find the domain by typing `hostname50` and copy that URL into a new window
@@ -147,15 +147,15 @@ or tab in your browser! You can access the contents of a directory in the
 `vhosts` folder by typing the directory name after your instance's domain.
 
 For example, the URL for the `vhosts/example` directory is:
-`http://WORKSPACE-USER.c9.io/example` where `WORKSPACE`
+`https://WORKSPACE-USER.c9.io/example` where `WORKSPACE`
 is your workspace name and `USER` is your Cloud9 username.
 
 If you're curious, Cloud9's domain acts as a proxy to your workspace. The
 Apache webserver runs on port 8080 on your instance, and Cloud9 forwards
 requests from *both* `http://WORKSPACE-USER.c9.io:80` and
-`https://WORKSPACE-USER.c9.io:443` to port 8080 on the instance in the
-`WORKSPACE` owned by `USER`. This impacts the directions for Problem Set 6,
-as we'll discuss below.
+`https://WORKSPACE-USER.c9.io:443` to port 8080 in the `WORKSPACE` owned
+by `USER`. This impacts the directions for Problem Set 6, as we'll discuss
+below.
 
 ## Problem Sets
 
@@ -178,7 +178,7 @@ If you wish to enable more advanced features of the CS50 IDE, disable the
 Please use the existing CS50 Appliance for Problem Set 3. Because the
 CS50 IDE does not provide access to the underlying Ubuntu instance's
 Graphical User Interface, it is not possible to implement Breakout in
-the IDE in a manner that works well. However, you may use the IDE to
+IDE50 in a manner that works well. However, you may use IDE50 to
 work on `find`, if you wish.
 
 ## Problem Set 6 (Web Server)
@@ -190,7 +190,7 @@ changes from the spec to work properly:
 * Be sure Apache is stopped! Use `apachectl stop` before working on this
   problem set, or you will get a `Port already in use` error.
 
-* Use port `8080` to access your webserver from your own web browser. The
+* Use port `8080` to access your web server from your own web browser. The
   URL to access it is given by the `hostname50` command.
 
 * For testing, it's easiest to use `telnet` on your workspace instance using
@@ -199,23 +199,23 @@ changes from the spec to work properly:
 * It is possible to access it remotely (using `telnet` on your own computer, 
   for instance) if you do the following:
 
-  * First, find your instance's hostname using `hostname50`.
+  * First, find your instance's hostname using `hostname50`. We'll refer
+    to it as `IDE_HOST` in the steps below.
 
-  * On an external computer, `telnet HOST 80`, where `HOST` is the result of
-    `hostname50` without the `http://`.
+  * On an external computer, `telnet IDE_HOST 80`.
 
   * You must add a `Host` header to the HTTP headers so that the Cloud9 proxy
     knows how to properly direct your request. For instance:
     
     ```
-    Host: HOST
+    Host: IDE_HOST
     GET /cat.html HTTP/1.1
     ```
 
 ## Problem Sets 7 (C$50 Finance)
 
-Unlike the URLs provided by the Appliance, the URL for Problem Set 7 will be:
-`http://HOST/pset7/`. You can find the `HOST` by running `hostname50` in the
+Unlike the URLs provided by the Appliance, the URL for Problem Set 7 will be
+`https://HOST/pset7/`. You can find the `HOST` by running `hostname50` in the
 Console.
 
 The location of the folder is in the `vhosts` directory in your workspace, so
@@ -224,7 +224,7 @@ the directory structure is instead: `~/workspace/vhosts/pset7/`
 ## Problem Set 8 (Mashup)
 
 Like Problem Set 7, above, the URL and `vhosts` directory are changed to:
-`http://HOST/pset8/` and `~/workspace/vhosts/pset8/`, respectively.
+`https://HOST/pset8/` and `~/workspace/vhosts/pset8/`, respectively.
 
 # Bug Reports
 
