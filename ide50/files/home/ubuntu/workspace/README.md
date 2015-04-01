@@ -82,45 +82,84 @@ Setting it up is easy:
 
 ## Compiling and Running
 
-* There are a couple ways to compile and run your C programs, using the terminal, or using the built in C debugger.
+To compile and run your C programs you can either use the terminal or
+the built-in C debugger.
 
-* Terminal
+### Terminal
 
-  * To compile, `cd` to the directory with the C file, and type `make <filename>` into the terminal, where `<filename>` is the name of your C file without the extension
+  * To compile, `cd` to the directory with the C file, and type 
+    `make <filename>` into the terminal, where `<filename>` 
+    is the name of your C file without the extension.
 
-  * When it finishes compiling, you can run the compiled file with `./<filename>`
+  * Run the compiled executable with `./<filename>`.
 
-* Debugger
+### Debugger
 
-  * Click on the `Debug` button above. Your source code will automatically be 
-    compiled and run.
+  * Click on the `Debug` button above. Your source code will automatically 
+    be compiled and run.
 
-      * Your program's input and output (including any errors during compilation) 
-        occur in a new tab in the Console panel, below.
+    * Your program's input and output (including any errors during 
+      compilation) occur in a new tab in the Console panel, below.
 
-      * You can only `Debug` one program at a time, so please quit a running
-        program before trying to run `Debug` on another!
+    * You can only `Debug` one program at a time, so please quit a running
+      program before trying to run `Debug` on another!
 
-  * The `Debug` option will open a GUI-based debugger panel on the right side
-    of the workspace. You can view the stack, step through the code, and
-    manipulate variables in this interface.
+  * The `Debug` option will open a GUI-based debugger panel on the right 
+    side of the workspace. You can view the stack, step through the code,
+    and manipulate variables in this interface.
 
   * Add breakpoints by clicking in the space directly to the left of a line
     number. A red dot will appear, which annotates the breakpoint.
 
-* Process Management
+## Process Management
 
-  * Sometimes, you need to force a program to quit. 
+Sometimes you need to force a program to quit, like if you accidentally
+write a program that has an infinite loop!
 
-    * When you're using the debugger, you can hit the `Stop` button, or type CTRL-C into the Console panel.
+  * If you're using the GUI debugger, find the tab in the Console panel,
+    below, that corresponds to the program and either hit the `Stop` button
+    or type Ctrl-C. Please be patient as the process is shut down.
 
-    * If you're running a program in the terminal, you can type CTRL-C to stop the program. Sometimes this takes several seconds.
+  * If you're manually running a program in the terminal, you can type 
+    Ctrl-C to stop the program. It may take several seconds to respond.
 
-    * In either case you can also open a new terminal window, and
+  * As a last resort, you can force kill a process by clicking on the
+    workspace stats in the upper-right hand corner (it is a graph of
+    `Disk`, `Memory`, and `CPU`), and click `Show Process List`. Find
+    your program in the process list, and `Kill` it. If, after a few
+    seconds it does not respond, try `Force Kill`.
+
+## Web Server
+
+The instance is configured to use the Apache web server in a manner similar
+to, but not exactly the same as, the Appliance.
+
+Start the web server with `apachectl start` in the Console below. 
+You can later stop it with `apachectl stop`.
+
+The `vhosts/example` directory in your workspace contains a sample layout
+for how you should structure your own sites. You may want to emulate this
+structure for Problem Set 7 and 8 in the `vhosts/pset7` and `vhosts/pset8`
+directories, respectively.
+
+Find the domain by typing `hostname50` and copy that URL into a new window
+or tab in your browser! You can access the contents of a directory in the 
+`vhosts` folder by typing the directory name after your instance's domain.
+
+For example, the URL for the `vhosts/example` directory is:
+`https://WORKSPACE-USER.c9.io/example` where `WORKSPACE`
+is your workspace name and `USER` is your Cloud9 username.
+
+If you're curious, Cloud9's domain acts as a proxy to your workspace. The
+Apache webserver runs on port 8080 on your instance, and Cloud9 forwards
+requests from *both* `http://WORKSPACE-USER.c9.io:80` and
+`https://WORKSPACE-USER.c9.io:443` to port 8080 in the `WORKSPACE` owned
+by `USER`. This impacts the directions for Problem Set 6, as we'll discuss
+below.
 
 ## Problem Sets
 
-To begin work on your problem set, simply follow the instructions on the
+To begin work on your Problem Set, simply follow the instructions on the
 specification from the beginning.
 
 If you have set up Dropbox in your workspace, any files that are present in
@@ -131,6 +170,61 @@ your `~/workspace/` directory are automatically synced to Dropbox in the
 
 If you wish to enable more advanced features of the CS50 IDE, disable the
 `Less Comfortable` mode by unchecking that option in the `View` menu.
+
+# Known Issues
+
+## Problem Set 3 (Breakout)
+
+Please use the existing CS50 Appliance for Problem Set 3. Because the
+CS50 IDE does not provide access to the underlying Ubuntu instance's
+Graphical User Interface, it is not possible to implement Breakout in
+IDE50 in a manner that works well. However, you may use IDE50 to
+work on `find`, if you wish.
+
+## Problem Set 6 (Web Server)
+
+It is possible to implement Problem Set 6 in the CS50 IDE. In fact, we
+developed the first version of it entirely in Cloud9! But it requires some
+changes from the spec to work properly:
+
+* ***Be sure Apache is stopped!*** Use `apachectl stop` before working on this
+  problem set, or you will get a `Address already in use` error.
+
+* Use port `8080` to access your web server from your own web browser. The
+  URL to access it is given by the `hostname50` command.
+
+* For testing, it's easiest to use `telnet` on your workspace instance using
+  `telnet localhost 8080`.
+
+* It is possible to access it remotely (using `telnet` on your own computer, 
+  for instance) if you do the following:
+
+  * First, find your instance's hostname using `hostname50`. We'll refer
+    to it as `IDE_HOST` in the steps below.
+
+  * On an external computer, `telnet IDE_HOST 80`.
+
+  * You must add a `Host` header to the HTTP headers so that the Cloud9 proxy
+    knows how to properly direct your request. For instance:
+    
+    ```
+    GET /cat.html HTTP/1.1
+    Host: IDE_HOST
+    ```
+
+## Problem Set 7 (C$50 Finance)
+
+Unlike the URLs provided by the Appliance, the URL for Problem Set 7 will be
+`https://HOST/pset7/`. You can find the `HOST` by running `hostname50` in the
+Console.
+
+The location of the folder is in the `vhosts` directory in your workspace, so
+the directory structure is instead: `~/workspace/vhosts/pset7/`
+
+## Problem Set 8 (Mashup)
+
+Like Problem Set 7, above, the URL and `vhosts` directory are changed to:
+`https://HOST/pset8/` and `~/workspace/vhosts/pset8/`, respectively.
 
 # Bug Reports
 
