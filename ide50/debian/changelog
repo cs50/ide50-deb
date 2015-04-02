@@ -1,8 +1,14 @@
+ide50 (10) GM; urgency=medium
+
+  * added telnet
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 2 Apr 2015 11:45:00 -0500
+ 
 ide50 (9) GM; urgency=medium
 
   * silenced error message
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 15 Jan 2015 11:00:00 -0500
+ -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 2 Apr 2015 11:00:00 -0500
 
 ide50 (8) GM; urgency=medium
 
