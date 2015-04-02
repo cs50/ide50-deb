@@ -1,14 +1,20 @@
+ide50 (8) GM; urgency=medium
+
+  * fixed update50
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 15 Jan 2015 15:12:00 -0500
+
 ide50 (7) GM; urgency=medium
 
   * fixed file move
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 15 Jan 2015 15:12:00 -0500
+ -- CS50 <sysadmins@cs50.harvard.edu>  Wed, 1 Apr 2015 17:00:00 -0500
 
 ide50 (6) GM; urgency=medium
 
   * Removed local check50/style50
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 15 Jan 2015 15:12:00 -0500
+ -- CS50 <sysadmins@cs50.harvard.edu>  Wed, 1 Apr 2015 15:00:00 -0500
 
 ide50 (5) GM; urgency=medium
 
@@ -16,19 +22,19 @@ ide50 (5) GM; urgency=medium
   * Added dependencies
   * Added "vhost" support
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 15 Jan 2015 15:12:00 -0500
+ -- CS50 <sysadmins@cs50.harvard.edu>  Wed, 1 Apr 2015 14:00:00 -0500
 
 ide50 (4) GM; urgency=medium
 
   * Added GDB runner.
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 15 Jan 2015 15:12:00 -0500
+ -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 26 Mar 2015 16:30:00 -0500
 
 ide50 (3) GM; urgency=medium
 
   * Changed redirect to pipe in update50.
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 15 Jan 2015 15:00:00 -0500
+ -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 26 Mar 2015 13:30:00 -0500
 
 ide50 (2) GM; urgency=medium
 
