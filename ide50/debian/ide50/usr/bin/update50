@@ -30,20 +30,4 @@ then
     exit 1
 fi
 
-echo 'Upgrading packages...'
-sudo apt-get -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"  --yes --force-yes --assume-yes dist-upgrade 2>&1 | sudo tee -a $LOG
-if [ $? -ne 0 ]
-then
-    echo "Something went wrong! The output has been logged in $LOG"
-    exit 1
-fi
-
-echo 'Reinstalling appliance package again...'
-sudo apt-get -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite" install --reinstall --yes --force-yes --assume-yes ide50 2>&1 | sudo tee -a $LOG
-if [ $? -ne 0 ]
-then
-    echo "Something went wrong! The output has been logged in $LOG"
-    exit 1
-fi
-
 echo 'Update complete!'
