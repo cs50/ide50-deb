@@ -45,6 +45,7 @@ dropbox50_exclude() {
 
 
 dropbox50() {
+	exit;
 	if [ ! -f "$SETUPDONE" ]; then
 		pushd ${HOME} >/dev/null
 

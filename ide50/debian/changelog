@@ -1,6 +1,6 @@
-ide50 (10) GM; urgency=medium
+ide50 (11) GM; urgency=medium
 
-  * added php5-curl
+  * added php5-curl, "removed" dropbox
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 17 Apr 2015 12:35:00 -0500
 
