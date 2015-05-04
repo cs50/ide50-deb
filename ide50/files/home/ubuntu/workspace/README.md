@@ -103,13 +103,15 @@ to, but not exactly the same as, the Appliance.
 Start the web server with `apachectl start` in the Console below. 
 You can later stop it with `apachectl stop`.
 
+You may find out Apache's status and the domain of your workspace by
+clicking the `CS50` button at the top-right of the workspace. Note that
+you can also figure out this same information in the Console window
+below by typing `service apache2 status` and `hostname50`, respectively.
+
 The `vhosts/example` directory in your workspace contains a sample layout
 for how you should structure your own sites. You may want to emulate this
 structure for Problem Set 7 and 8 in the `vhosts/pset7` and `vhosts/pset8`
-directories, respectively.
-
-Find the domain by typing `hostname50` and copy that URL into a new window
-or tab in your browser! You can access the contents of a directory in the 
+directories, respectively. You can access the contents of a directory in the 
 `vhosts` folder by typing the directory name after your instance's domain.
 
 For example, the URL for the `vhosts/example` directory is:
@@ -127,10 +129,6 @@ below.
 
 To begin work on your Problem Set, simply follow the instructions on the
 specification from the beginning.
-
-If you have set up Dropbox in your workspace, any files that are present in
-your `~/workspace/` directory are automatically synced to Dropbox in the
-`CS50 IDE/<workspace_name>` directory.
 
 ## More comfortable
 
@@ -157,7 +155,9 @@ changes from the spec to work properly:
   problem set, or you will get a `Address already in use` error.
 
 * Use port `8080` to access your web server from your own web browser. The
-  URL to access it is given by the `hostname50` command.
+  URL to access it is given by the `hostname50` command or is found in the
+  CS50 IDE Stats window by clicking the `CS50` button at the top-right of
+  the workspace.
 
 * For testing, it's easiest to use `telnet` on your workspace instance using
   `telnet localhost 8080`.
@@ -168,7 +168,8 @@ changes from the spec to work properly:
   * First, find your instance's hostname using `hostname50`. We'll refer
     to it as `IDE_HOST` in the steps below.
 
-  * On an external computer, `telnet IDE_HOST 80`.
+  * On an external computer, `telnet IDE_HOST 80`. Make sure `IDE_HOST` does
+    not include any protocol like `http://` or `https://`.
 
   * You must add a `Host` header to the HTTP headers so that the Cloud9 proxy
     knows how to properly direct your request. For instance:
@@ -182,7 +183,7 @@ changes from the spec to work properly:
 
 Unlike the URLs provided by the Appliance, the URL for Problem Set 7 will be
 `https://HOST/pset7/`. You can find the `HOST` by running `hostname50` in the
-Console.
+Console or clicking the `CS50` button at the top-right of the workspace.
 
 The location of the folder is in the `vhosts` directory in your workspace, so
 the directory structure is instead: `~/workspace/vhosts/pset7/`
@@ -196,8 +197,11 @@ Like Problem Set 7, above, the URL and `vhosts` directory are changed to:
 
 1. Take a screenshot
 
-2. Upload the screenshot to http://imgur.com
+2. Find out the version you are running by typing `version50` in the Console
+   below or click the `CS50` button in the top-right of the workspace.
 
-3. File a bug report at the following URL, being as detailed as possible!
+3. Upload the screenshot to http://imgur.com
+
+4. File a bug report at the following URL, being as detailed as possible!
 
 *** Bug Report URL: http://bit.ly/cs50-ide-bug-report ***
