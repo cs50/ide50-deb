@@ -3,7 +3,7 @@ SHELL=/bin/bash
 all:
 
 deb:
-	@echo 'Be sure to edit the changelog and /etc/ide50!'
+	@echo 'Be sure to edit the changelog and /etc/version50!'
 	cd ide50 && sudo dpkg-buildpackage -us -uc > /dev/null
 	rm -rf build/deb
 	mkdir -p build/deb

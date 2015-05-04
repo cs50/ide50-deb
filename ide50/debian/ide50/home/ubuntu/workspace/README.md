@@ -46,40 +46,6 @@ be sure to run `update50` in the Console window below!
 
 * Upload files by selecting **File > Upload Local Files...**.
 
-## Set up Dropbox
-
-Normally, all of the files in your workspace reside solely in the cloud-based 
-Ubuntu instance. Accessing them outside of the CS50 IDE therefore requires 
-downloading the files onto your local machine. Enabling Dropbox allows file
-syncing between the CS50 IDE and your local computer without manual 
-intervention. Performing the below steps will begin syncing your workspace 
-directory with a folder in Dropbox so you could easily backup, modify, add, or 
-remove files from your workspace directly from your Dropbox account.
-
-Setting it up is easy:
-
-1. Install Dropbox. In the terminal window below, type `dropbox50`
-
-2. This will provide a link to a Dropbox page which will authorize Dropbox in
-   the CS50 IDE to access your account. Copy-paste this link to a new browser
-   tab and follow the instructions. If you don't yet have account, it will give
-   you an option to create one.
-
-3. Once the computer is linked to Dropbox, the install command will say:
-   `This computer is now linked to Dropbox. Welcome, <username>` and will
-   continue with the installation. The remaining steps take several minutes,
-   please be patient!
-
-    * By default, the setup will exclude all folders except a `CS50 IDE`
-      folder inside of Dropbox to reduce the chance that your workspace runs
-      out of disk space.
-
-4. After a few moments, your workspace will be synced in a
-   `CS50 IDE/<workspace_name>` directory in Dropbox!
-
-5. There are other `dropbox` commands, as well. Run `dropbox --help` to
-   see them.
-
 ## Compiling and Running
 
 To compile and run your C programs you can either use the terminal or
