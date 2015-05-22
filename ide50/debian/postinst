@@ -9,6 +9,7 @@ pwd
     
 chmod 755 /usr/bin/version50 
    
+echo "Setting configuration files.."
 mv /home/ubuntu/cs50/app.sh /etc/profile.d
 mv /home/ubuntu/cs50/cs50.conf /etc/apache2/conf-available 
 ln -fs /etc/apache2/conf-available/cs50.conf /etc/apache2/conf-enabled/cs50.conf 
