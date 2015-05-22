@@ -1,8 +1,14 @@
+ide50 (14) GM; urgency=medium
+
+  * actually added phpmyadmin
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 22 May 2015 11:25:00 -0500
+
 ide50 (13) GM; urgency=medium
 
   * added phpmyadmin
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Wed, 13 Apr 2015 16:05:00 -0500
+ -- CS50 <sysadmins@cs50.harvard.edu>  Wed, 7 May 2015 16:05:00 -0500
 
 ide50 (12) GM; urgency=medium
 

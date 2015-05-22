@@ -33,4 +33,6 @@ chmod 644 /var/www/html/index.php
 
 rm -rf /home/ubuntu/cs50
 
+phpmyadmin-ctl install
+
 exit 0
