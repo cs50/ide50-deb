@@ -4,6 +4,7 @@ ide50 (16) GM; urgency=medium
   * re-added support for phpmyadmin install; run update50 twice
   * do a better job appending lines only if they're not appended to bashrc
   * added `username50`
+  * Maintain Apache's running state after install
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 22 May 2015 13:25:00 -0500
 

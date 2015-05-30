@@ -42,8 +42,14 @@ fi
 # install phpmyadmin only if env variables are present (requires recent update50)
 source /etc/version50 2>/dev/null || true
 if [ "${version:-0}" -ge "16" ] && [ -n "$C9_USER" ] && [ -n "$C9_HOSTNAME" ]; then
+
+    # was apache running? (status returns 0 iff running)
+    RUNNING=$(service apache2 status >/dev/null)$?
+
     # stop apache if running
-    sudo -Eu ubuntu apachectl stop >/dev/null 2>&1
+    if [ $RUNNING == 0 ]; then
+        sudo -Eu ubuntu apachectl stop >/dev/null 2>&1
+    fi
 
     # install phpmyadmin
     sudo -sEu ubuntu phpmyadmin-ctl install >/dev/null
@@ -51,6 +57,11 @@ if [ "${version:-0}" -ge "16" ] && [ -n "$C9_USER" ] && [ -n "$C9_HOSTNAME" ]; t
     # installation runs it in a wonky way, fix it
     service apache2 stop >/dev/null
     chown -R ubuntu:ubuntu /home/ubuntu/lib/mysql
+
+    # restart apache if it was running
+    if [ $RUNNING == 0 ]; then
+        sudo -Eu ubuntu apachectl start
+    fi
 
 else
     echo "Please run update50 again to complete the installation!"
