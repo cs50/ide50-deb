@@ -23,7 +23,7 @@ then
 fi
 
 echo 'Reinstalling ide package...'
-sudo apt-get -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite" install --reinstall --yes --force-yes --assume-yes ide50 2>&1 | sudo tee -a $LOG
+sudo -E apt-get -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite" install --reinstall --yes --force-yes --assume-yes ide50 2>&1 | sudo tee -a $LOG
 if [ $? -ne 0 ]
 then
     echo "Something went wrong! The output has been logged in $LOG"

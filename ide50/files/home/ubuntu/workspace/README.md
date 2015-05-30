@@ -10,7 +10,7 @@
                       Powered by Cloud9
 
 Welcome to the CS50 IDE Beta! Below are a list of features and some tips and
-tricks for usage and getting started. The end of the document describes how 
+tricks for usage and getting started. The end of the document describes how
 to file bug reports if you come across problems.
 
 # Features
@@ -35,11 +35,11 @@ be sure to run `update50` in the Console window below!
 
 ## Files
 
-* Create a new C file by clicking **File > New File** and then begin coding. 
-  Save the file with **File > Save As...** and make sure the file name ends in 
+* Create a new C file by clicking **File > New File** and then begin coding.
+  Save the file with **File > Save As...** and make sure the file name ends in
   `.c`.
 
-* Download individual files by right-clicking their name and select 
+* Download individual files by right-clicking their name and select
   **Download**.
 
 * Download all the files in the workspace with **File > Download Project**.
@@ -53,24 +53,24 @@ the built-in C debugger.
 
 ### Terminal
 
-  * To compile, `cd` to the directory with the C file, and type 
-    `make <filename>` into the terminal, where `<filename>` 
+  * To compile, `cd` to the directory with the C file, and type
+    `make <filename>` into the terminal, where `<filename>`
     is the name of your C file without the extension.
 
   * Run the compiled executable with `./<filename>`.
 
 ### Debugger
 
-  * Click on the `Debug` button above. Your source code will automatically 
+  * Click on the `Debug` button above. Your source code will automatically
     be compiled and run.
 
-    * Your program's input and output (including any errors during 
+    * Your program's input and output (including any errors during
       compilation) occur in a new tab in the Console panel, below.
 
     * You can only `Debug` one program at a time, so please quit a running
       program before trying to run `Debug` on another!
 
-  * The `Debug` option will open a GUI-based debugger panel on the right 
+  * The `Debug` option will open a GUI-based debugger panel on the right
     side of the workspace. You can view the stack, step through the code,
     and manipulate variables in this interface.
 
@@ -86,7 +86,7 @@ write a program that has an infinite loop!
     below, that corresponds to the program and either hit the `Stop` button
     or type Ctrl-C. Please be patient as the process is shut down.
 
-  * If you're manually running a program in the terminal, you can type 
+  * If you're manually running a program in the terminal, you can type
     Ctrl-C to stop the program. It may take several seconds to respond.
 
   * As a last resort, you can force kill a process by clicking on the
@@ -100,7 +100,7 @@ write a program that has an infinite loop!
 The instance is configured to use the Apache web server in a manner similar
 to, but not exactly the same as, the Appliance.
 
-Start the web server with `apachectl start` in the Console below. 
+Start the web server with `apachectl start` in the Console below.
 You can later stop it with `apachectl stop`.
 
 You may find out Apache's status and the domain of your workspace by
@@ -111,7 +111,7 @@ below by typing `service apache2 status` and `hostname50`, respectively.
 The `vhosts/example` directory in your workspace contains a sample layout
 for how you should structure your own sites. You may want to emulate this
 structure for Problem Set 7 and 8 in the `vhosts/pset7` and `vhosts/pset8`
-directories, respectively. You can access the contents of a directory in the 
+directories, respectively. You can access the contents of a directory in the
 `vhosts` folder by typing the directory name after your instance's domain.
 
 For example, the URL for the `vhosts/example` directory is:
@@ -162,7 +162,7 @@ changes from the spec to work properly:
 * For testing, it's easiest to use `telnet` on your workspace instance using
   `telnet localhost 8080`.
 
-* It is possible to access it remotely (using `telnet` on your own computer, 
+* It is possible to access it remotely (using `telnet` on your own computer,
   for instance) if you do the following:
 
   * First, find your instance's hostname using `hostname50`. We'll refer
@@ -173,7 +173,7 @@ changes from the spec to work properly:
 
   * You must add a `Host` header to the HTTP headers so that the Cloud9 proxy
     knows how to properly direct your request. For instance:
-    
+
     ```
     GET /cat.html HTTP/1.1
     Host: IDE_HOST
@@ -188,10 +188,15 @@ Console or clicking the `CS50` button at the top-right of the workspace.
 The location of the folder is in the `vhosts` directory in your workspace, so
 the directory structure is instead: `~/workspace/vhosts/pset7/`
 
+You can find phpMyAdmin at `https://HOST/phpmyadmin/`. Find the username by
+typing `username50` in the Console, below. There is no password (it is blank).
+
 ## Problem Set 8 (Mashup)
 
 Like Problem Set 7, above, the URL and `vhosts` directory are changed to:
 `https://HOST/pset8/` and `~/workspace/vhosts/pset8/`, respectively.
+
+You can find more information on accessing phpMyAdmin in Problem Set 7, above.
 
 # Bug Reports
 

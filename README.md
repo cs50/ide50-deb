@@ -9,7 +9,7 @@ Assumes your cwd is the root of this repo.
 1. Use your favorite text editor to add a new changelog entry to `ide50/debian/changelog`
 1. If you'd like to chmod stuff, do so in `ide50/debian/postinst`
 1. Now make the local deb with `make deb`
-1. New deb can be found at `build/deb/`! At this point if you'd like to test the deb in your machine before pushing to mirror you can do `sudo dpkg -i ide50_*.deb`
+1. New deb can be found at `build/deb/`! At this point if you'd like to test the deb in your machine before pushing to mirror you can do `sudo -E dpkg --force-confnew -i ide50_*.deb`
 
 ### Pushing deb to mirror
 1. Build new version of deb as described above.

@@ -2,21 +2,18 @@
 
 echo "Resetting permissions.."
 
-chmod -R g+w /home/ubuntu/workspace 
+chmod -R g+w /home/ubuntu/workspace
 chown -R ubuntu:ubuntu /home/ubuntu >/dev/null 2>&1
 
-pwd
-    
-chmod 755 /usr/bin/version50 
-   
+chmod 755 /usr/bin/version50
+
 echo "Setting configuration files.."
-mv /home/ubuntu/cs50/ide50.sh /etc/profile.d
-mv /home/ubuntu/cs50/cs50.conf /etc/apache2/conf-available 
-ln -fs /etc/apache2/conf-available/cs50.conf /etc/apache2/conf-enabled/cs50.conf 
+chmod 644 /etc/profile.d/ide50.sh
 
-mv /home/ubuntu/cs50/dropbox50 /home/ubuntu/.dropbox50
-
-echo "source /home/ubuntu/.dropbox50" >> /home/ubuntu/.bashrc
+# prep dropbox functions
+if ! grep -Fxq "source /home/ubuntu/.dropbox50" ~/.bashrc; then
+    echo "source /home/ubuntu/.dropbox50" >> /home/ubuntu/.bashrc
+fi
 
 groupadd -r courses > /dev/null 2>&1 || true
 adduser --gecos "CS50,,,," --ingroup courses --disabled-login --system cs50 > /dev/null 2>&1 || true
@@ -27,11 +24,36 @@ find /home/cs50 -type f -exec chmod 644 {} \;
 chmod 711 /home/cs50/pset1/{mario,greedy} /home/cs50/hacker1/{credit,mario} /home/cs50/hacker2/initials /home/cs50/pset2/{initials,caesar,vigenere,devigenere} /home/cs50/pset3/find /home/cs50/hacker3/find /home/cs50/pset4/{peek,resize} /home/cs50/hacker4/{peek,resize} /home/cs50/pset5/speller /home/cs50/pset6/server
 chmod 755 /home/cs50/pset5/challenge
 
-mv /home/ubuntu/cs50/index.php /var/www/html/index.php
-rm /var/www/html/index.html 2> /dev/null
+# prep apache configuration
+ln -fs /etc/apache2/conf-available/cs50.conf /etc/apache2/conf-enabled/cs50.conf
+
+# prep instance's index page
+if [ -e /var/www/html/index.html ]; then
+    rm -f /var/www/html/index.html
+fi
 chmod 644 /var/www/html/index.php
 
 rm -rf /home/ubuntu/cs50
-rm -f /etc/profile.d/app.sh
+# remove old source file if it exists
+if [ -e /etc/profile.d/app.sh ]; then
+    rm -f /etc/profile.d/app.sh
+fi
+
+# install phpmyadmin only if env variables are present (requires recent update50)
+source /etc/version50 2>/dev/null || true
+if [ "${version:-0}" -ge "16" ] && [ -n "$C9_USER" ] && [ -n "$C9_HOSTNAME" ]; then
+    # stop apache if running
+    sudo -Eu ubuntu apachectl stop >/dev/null 2>&1
+
+    # install phpmyadmin
+    sudo -sEu ubuntu phpmyadmin-ctl install >/dev/null
+
+    # installation runs it in a wonky way, fix it
+    service apache2 stop >/dev/null
+    chown -R ubuntu:ubuntu /home/ubuntu/lib/mysql
+
+else
+    echo "Please run update50 again to complete the installation!"
+fi
 
 exit 0
