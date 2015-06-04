@@ -1,3 +1,9 @@
+ide50 (17) GM; urgency=medium
+
+  * included stats50 for updated Stats UI plugin
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 4 Jun 2015 17:15:00 -0500
+
 ide50 (16) GM; urgency=medium
 
   * fixed update50 to populate env variables required for phpmyadmin install
@@ -6,7 +12,7 @@ ide50 (16) GM; urgency=medium
   * added `username50`
   * Maintain Apache's running state after install
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 22 May 2015 13:25:00 -0500
+ -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 22 May 2015 20:25:00 -0500
 
 ide50 (15) GM; urgency=medium
 
