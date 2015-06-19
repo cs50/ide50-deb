@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# output C9_HOSTNAME if present, otherwise probably in offline mode
-if [ "$C9_HOSTNAME" ]; then
-    echo $C9_HOSTNAME
+# provide port information in offline mode
+if [ "$IDE_OFFLINE" ]; then
+    echo $C9_HOSTNAME:$C9_PORT
 else
-    echo $OFFLINE_IP:$OFFLINE_PORT
+    echo $C9_HOSTNAME
 fi
