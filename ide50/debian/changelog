@@ -1,4 +1,10 @@
-ide50 (19) GM; urgency=medium
+ide50 (20) GM; urgency=medium
+
+  * provide sentinel value to dropbox50 script if error to prevent shell exit
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 19 Jun 2015 14:00:00 -0500
+
+iide50 (19) GM; urgency=medium
 
   * updated hostname50 and stats50 for offline version
 
