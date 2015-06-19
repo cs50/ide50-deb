@@ -6,15 +6,12 @@
 # Provides bash functions to install and set up dropbox in a Cloud9 workspace.
 #
 
-if [ -z $C9_PROJECT ]; then
-	echo "Please run this script only inside of a Cloud9 workspace!"
-	exit
-fi
+WKSPC="${C9_PROJECT:-Offline}"
 
 DROPBIN=${HOME}/bin/dropbox.py
 SETUPDONE=${HOME}/.dropbox50-0
 CS50="CS50 IDE"
-WORKSPACE="$CS50"/$C9_PROJECT
+WORKSPACE="$CS50"/$WKSPC
 WORKDIR=${HOME}/Dropbox/"$WORKSPACE"
 
 dropbox50_start() {
