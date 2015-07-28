@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 
+<?php
+    if (getenv("IDE_OFFLINE") == "1")
+        $host = "http://";
+    else
+        $host = "https://";
+    $host .= trim(shell_exec("hostname50"));
+?>
+
 <html>
     <head>
         <title>hello, world</title>
@@ -12,7 +20,7 @@
             $dirs = scandir("/home/ubuntu/workspace/vhosts");
             foreach($dirs as $dir) {
                 if ($dir != "." && $dir != ".."){
-                    $url = 'https://'.getenv("C9_HOSTNAME").'/'.$dir.'/';
+                    $url = $host.'/'.$dir.'/';
                     echo "<tr><td><a href=\"$url\">$url</a></td></tr>";
                 }
             }
@@ -21,7 +29,7 @@
         <br />
         You can find phpMyAdmin here:
         <?php
-            $pma = 'https://'.getenv("C9_HOSTNAME").'/phpmyadmin/';
+            $pma = $host.'/phpmyadmin/';
             echo "<a href=\"$pma\">$pma</a>";
         ?>
     </body>

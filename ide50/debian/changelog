@@ -1,3 +1,10 @@
+ide50 (21) GM; urgency=medium
+
+  * default apache index page handles now also handles offline IDE
+  * password50 support and generation
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 22 Jun 2015 15:00:00 -0400
+
 ide50 (20) GM; urgency=medium
 
   * provide sentinel value to dropbox50 script if error to prevent shell exit
@@ -5,13 +12,13 @@ ide50 (20) GM; urgency=medium
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 19 Jun 2015 16:45:00 -0500
 
-iide50 (19) GM; urgency=medium
+ide50 (19) GM; urgency=medium
 
   * updated hostname50 and stats50 for offline version
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 19 Jun 2015 14:00:00 -0500
 
-iide50 (18) GM; urgency=medium
+ide50 (18) GM; urgency=medium
 
   * updated stats50 for improved server detection
 

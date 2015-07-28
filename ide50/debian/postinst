@@ -28,43 +28,52 @@ chmod 755 /home/cs50/pset5/challenge
 ln -fs /etc/apache2/conf-available/cs50.conf /etc/apache2/conf-enabled/cs50.conf
 
 # prep instance's index page
-if [ -e /var/www/html/index.html ]; then
+if [ -f /var/www/html/index.html ]; then
     rm -f /var/www/html/index.html
 fi
 chmod 644 /var/www/html/index.php
 
 rm -rf /home/ubuntu/cs50
 # remove old source file if it exists
-if [ -e /etc/profile.d/app.sh ]; then
+if [ -f /etc/profile.d/app.sh ]; then
     rm -f /etc/profile.d/app.sh
 fi
 
-# install phpmyadmin only if env variables are present (requires recent update50)
+####################
+# the remaining requires a recent update50 and some env variables must exist
 source /etc/version50 2>/dev/null || true
-if [ "${version:-0}" -ge "16" ] && [ -n "$C9_USER" ] && [ -n "$C9_HOSTNAME" ]; then
-
-    # was apache running? (status returns 0 iff running)
-    RUNNING=$(service apache2 status >/dev/null)$?
-
-    # stop apache if running
-    if [ $RUNNING == 0 ]; then
-        sudo -Eu ubuntu apachectl stop >/dev/null 2>&1
-    fi
-
-    # install phpmyadmin
-    sudo -sEu ubuntu phpmyadmin-ctl install >/dev/null
-
-    # installation runs it in a wonky way, fix it
-    service apache2 stop >/dev/null
-    chown -R ubuntu:ubuntu /home/ubuntu/lib/mysql
-
-    # restart apache if it was running
-    if [ $RUNNING == 0 ]; then
-        sudo -Eu ubuntu apachectl start
-    fi
-
-else
+if [ "${version:-0}" -lt "16" ] || [ -z "$C9_USER" ] || [ -z "$C9_HOSTNAME" ]; then
     echo "Please run update50 again to complete the installation!"
+    exit 1
 fi
+
+# create a password for some internal services if it doesn't exist yet
+eval PASSWORD_FILE="$(printf "~%q" "$USER")"/.password50
+if [ ! -f "$PASSWORD_FILE" ]; then
+    # generate 16 character alphanumeric password from urandom
+    PASSWD="$(tr -dc [:alnum:] </dev/urandom | head -c16)"
+    echo "password=\"$PASSWD\"" >"$PASSWORD_FILE"
+fi
+
+# was apache running? (status returns 0 iff running)
+RUNNING=$(service apache2 status >/dev/null)$?
+
+# stop apache if running
+if [ $RUNNING == 0 ]; then
+    sudo -Eu ubuntu apachectl stop >/dev/null 2>&1
+fi
+
+# install phpmyadmin
+sudo -sEu ubuntu phpmyadmin-ctl install >/dev/null
+
+# installation runs it in a wonky way, fix it
+service apache2 stop >/dev/null
+chown -R ubuntu:ubuntu /home/ubuntu/lib/mysql
+
+# restart apache if it was running
+if [ $RUNNING == 0 ]; then
+    sudo -Eu ubuntu apachectl start
+fi
+
 
 exit 0
