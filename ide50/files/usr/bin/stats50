@@ -16,4 +16,5 @@ else
     server="NONE"
 fi
 
-printf '{"version":"%s","host":"%s","listening":%s,"server":"%s"}' "$version" "$(hostname50)" "$listening" "$server"
+printf '{"version":"%s","host":"%s","listening":%s,"server":"%s","passwd":"%s"}' \
+    "$version" "$(hostname50)" "$listening" "$server" "$(password50)"
