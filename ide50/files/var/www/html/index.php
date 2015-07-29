@@ -17,9 +17,10 @@
         To access the sites in your vhosts directory, just try out these links!
         <table>
             <?php
-            $dirs = scandir("/home/ubuntu/workspace/vhosts");
+            $vhosts = "/home/ubuntu/workspace/vhosts/";
+            $dirs = scandir($vhosts);
             foreach($dirs as $dir) {
-                if ($dir != "." && $dir != ".."){
+                if ($dir != "." && $dir != ".." && is_dir($vhosts.$dir)){
                     $url = $host.'/'.$dir.'/';
                     echo "<tr><td><a href=\"$url\">$url</a></td></tr>";
                 }
