@@ -1,13 +1,13 @@
 #!/bin/bash
 
-echo "Resetting permissions.."
+echo "Resetting permissions ..."
 
 chmod -R g+w /home/ubuntu/workspace
 chown -R ubuntu:ubuntu /home/ubuntu >/dev/null 2>&1
 
 chmod 755 /usr/bin/version50
 
-echo "Setting configuration files.."
+echo "Setting configuration files ..."
 chmod 644 /etc/profile.d/ide50.sh
 
 # prep dropbox functions
@@ -42,17 +42,27 @@ fi
 ####################
 # the remaining requires a recent update50 and some env variables must exist
 source /etc/version50 2>/dev/null || true
-if [ "${version:-0}" -lt "16" ] || [ -z "$C9_USER" ] || [ -z "$C9_HOSTNAME" ]; then
+if [ "${version:-0}" -lt "16" ] || [ -z "$C9_USER" ]; then
+    echo
     echo "Please run update50 again to complete the installation!"
-    exit 1
+    exit 0
 fi
 
+echo "Setting up MySQL ..."
+
 # create a password for some internal services if it doesn't exist yet
-eval PASSWORD_FILE="$(printf "~%q" "$USER")"/.password50
+eval PASSWORD_FILE="$(printf "~%q" ubuntu)"/.password50
 if [ ! -f "$PASSWORD_FILE" ]; then
     # generate 16 character alphanumeric password from urandom
-    PASSWD="$(tr -dc [:alnum:] </dev/urandom | head -c16)"
-    echo "password=\"$PASSWD\"" >"$PASSWORD_FILE"
+    password="$(tr -dc [:alnum:] </dev/urandom | head -c16)"
+
+    # store
+    echo "password=\"$password\"" >"$PASSWORD_FILE"
+    chown ubuntu:ubuntu $PASSWORD_FILE
+    chmod 600 $PASSWORD_FILE
+else
+    # let's use the existing password
+    source $PASSWORD_FILE
 fi
 
 # was apache running? (status returns 0 iff running)
@@ -63,17 +73,105 @@ if [ $RUNNING == 0 ]; then
     sudo -Eu ubuntu apachectl stop >/dev/null 2>&1
 fi
 
-# install phpmyadmin
-sudo -sEu ubuntu phpmyadmin-ctl install >/dev/null
+# was MySQL running?
+MYSQL_RUNNING=$(service mysql status >/dev/null)$?
 
-# installation runs it in a wonky way, fix it
-service apache2 stop >/dev/null
-chown -R ubuntu:ubuntu /home/ubuntu/lib/mysql
+# stop MySQL if running
+if [ $MYSQL_RUNNING == 0 ]; then
+    service mysql stop >/dev/null 2>&1
+fi
+
+# Changes configuration file to skip table grants
+mv /etc/mysql/my.cnf /etc/mysql/.my.cnf
+cat > /etc/mysql/my.cnf <<"EOF"
+[mysqld]
+datadir=/var/lib/mysql
+skip-grant-tables
+skip-networking
+socket=/var/run/mysqld/mysqld.sock
+user=mysql
+pid-file=/var/run/mysqld/mysqld.pid
+port=3306
+EOF
+
+service mysql start >/dev/null 2>&1
+
+# MySQL username matches the external C9 username
+USERNAME=${C9_USER:0:16}
+
+# reset user and password in MySQL
+mysql --force --user=root > /dev/null 2>&1 <<EOF
+DELETE FROM mysql.user WHERE User = '';
+DELETE FROM mysql.user WHERE User = '$USERNAME';
+INSERT INTO mysql.user (Host, User, Password, Grant_priv, Super_priv) VALUES('localhost', '$USERNAME', PASSWORD('$password'), 'Y', 'Y');
+FLUSH PRIVILEGES;
+GRANT ALL ON *.* TO '$USERNAME'@'localhost';
+EOF
+
+sleep 1
+
+# Put original config file back in place
+service mysql stop >/dev/null 2>&1
+mv /etc/mysql/.my.cnf /etc/mysql/my.cnf
+
+# install phpmyadmin if it's not yet installed
+# adapted from C9's install script: /mnt/shared/bin/phpmyadmin-ctl
+if [ ! -e /etc/apache2/sites-enabled/phpmyadmin.conf ]; then
+    ln -s /etc/phpmyadmin/apache.conf /etc/apache2/sites-enabled/phpmyadmin.conf
+
+    echo "Installing phpMyAdmin ..."
+
+    # enable mcrypt
+    php5enmod mcrypt
+
+    chmod a+r /etc/phpmyadmin/config-db.php
+    chmod a+r /var/lib/phpmyadmin/blowfish_secret.inc.php
+    chmod a+r /var/lib/phpmyadmin/config.inc.php
+
+    # Set host to 127.0.0.1
+    sed -i "s:localhost:127.0.0.1:g" /etc/phpmyadmin/config.inc.php
+
+    #Fix tables
+    sed -i "s:'pma_\([^_]\):'pma__\1:" /etc/phpmyadmin/config.inc.php
+
+    #Fix login to database
+    sed -i "s:\$dbuser='phpmyadmin':\$dbuser='$USERNAME':" /etc/phpmyadmin/config-db.php
+    sed -i "s:\$dbpass='[a-zA-Z0-9]*':\$dbpass='$password':" /etc/phpmyadmin/config-db.php
+
+    # hide certain databases
+    if ! grep -q 'hide_db' /etc/phpmyadmin/config.inc.php; then
+        # inject hide_db inside of an if statement
+        sed -i 's:if (!empty($dbname)) {:&\
+            /* Hide certain databases */\
+            $cfg["Servers"][\$i]["hide_db"] = "^(c9|information_schema|mysql|performance_schema|phpmyadmin)$";\n:' \
+            /etc/phpmyadmin/config.inc.php
+    fi
+
+    # Allow Opening in an iframe (in editor)
+    if ! grep -q 'AllowThirdPartyFraming' /etc/phpmyadmin/config.inc.php; then
+        sed -i "$ a\$cfg[\"AllowThirdPartyFraming\"] = true;" /etc/phpmyadmin/config.inc.php
+    fi
+
+    service mysql start >/dev/null 2>&1
+
+    mysql -u $USERNAME -p$password -e "CREATE DATABASE IF NOT EXISTS phpmyadmin" &>/dev/null
+    zcat /usr/share/doc/phpmyadmin/examples/create_tables.sql.gz | mysql -u $USERNAME -p$password phpmyadmin
+
+    service mysql stop >/dev/null 2>&1
+
+fi
 
 # restart apache if it was running
 if [ $RUNNING == 0 ]; then
     sudo -Eu ubuntu apachectl start
 fi
 
+# restart mysql if it was running
+if [ $MYSQL_RUNNING == 0 ]; then
+    service mysql start >/dev/null 2>&1
+fi
+
+echo
+echo "All done! <3"
 
 exit 0
