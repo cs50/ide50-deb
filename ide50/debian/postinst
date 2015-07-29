@@ -24,9 +24,6 @@ find /home/cs50 -type f -exec chmod 644 {} \;
 chmod 711 /home/cs50/pset1/{mario,greedy} /home/cs50/hacker1/{credit,mario} /home/cs50/hacker2/initials /home/cs50/pset2/{initials,caesar,vigenere,devigenere} /home/cs50/pset3/find /home/cs50/hacker3/find /home/cs50/pset4/{peek,resize} /home/cs50/hacker4/{peek,resize} /home/cs50/pset5/speller /home/cs50/pset6/server
 chmod 755 /home/cs50/pset5/challenge
 
-# prep apache configuration
-ln -fs /etc/apache2/conf-available/cs50.conf /etc/apache2/conf-enabled/cs50.conf
-
 # prep instance's index page
 if [ -f /var/www/html/index.html ]; then
     rm -f /var/www/html/index.html
@@ -71,6 +68,18 @@ RUNNING=$(service apache2 status >/dev/null)$?
 # stop apache if running
 if [ $RUNNING == 0 ]; then
     sudo -Eu ubuntu apachectl stop >/dev/null 2>&1
+fi
+
+# prep apache configuration
+ln -fs /etc/apache2/conf-available/cs50.conf /etc/apache2/conf-enabled/cs50.conf
+
+# configure apache for online or offline
+if [ -z ${IDE_OFFLINE+x} ]; then
+    # online IDE, externally served via proxy at C9_HOSTNAME over https
+    sed -i 's-ServerName.*$-ServerName https://${C9_HOSTNAME}:443-' /etc/apache2/conf-available/cs50.conf
+else
+    # offline IDE, http only and matches offline ip and port
+    sed -i 's-ServerName.*$-ServerName http://\${OFFLINE_IP}:\${OFFLINE_PORT}-' /etc/apache2/conf-available/cs50.conf
 fi
 
 # was MySQL running?
