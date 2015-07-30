@@ -30,6 +30,11 @@ if [ -f /var/www/html/index.html ]; then
 fi
 chmod 644 /var/www/html/index.php
 
+# remove apache test file from workspace
+if grep -qs '^Success$' /var/www/html/file; then
+    rm -f /var/www/html/file
+fi
+
 rm -rf /home/ubuntu/cs50
 # remove old source file if it exists
 if [ -f /etc/profile.d/app.sh ]; then
