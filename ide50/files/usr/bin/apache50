@@ -6,21 +6,19 @@ usage() {
 }
 
 # verify usage: "start" requires another param, all others require 1
-if ([ "$1" == "start" ] && [ $# -ne 2 ]) || (! [ "$1" == "start" ] && [ $# -ne 1 ]); then
+if ([ "$1" == "start" ] && [ $# -ne 2 ]) || ([ "$1" != "start" ] && [ $# -ne 1 ]); then
     usage
 fi
 
-# always run as root
-if [ "$UID" != "0" ]; then
-    sudo -E $0 "$@"
-    exit
+# only run as ubuntu
+if [ "$(whoami)" != "ubuntu" ]; then
+    echo "This script must only be run by the ubuntu user (don't use sudo)!"
+    exit 1
 fi
-
 
 start() {
     if [ $(service apache2 status >/dev/null)$? == 0 ]; then
-        echo "Apache is already running; please stop it first with:" 1>&2
-        echo " `basename $0` stop" 1>&2
+        echo "Apache is already running; did you mean \``basename $0` restart\`?" 1>&2
         exit 2
     fi
 
@@ -31,13 +29,13 @@ start() {
     vhost=$(readlink -f "$1")
 
     # disable prior cs50 configuration, if available
-    a2disconf cs50 >/dev/null 2>&1
+    sudo a2disconf cs50 >/dev/null 2>&1
 
     # copy template over
-    cp /etc/apache2/conf-available/cs50-template.conf /etc/apache2/conf-available/cs50.conf
+    sudo cp /etc/apache2/conf-available/cs50-template.conf /etc/apache2/conf-available/cs50.conf
 
     # update vhost dir in conf
-    sed -i "s#/home/ubuntu/workspace/vhosts#$vhost#g" /etc/apache2/conf-available/cs50.conf
+    sudo sed -i "s#/home/ubuntu/workspace/vhosts#$vhost#g" /etc/apache2/conf-available/cs50.conf
 
     # configure apache for online or offline
     if [ -z ${IDE_OFFLINE+x} ]; then
@@ -47,19 +45,19 @@ start() {
         # offline IDE, use hostname over http
         domain="http://$(hostname50)"
     fi
-    sed -i "s-ServerName.*\$-ServerName ${domain}-" /etc/apache2/conf-available/cs50.conf
+    sudo sed -i "s-ServerName.*\$-ServerName ${domain}-" /etc/apache2/conf-available/cs50.conf
 
     # enable and start
-    a2enconf cs50 >/dev/null 2>&1
+    sudo a2enconf cs50 >/dev/null 2>&1
 
     service apache2 start
+
     if [ $? -eq 0 ]; then
         echo "Apache started successfully!"
         echo "Your site is now available at ${domain}"
-        exit 0
     else
         echo "Apache was not started successfully."
-        exit 1
+        exit 3
     fi
 }
 
@@ -68,7 +66,19 @@ case "$1" in
         start $2
     ;;
     stop)
+        if [ $(service apache2 status >/dev/null)$? != 0 ]; then
+            echo "Apache is not running!"
+            exit 2
+        fi
+
         service apache2 stop
+
+        if [ $? -eq 0 ]; then
+            echo "Apache stopped successfully."
+        else
+            echo "Apache failed to stop!"
+            exit 2
+        fi
     ;;
     reload)
         service apache2 reload
