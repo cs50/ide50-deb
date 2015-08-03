@@ -23,6 +23,8 @@ start() {
     fi
     vhost=$(readlink -f "$1")
 
+    echo "Setting Apache's document root to ${vhost}/public ..."
+
     # disable prior cs50 configuration, if available
     sudo a2disconf cs50 >/dev/null 2>&1
 
