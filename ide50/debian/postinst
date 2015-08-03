@@ -28,7 +28,6 @@ chmod 755 /home/cs50/pset5/challenge
 if [ -f /var/www/html/index.html ]; then
     rm -f /var/www/html/index.html
 fi
-chmod 644 /var/www/html/index.php
 
 # remove apache test file from workspace
 if grep -qs '^Success$' /var/www/html/file; then
