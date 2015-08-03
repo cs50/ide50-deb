@@ -1,17 +1,17 @@
 #!/bin/bash
 
 usage() {
-    echo "Usage: `basename $0` [start|restart|reload|stop|status]"
+    echo "Usage: `basename $0` [start VHOST_DIR | restart | reload | stop | status]" 1>&2
+    exit 1
 }
 
-# verify usage
-if [ $# -eq 0 ]; then
+# verify usage: "start" requires another param, all others require 1
+if ([ "$1" == "start" ] && [ $# -ne 2 ]) || (! [ "$1" == "start" ] && [ $# -ne 1 ]); then
     usage
-    exit 1
 fi
 
 # always run as root
-if [ "$UID" != "0"]; then
+if [ "$UID" != "0" ]; then
     sudo -E $0 "$@"
     exit
 fi
@@ -19,15 +19,16 @@ fi
 
 start() {
     if [ $(service apache2 status >/dev/null)$? == 0 ]; then
-        echo "Apache is already running; please stop it first." 1>&2
+        echo "Apache is already running; please stop it first with:" 1>&2
+        echo " `basename $0` stop" 1>&2
         exit 2
     fi
 
-    if  [ ! $# -eq 2 ] || [ ! -d "$2" ]; then
-        echo "Usage: `basename $0` start VHOST_DIR"
-        echo "Where VHOST_DIR is a directory."
-        exit 1
+    # ensure the param is a directory, expand it if so
+    if  [ ! -d "$1" ]; then
+        usage
     fi
+    vhost=$(readlink -f "$1")
 
     # disable prior cs50 configuration, if available
     a2disconf cs50 >/dev/null 2>&1
@@ -35,27 +36,36 @@ start() {
     # copy template over
     cp /etc/apache2/conf-available/cs50-template.conf /etc/apache2/conf-available/cs50.conf
 
-    # expand input directory and update vhost dir in conf
-    vhost=$(readlink -f "$2")
+    # update vhost dir in conf
     sed -i "s#/home/ubuntu/workspace/vhosts#$vhost#g" /etc/apache2/conf-available/cs50.conf
 
     # configure apache for online or offline
     if [ -z ${IDE_OFFLINE+x} ]; then
         # online IDE, externally served via proxy at C9_HOSTNAME over https
-        sed -i 's-ServerName.*$-ServerName https://${C9_HOSTNAME}:443-' /etc/apache2/conf-available/cs50.conf
+        domain="https://$(hostname50)"
     else
-        # offline IDE, http only and matches offline ip and port
-        sed -i 's-ServerName.*$-ServerName http://\${OFFLINE_IP}:\${OFFLINE_PORT}-' /etc/apache2/conf-available/cs50.conf
+        # offline IDE, use hostname over http
+        domain="http://$(hostname50)"
     fi
+    sed -i "s-ServerName.*\$-ServerName ${domain}-" /etc/apache2/conf-available/cs50.conf
 
     # enable and start
     a2enconf cs50 >/dev/null 2>&1
+
     service apache2 start
+    if [ $? -eq 0 ]; then
+        echo "Apache started successfully!"
+        echo "Your site is now available at ${domain}"
+        exit 0
+    else
+        echo "Apache was not started successfully."
+        exit 1
+    fi
 }
 
 case "$1" in
     start)
-        start
+        start $2
     ;;
     stop)
         service apache2 stop
