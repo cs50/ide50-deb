@@ -5,7 +5,7 @@ usage() {
 }
 
 # verify usage
-if ! [ $# -eq 1 ]; then
+if [ $# -eq 0 ]; then
     usage
     exit 1
 fi
