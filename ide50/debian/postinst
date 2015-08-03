@@ -71,7 +71,7 @@ apache_running=$(service apache2 status >/dev/null)$?
 
 # stop apache if running
 if [ $apache_running == 0 ]; then
-    sudo -Eu ubuntu apachectl stop >/dev/null 2>&1
+    sudo -Eu ubuntu service apache2 stop >/dev/null 2>&1
 fi
 
 # was MySQL running?
@@ -164,7 +164,7 @@ fi
 
 # restart apache if it was running
 if [ $apache_running == 0 ]; then
-    service apache2 start >/dev/null 2>&1
+    sudo -Eu ubuntu service apache2 start >/dev/null 2>&1
 fi
 
 # restart mysql if it was running

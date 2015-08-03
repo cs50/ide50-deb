@@ -1,7 +1,7 @@
 #!/bin/bash
 
 usage() {
-    echo "Usage: `basename $0` [start VHOST_DIR | restart | reload | stop | status]" 1>&2
+    echo "Usage: `basename $0` [start VHOST_DIR|restart|reload|stop|status]" 1>&2
     exit 1
 }
 
@@ -17,11 +17,6 @@ if [ "$(whoami)" != "ubuntu" ]; then
 fi
 
 start() {
-    if [ $(service apache2 status >/dev/null)$? == 0 ]; then
-        echo "Apache is already running; did you mean \``basename $0` restart\`?" 1>&2
-        exit 2
-    fi
-
     # ensure the param is a directory, expand it if so
     if  [ ! -d "$1" ]; then
         usage
@@ -61,24 +56,24 @@ start() {
     fi
 }
 
+# determine apache's status
+running=$(service apache2 status >/dev/null)$?
+
 case "$1" in
     start)
+        if [ $running == 0 ]; then
+            echo "Apache is already running!" 1>&2
+            exit 2
+        fi
         start $2
     ;;
     stop)
-        if [ $(service apache2 status >/dev/null)$? != 0 ]; then
+        if [ $running != 0 ]; then
             echo "Apache is not running!"
             exit 2
         fi
 
         service apache2 stop
-
-        if [ $? -eq 0 ]; then
-            echo "Apache stopped successfully."
-        else
-            echo "Apache failed to stop!"
-            exit 3
-        fi
     ;;
     reload)
         service apache2 reload
@@ -87,7 +82,12 @@ case "$1" in
         service apache2 restart
     ;;
     status)
-        service apache2 status
+        if [ $running == 0 ]; then
+            echo "Apache is running!"
+        else
+            echo "Apache is not running."
+            exit $running
+        fi
     ;;
     *)
         usage

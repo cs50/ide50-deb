@@ -1,6 +1,7 @@
 ide50 (22) GM; urgency=medium
 
   * apache50 support for changing apache configs from command line
+  * mysql50 for consistent start/stop of MySQL
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Mon, 3 Aug 2015 16:30:00 -0400
 

@@ -1,0 +1,65 @@
+#!/bin/bash
+
+usage() {
+    echo "Usage: `basename $0` [start|restart|reload|shell|stop|status]" 1>&2
+    exit 1
+}
+
+# verify usage
+if [ $# -ne 1 ]; then
+    usage
+fi
+
+# always run as root
+if [ "$UID" != "0" ]; then
+     sudo -E $0 "$@"
+     exit
+ fi
+
+running=$(service mysql status >/dev/null)$?
+
+
+case "$1" in
+    start)
+        if [ $running == 0 ]; then
+            echo "MySQL is already running!" 1>&2
+            exit 2
+        fi
+        service mysql start
+    ;;
+    stop)
+        if [ $running != 0 ]; then
+            echo "MySQL is not running!"
+            exit 2
+        fi
+
+        service mysql stop
+    ;;
+    reload)
+        service mysql reload
+    ;;
+    restart)
+        service mysql restart
+    ;;
+    shell)
+        if [ $running != 0 ]; then
+            echo "Starting MySQL.."
+            service mysql start
+        fi
+
+        mysql -u $(username50) -p$(password50)
+    ;;
+    status)
+        if [ $running == 0 ]; then
+            echo "MySQL is running!"
+        else
+            echo "MySQL is not running."
+            exit $running
+        fi
+    ;;
+    *)
+        usage
+    ;;
+esac
+
+exit 0
