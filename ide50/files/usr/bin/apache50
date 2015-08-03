@@ -1,0 +1,77 @@
+#!/bin/bash
+
+usage() {
+    echo "Usage: `basename $0` [start|restart|reload|stop|status]"
+}
+
+# verify usage
+if ! [ $# -eq 1 ]; then
+    usage
+    exit 1
+fi
+
+# always run as root
+if [ "$UID" != "0"]; then
+    sudo -E $0 "$@"
+    exit
+fi
+
+
+start() {
+    if [ $(service apache2 status >/dev/null)$? == 0 ]; then
+        echo "Apache is already running; please stop it first." 1>&2
+        exit 2
+    fi
+
+    if  [ ! $# -eq 2 ] || [ ! -d "$2" ]; then
+        echo "Usage: `basename $0` start VHOST_DIR"
+        echo "Where VHOST_DIR is a directory."
+        exit 1
+    fi
+
+    # disable prior cs50 configuration, if available
+    a2disconf cs50 >/dev/null 2>&1
+
+    # copy template over
+    cp /etc/apache2/conf-available/cs50-template.conf /etc/apache2/conf-available/cs50.conf
+
+    # expand input directory and update vhost dir in conf
+    vhost=$(readlink -f "$2")
+    sed -i "s#/home/ubuntu/workspace/vhosts#$vhost#g" /etc/apache2/conf-available/cs50.conf
+
+    # configure apache for online or offline
+    if [ -z ${IDE_OFFLINE+x} ]; then
+        # online IDE, externally served via proxy at C9_HOSTNAME over https
+        sed -i 's-ServerName.*$-ServerName https://${C9_HOSTNAME}:443-' /etc/apache2/conf-available/cs50.conf
+    else
+        # offline IDE, http only and matches offline ip and port
+        sed -i 's-ServerName.*$-ServerName http://\${OFFLINE_IP}:\${OFFLINE_PORT}-' /etc/apache2/conf-available/cs50.conf
+    fi
+
+    # enable and start
+    a2enconf cs50 >/dev/null 2>&1
+    service apache2 start
+}
+
+case "$1" in
+    start)
+        start
+    ;;
+    stop)
+        service apache2 stop
+    ;;
+    reload)
+        service apache2 reload
+    ;;
+    restart)
+        service apache2 restart
+    ;;
+    status)
+        service apache2 status
+    ;;
+    *)
+        usage
+    ;;
+esac
+
+exit 0

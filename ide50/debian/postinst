@@ -53,45 +53,33 @@ fi
 echo "Setting up MySQL ..."
 
 # create a password for some internal services if it doesn't exist yet
-eval PASSWORD_FILE="$(printf "~%q" ubuntu)"/.password50
-if [ ! -f "$PASSWORD_FILE" ]; then
+eval password_file="$(printf "~%q" ubuntu)"/.password50
+if [ ! -f "$password_file" ]; then
     # generate 16 character alphanumeric password from urandom
     password="$(tr -dc [:alnum:] </dev/urandom | head -c16)"
 
     # store
-    echo "password=\"$password\"" >"$PASSWORD_FILE"
-    chown ubuntu:ubuntu $PASSWORD_FILE
-    chmod 600 $PASSWORD_FILE
+    echo "password=\"$password\"" >"$password_file"
+    chown ubuntu:ubuntu $password_file
+    chmod 600 $password_file
 else
     # let's use the existing password
-    source $PASSWORD_FILE
+    source $password_file
 fi
 
 # was apache running? (status returns 0 iff running)
-RUNNING=$(service apache2 status >/dev/null)$?
+apache_running=$(service apache2 status >/dev/null)$?
 
 # stop apache if running
-if [ $RUNNING == 0 ]; then
+if [ $apache_running == 0 ]; then
     sudo -Eu ubuntu apachectl stop >/dev/null 2>&1
 fi
 
-# prep apache configuration
-ln -fs /etc/apache2/conf-available/cs50.conf /etc/apache2/conf-enabled/cs50.conf
-
-# configure apache for online or offline
-if [ -z ${IDE_OFFLINE+x} ]; then
-    # online IDE, externally served via proxy at C9_HOSTNAME over https
-    sed -i 's-ServerName.*$-ServerName https://${C9_HOSTNAME}:443-' /etc/apache2/conf-available/cs50.conf
-else
-    # offline IDE, http only and matches offline ip and port
-    sed -i 's-ServerName.*$-ServerName http://\${OFFLINE_IP}:\${OFFLINE_PORT}-' /etc/apache2/conf-available/cs50.conf
-fi
-
 # was MySQL running?
-MYSQL_RUNNING=$(service mysql status >/dev/null)$?
+mysql_running=$(service mysql status >/dev/null)$?
 
 # stop MySQL if running
-if [ $MYSQL_RUNNING == 0 ]; then
+if [ $mysql_running == 0 ]; then
     service mysql stop >/dev/null 2>&1
 fi
 
@@ -111,15 +99,15 @@ EOF
 service mysql start >/dev/null 2>&1
 
 # MySQL username matches the external C9 username
-USERNAME=${C9_USER:0:16}
+username=${C9_USER:0:16}
 
 # reset user and password in MySQL
 mysql --force --user=root > /dev/null 2>&1 <<EOF
 DELETE FROM mysql.user WHERE User = '';
-DELETE FROM mysql.user WHERE User = '$USERNAME';
-INSERT INTO mysql.user (Host, User, Password, Grant_priv, Super_priv) VALUES('localhost', '$USERNAME', PASSWORD('$password'), 'Y', 'Y');
+DELETE FROM mysql.user WHERE User = '$username';
+INSERT INTO mysql.user (Host, User, Password, Grant_priv, Super_priv) VALUES('localhost', '$username', PASSWORD('$password'), 'Y', 'Y');
 FLUSH PRIVILEGES;
-GRANT ALL ON *.* TO '$USERNAME'@'localhost';
+GRANT ALL ON *.* TO '$username'@'localhost';
 EOF
 
 sleep 1
@@ -149,7 +137,7 @@ if [ ! -e /etc/apache2/sites-enabled/phpmyadmin.conf ]; then
     sed -i "s:'pma_\([^_]\):'pma__\1:" /etc/phpmyadmin/config.inc.php
 
     #Fix login to database
-    sed -i "s:\$dbuser='phpmyadmin':\$dbuser='$USERNAME':" /etc/phpmyadmin/config-db.php
+    sed -i "s:\$dbuser='phpmyadmin':\$dbuser='$username':" /etc/phpmyadmin/config-db.php
     sed -i "s:\$dbpass='[a-zA-Z0-9]*':\$dbpass='$password':" /etc/phpmyadmin/config-db.php
 
     # hide certain databases
@@ -168,20 +156,20 @@ if [ ! -e /etc/apache2/sites-enabled/phpmyadmin.conf ]; then
 
     service mysql start >/dev/null 2>&1
 
-    mysql -u $USERNAME -p$password -e "CREATE DATABASE IF NOT EXISTS phpmyadmin" &>/dev/null
-    zcat /usr/share/doc/phpmyadmin/examples/create_tables.sql.gz | mysql -u $USERNAME -p$password phpmyadmin
+    mysql -u $username -p$password -e "CREATE DATABASE IF NOT EXISTS phpmyadmin" &>/dev/null
+    zcat /usr/share/doc/phpmyadmin/examples/create_tables.sql.gz | mysql -u $username -p$password phpmyadmin
 
     service mysql stop >/dev/null 2>&1
 
 fi
 
 # restart apache if it was running
-if [ $RUNNING == 0 ]; then
-    sudo -Eu ubuntu apachectl start
+if [ $apache_running == 0 ]; then
+    service apache2 start >/dev/null 2>&1
 fi
 
 # restart mysql if it was running
-if [ $MYSQL_RUNNING == 0 ]; then
+if [ $mysql_running == 0 ]; then
     service mysql start >/dev/null 2>&1
 fi
 
