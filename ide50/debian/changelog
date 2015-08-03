@@ -2,12 +2,14 @@ ide50 (22) GM; urgency=medium
 
   * apache50 support for changing apache configs from command line
 
+ -- CS50 <sysadmins@cs50.harvard.edu>  Mon, 3 Aug 2015 16:30:00 -0400
+
 ide50 (21) GM; urgency=medium
 
   * default apache index page handles now also handles offline IDE
   * password50 support and generation
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 22 Jun 2015 15:00:00 -0400
+ -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 30 Jul 2015 15:00:00 -0400
 
 ide50 (20) GM; urgency=medium
 
