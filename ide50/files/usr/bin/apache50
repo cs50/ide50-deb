@@ -56,7 +56,7 @@ start() {
         echo "Apache started successfully!"
         echo "Your site is now available at ${domain}"
     else
-        echo "Apache was not started successfully."
+        echo "Apache failed to start!"
         exit 3
     fi
 }
@@ -77,7 +77,7 @@ case "$1" in
             echo "Apache stopped successfully."
         else
             echo "Apache failed to stop!"
-            exit 2
+            exit 3
         fi
     ;;
     reload)
