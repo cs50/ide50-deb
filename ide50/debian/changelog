@@ -1,3 +1,7 @@
+ide50 (22) GM; urgency=medium
+
+  * apache50 support for changing apache configs from command line
+
 ide50 (21) GM; urgency=medium
 
   * default apache index page handles now also handles offline IDE
