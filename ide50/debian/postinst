@@ -4,16 +4,15 @@ echo "Resetting permissions ..."
 
 chmod -R g+w /home/ubuntu/workspace
 chown -R ubuntu:ubuntu /home/ubuntu >/dev/null 2>&1
+chown -R ubuntu:ubuntu /var/c9sdk/plugins/c9.ide.plugins >/dev/null 2>&1
 
 chmod 755 /usr/bin/version50
 
 echo "Setting configuration files ..."
 chmod 644 /etc/profile.d/ide50.sh
 
-# prep dropbox functions
-if ! grep -Fxq "source /home/ubuntu/.dropbox50" ~/.bashrc; then
-    echo "source /home/ubuntu/.dropbox50" >> /home/ubuntu/.bashrc
-fi
+# remove dropbox functions
+sed -i 's:source /home/ubuntu/.dropbox50::g' ~/.bashrc
 
 groupadd -r courses > /dev/null 2>&1 || true
 adduser --gecos "CS50,,,," --ingroup courses --disabled-login --system cs50 > /dev/null 2>&1 || true
@@ -172,7 +171,22 @@ if [ $mysql_running == 0 ]; then
     service mysql start >/dev/null 2>&1
 fi
 
-echo
-echo "All done! <3"
+
+if [ ${IDE_OFFLINE+x} ]; then
+    # offline only: update c9sdk and plugins
+    echo "Updating Cloud9 SDK ..."
+    pushd /var/c9sdk >/dev/null 2>&1
+    sudo -Eu ubuntu scripts/install-sdk.sh stop >/dev/null 2>&1
+    popd >/dev/null 2>&1
+    echo
+    echo "All done! <3"
+    echo "Please reload your workspace to get the latest updates!"
+else
+    # plugin updates aren't necessary for online IDEs
+    rm -rf /var/c9sdk/plugins/c9.ide.plugins >/dev/null 2>&1
+
+    echo
+    echo "All done! <3"
+fi
 
 exit 0
