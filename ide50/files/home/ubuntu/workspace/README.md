@@ -9,9 +9,8 @@
                         This is CS50!
                       Powered by Cloud9
 
-Welcome to the CS50 IDE Beta! Below are a list of features and some tips and
-tricks for usage and getting started. The end of the document describes how
-to file bug reports if you come across problems.
+Welcome to the CS50 IDE! Below are a list of features and some tips and tricks
+for usage and getting started.
 
 # Features
 
@@ -100,30 +99,38 @@ write a program that has an infinite loop!
 The instance is configured to use the Apache web server in a manner similar
 to, but not exactly the same as, the Appliance.
 
-Start the web server with `apachectl start` in the Console below.
-You can later stop it with `apachectl stop`.
+Start the web server with `apache50 start VHOST_DIR` in the Console below, where
+`VHOST_DIR` is the directory containing your website. For example, you might
+use `apache50 start ~/workspace/pset7/public` to start a web server for Problem Set 7.
 
-You may find out Apache's status and the domain of your workspace by
-clicking the `CS50` button at the top-right of the workspace. Note that
-you can also figure out this same information in the Console window
-below by typing `service apache2 status` and `hostname50`, respectively.
+You can stop Apache with `apache50 stop`.
 
-The `vhosts/example` directory in your workspace contains a sample layout
-for how you should structure your own sites. You may want to emulate this
-structure for Problem Set 7 and 8 in the `vhosts/pset7` and `vhosts/pset8`
-directories, respectively. You can access the contents of a directory in the
-`vhosts` folder by typing the directory name after your instance's domain.
-
-For example, the URL for the `vhosts/example` directory is:
-`https://WORKSPACE-USER.c9.io/example` where `WORKSPACE`
-is your workspace name and `USER` is your Cloud9 username.
+The domain of your workspace is shown in the top-right of the workspace.
+If the button is enabled, Apache is running and you may click it to open a
+new tab that will take you to your site. You may also click the information
+button (the `i` with a circle) to see this same information.
+You can figure out Apache's status and the hostname of your workspace from
+the terminal by typing `apache50 status` and `hostname50`, respectively.
 
 If you're curious, Cloud9's domain acts as a proxy to your workspace. The
 Apache webserver runs on port 8080 on your instance, and Cloud9 forwards
-requests from *both* `http://WORKSPACE-USER.c9.io:80` and
-`https://WORKSPACE-USER.c9.io:443` to port 8080 in the `WORKSPACE` owned
+requests from *both* `http://WORKSPACE-USER.cs50.io:80` and
+`https://WORKSPACE-USER.cs50.io:443` to port 8080 in the `WORKSPACE` owned
 by `USER`. This impacts the directions for Problem Set 6, as we'll discuss
 below.
+
+## MySQL and phpMyAdmin
+
+Start MySQL with `mysql50 start`, and stop it with `mysql50 stop`. You can
+find out the username and password of your MySQL database by using the
+`username50` and `password50` commands, respectively. You can also find this
+same information in the CS50 IDE Stats Dialog, by clicking the `i` with a
+circle button in the top-right of your workspace.
+
+Once Apache and MySQL are both started, you can access phpMyAdmin by going to
+`http://HOSTNAME/phpmyadmin`, where HOSTNAME is the domain of your workspace.
+The username and password match the MySQL username and password, which you
+can find out with `username50` and `password50`.
 
 ## Problem Sets
 
@@ -151,13 +158,12 @@ It is possible to implement Problem Set 6 in the CS50 IDE. In fact, we
 developed the first version of it entirely in Cloud9! But it requires some
 changes from the spec to work properly:
 
-* ***Be sure Apache is stopped!*** Use `apachectl stop` before working on this
+* ***Be sure Apache is stopped!*** Use `apache50 stop` before working on this
   problem set, or you will get a `Address already in use` error.
 
 * Use port `8080` to access your web server from your own web browser. The
   URL to access it is given by the `hostname50` command or is found in the
-  CS50 IDE Stats window by clicking the `CS50` button at the top-right of
-  the workspace.
+  top-right of your workspace.
 
 * For testing, it's easiest to use `telnet` on your workspace instance using
   `telnet localhost 8080`.
@@ -166,9 +172,9 @@ changes from the spec to work properly:
   for instance) if you do the following:
 
   * First, find your instance's hostname using `hostname50`. We'll refer
-    to it as `IDE_HOST` in the steps below.
+    to it as `HOSTNAME` in the steps below.
 
-  * On an external computer, `telnet IDE_HOST 80`. Make sure `IDE_HOST` does
+  * On an external computer, `telnet HOSTNAME 80`. Make sure `HOSTNAME` does
     not include any protocol like `http://` or `https://`.
 
   * You must add a `Host` header to the HTTP headers so that the Cloud9 proxy
@@ -176,37 +182,33 @@ changes from the spec to work properly:
 
     ```
     GET /cat.html HTTP/1.1
-    Host: IDE_HOST
+    Host: HOSTNAME
     ```
 
 ## Problem Set 7 (C$50 Finance)
 
-Unlike the URLs provided by the Appliance, the URL for Problem Set 7 will be
-`https://HOST/pset7/`. You can find the `HOST` by running `hostname50` in the
-Console or clicking the `CS50` button at the top-right of the workspace.
+To get started on Problem Set 7, first upload the distribution code into your
+workspace. You should then have a `pset7` folder inside of `~/workspace` that
+contains the `includes`, `public`, and `templates` folders.
 
-The location of the folder is in the `vhosts` directory in your workspace, so
-the directory structure is instead: `~/workspace/vhosts/pset7/`
+Update `includes/constants.php` to look like the following:
 
-You can find phpMyAdmin at `https://HOST/phpmyadmin/`. Find the username by
-typing `username50` in the Console, below. There is no password (it is blank).
+    // your database's name
+    define("DATABASE", "pset7");
+
+    // your database's server
+    define("SERVER", getenv("IP"));
+
+    // your database's username
+    define("USERNAME", `username50 -n`);
+
+    // your database's password
+    define("PASSWORD", `password50 -n`);
+
+Finally, you can start Apache with the following command:
+`apache50 start ~/workspace/pset7/public`
 
 ## Problem Set 8 (Mashup)
 
-Like Problem Set 7, above, the URL and `vhosts` directory are changed to:
-`https://HOST/pset8/` and `~/workspace/vhosts/pset8/`, respectively.
-
-You can find more information on accessing phpMyAdmin in Problem Set 7, above.
-
-# Bug Reports
-
-1. Take a screenshot
-
-2. Find out the version you are running by typing `version50` in the Console
-   below or click the `CS50` button in the top-right of the workspace.
-
-3. Upload the screenshot to http://imgur.com
-
-4. File a bug report at the following URL, being as detailed as possible!
-
-*** Bug Report URL: http://bit.ly/cs50-ide-bug-report ***
+The directions for Problem Set 8 match those of Problem Set 7, above, but
+just use `pset8` instead of `pset7` everywhere!
