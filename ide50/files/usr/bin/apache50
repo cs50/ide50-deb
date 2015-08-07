@@ -42,7 +42,7 @@ start() {
         # offline IDE, use hostname over http
         domain="http://$(hostname50)"
     fi
-    sudo sed -i "s-ServerName.*\$-ServerName ${domain}-" /etc/apache2/conf-available/cs50.conf
+    sudo sed -i "s#ServerName.*\$#ServerName $domain#" /etc/apache2/conf-available/cs50.conf
 
     # enable and start
     sudo a2enconf cs50 >/dev/null 2>&1
