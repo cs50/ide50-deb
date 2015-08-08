@@ -30,6 +30,7 @@ start() {
 
     # copy template over
     sudo cp /etc/apache2/conf-available/cs50-template.conf /etc/apache2/conf-available/cs50.conf
+    sudo chmod 644 /etc/apache2/conf-available/cs50.conf
 
     # update vhost dir in conf
     sudo sed -i "s#/home/ubuntu/workspace/vhosts#$vhost#g" /etc/apache2/conf-available/cs50.conf
