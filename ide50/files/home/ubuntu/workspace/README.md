@@ -6,7 +6,7 @@
      `-----'`-----' `----'  `--'      `--'`-------' `------'
     --------------------------------------------------------
 
-                        This is CS50!
+                 This is CS50. In a browser.
                       Powered by Cloud9
 
 Welcome to the CS50 IDE! Below are a list of features and some tips and tricks
