@@ -18,17 +18,21 @@ if [[ $UID -ne 0 ]]; then
 
   # set umask
   umask 0077
-  
+
   # configure clang
   export CC=clang
   export CFLAGS="-ggdb3 -O0 -std=c99 -Wall -Werror"
   export LDLIBS="-lcs50 -lm"
-  
+
   # protect user
   alias cp="cp -i"
   alias mv="mv -i"
   alias rm="rm -i"
-  
+
+  alias apachectl='echo "Please use apache50 instead!"'
+  alias mysql-ctl='echo "Please use mysql50 instead!"'
+  alias phpmyadmin-ctl='echo "Please use mysql50 instead!"'
+
 fi
 
 # set editor
