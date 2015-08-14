@@ -5,6 +5,7 @@ echo "Resetting permissions ..."
 chmod -R g+w /home/ubuntu/workspace
 chown -R ubuntu:ubuntu /home/ubuntu >/dev/null 2>&1
 chown -R ubuntu:ubuntu /var/c9sdk/plugins/c9.ide.cs50* >/dev/null 2>&1
+chown -R ubuntu:ubuntu /var/c9sdk/configs/ >/dev/null 2>&1
 
 chmod 755 /usr/bin/version50
 
@@ -67,6 +68,9 @@ else
     # plugin updates aren't necessary for online IDEs
     rm -rf /var/c9sdk/plugins/c9.ide.cs50* >/dev/null 2>&1
     rmdir -p /var/c9sdk/plugins/ >/dev/null 2>&1
+
+    rm -rf /var/c9sdk/configs/client-workspace-cs50.js >/dev/null 2>&1
+    rmdir -p /var/c9sdk/configs/ >/dev/null 2>&1
 
     echo
     echo "All done! <3"

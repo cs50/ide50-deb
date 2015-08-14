@@ -11,6 +11,11 @@ deb:
 	git clone --depth=1 git@github.com:cs50/ide50-plugin.git ide50/files/var/c9sdk/plugins/
 	rm -rf ide50/files/var/c9sdk/plugins/README.md
 	rm -rf ide50/files/var/c9sdk/plugins/.git*
+	@echo 'Fetching latest offline config file...'
+	sudo rm -rf /tmp/ide50-docker
+	mkdir -p ide50/files/var/c9sdk/configs
+	git clone --depth=1 git@github.com:cs50/ide50-docker.git /tmp/ide50-docker
+	cp /tmp/ide50-docker/ide50-offline/files/client-workspace-cs50.js ide50/files/var/c9sdk/configs/
 	@echo 'Building Deb...'
 	cd ide50 && sudo dpkg-buildpackage -us -uc > /dev/null
 	rm -rf build/deb
@@ -25,3 +30,4 @@ clean:
 	sudo rm -rf build
 	sudo rm -rf ide50/debian/ide50
 	sudo rm -rf ide50/files/var/c9sdk/plugins/
+	sudo rm -rf /tmp/ide50-docker

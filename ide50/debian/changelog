@@ -1,3 +1,10 @@
+ide50 (26) GM; urgency=medium
+
+  * now bundling offline config file
+  * updated bundled plugins
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 14 Aug 2015 19:30:00 -0400
+
 ide50 (25) GM; urgency=medium
 
   * updated README

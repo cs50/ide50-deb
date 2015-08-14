@@ -4,6 +4,7 @@
 
 Assumes your cwd is the root of this repo.
 
+1. Ensure that you've updated the [plugins](https://github.com/cs50/ide50-plugin) and the [CS50 workspace config file](https://github.com/cs50/ide50-docker/blob/master/ide50-offline/files/client-workspace-cs50.js) before proceeding, as building the deb pulls the latest commit from Master.
 1. Make desired changes to files within `ide50/files`
 1. Be sure to ovewrite `ide50/files/etc/version50` with the new version.
 1. Use your favorite text editor to add a new changelog entry to `ide50/debian/changelog`
