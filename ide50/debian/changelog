@@ -1,3 +1,9 @@
+ide50 (27) GM; urgency=medium
+
+  * fix password50 and env variables for offline Apache
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Mon, 24 Aug 2015 12:30:00 -0400
+
 ide50 (26) GM; urgency=medium
 
   * now bundling offline config file

@@ -14,7 +14,7 @@ export GTK_MODULES=gail:atk-bridge
 alias dropbox="dropbox 2> /dev/null"
 
 # if not root
-if [[ $UID -ne 0 ]]; then
+if [ "$(id -u)" != "0" ]; then
 
   # set umask
   umask 0077

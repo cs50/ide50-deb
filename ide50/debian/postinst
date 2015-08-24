@@ -34,6 +34,11 @@ if grep -qs '^Success$' /var/www/html/file; then
     rm -f /var/www/html/file
 fi
 
+# add ide50 source file to apache's envvars
+if ! grep -qs 'ide50.sh' /etc/apache2/envvars; then
+    sed -i 's-cloud9.sh-cloud9.sh\n. /etc/profile.d/ide50.sh-' /etc/apache2/envvars
+fi
+
 rm -rf /home/ubuntu/cs50
 # remove old source file if it exists
 if [ -f /etc/profile.d/app.sh ]; then
