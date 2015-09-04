@@ -1,3 +1,9 @@
+ide50 (28) GM; urgency=medium
+
+  * update the GDB runner to latest version
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 4 Sep 2015 17:45:00 -0400
+
 ide50 (27) GM; urgency=medium
 
   * fix password50 and env variables for offline Apache
