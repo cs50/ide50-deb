@@ -1,9 +1,16 @@
+ide50 (30) 2015; urgency=medium
+
+  * include render50
+  * first 2015 release
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Wed, 9 Sep 2015 11:30:00 -0400
+
 ide50 (29) GM; urgency=medium
 
   * alias gdb
   * update README
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 8 Sep 2015 21:30:00 -0400
+ -- CS50 <sysadmins@cs50.harvard.edu>  Tue, 8 Sep 2015 21:30:00 -0400
 
 ide50 (28) GM; urgency=medium
 
