@@ -29,6 +29,8 @@ if [ "$(id -u)" != "0" ]; then
   alias mv="mv -i"
   alias rm="rm -i"
 
+  alias gdb="gdb -q"
+
   alias apachectl='echo "Please use apache50 instead!"'
   alias mysql-ctl='echo "Please use mysql50 instead!"'
   alias phpmyadmin-ctl='echo "Please use mysql50 instead!"'

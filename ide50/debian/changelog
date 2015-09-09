@@ -1,3 +1,10 @@
+ide50 (29) GM; urgency=medium
+
+  * alias gdb
+  * update README
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 8 Sep 2015 21:30:00 -0400
+
 ide50 (28) GM; urgency=medium
 
   * update the GDB runner to latest version
