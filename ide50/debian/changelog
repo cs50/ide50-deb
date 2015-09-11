@@ -1,6 +1,7 @@
 ide50 (31) 2015; urgency=medium
 
   * remove README altogether
+  * added {pset1,hacker1}/water staff solution
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Wed, 11 Sep 2015 17:00:00 -0400
 
