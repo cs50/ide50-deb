@@ -1,6 +1,9 @@
 # configure prompt
 if [ "$PS1" ]; then
   export PS1="\u@\h (\w): "
+
+   # prevent manual flow control so terminal doesn't capture Ctrl-S
+   stty -ixon
 fi
 
 # disable auto-logout
