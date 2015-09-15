@@ -1,16 +1,11 @@
-# configure prompt
+# for interactive terminals
 if [ "$PS1" ]; then
-  export PS1="\u@\h (\w): "
-
    # prevent manual flow control so terminal doesn't capture Ctrl-S
    stty -ixon
 fi
 
 # disable auto-logout
 export TMOUT=0
-
-# enable accessibility
-export GTK_MODULES=gail:atk-bridge
 
 # suppress this error for now: /home/jharvard/.dropbox-dist/libz.so.1: version `ZLIB_1.2.3.3' not found (required by /usr/lib/libxml2.so.2) F$
 # http://forums.dropbox.com/topic.php?id=48321 http://forums.dropbox.com/topic.php?id=19439
