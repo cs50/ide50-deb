@@ -4,6 +4,9 @@ if [ "$PS1" ]; then
    stty -ixon
 fi
 
+# set maximum file size to 512MB
+ulimit -f 524288
+
 # disable auto-logout
 export TMOUT=0
 

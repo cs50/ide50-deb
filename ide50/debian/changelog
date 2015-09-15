@@ -1,3 +1,9 @@
+ide50 (34) 2015; urgency=medium
+
+  * set maximum file size to 512MB
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Tue, 15 Sep 2015 16:00:00 -0400
+
 ide50 (33) 2015; urgency=medium
 
   * clean up some unnecessary code
