@@ -1,9 +1,3 @@
-# for interactive terminals
-if [ "$PS1" ]; then
-   # prevent manual flow control so terminal doesn't capture Ctrl-S
-   stty -ixon
-fi
-
 # set maximum file size to 512MB
 ulimit -f 524288
 
