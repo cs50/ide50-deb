@@ -1,3 +1,10 @@
+ide50 (37) 2015; urgency=medium
+
+  * install American En dictionary
+  * change clang flags to use C 2011 by default
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Mon, 21 Sep 2015 16:30:00 -0400
+
 ide50 (36) 2015; urgency=medium
 
   * bundle AP's unit1 solution binaries
