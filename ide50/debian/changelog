@@ -1,3 +1,10 @@
+ide50 (39) 2015; urgency=medium
+
+  * add dos2unix, phpmailer, bc packages
+  * AP unit2 solution binaries
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 25 Sep 2015 14:30:00 -0400
+
 ide50 (38) 2015; urgency=medium
 
   * pset3 and hacker3 staff solutions
