@@ -3,7 +3,7 @@
 echo "Resetting permissions ..."
 
 chmod -R g+w /home/ubuntu/workspace
-#chown -R ubuntu:ubuntu /home/ubuntu >/dev/null 2>&1
+#don't do this, eats space! chown -R ubuntu:ubuntu /home/ubuntu >/dev/null 2>&1
 chown -R ubuntu:ubuntu /var/c9sdk/plugins/c9.ide.cs50* >/dev/null 2>&1
 chown -R ubuntu:ubuntu /var/c9sdk/configs/ >/dev/null 2>&1
 

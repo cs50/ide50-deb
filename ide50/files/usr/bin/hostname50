@@ -1,8 +1,18 @@
 #!/bin/bash
 
-# provide port information in offline mode
 if [ "$IDE_OFFLINE" ]; then
-    echo $C9_HOSTNAME:$C9_PORT
-else
-    echo $C9_HOSTNAME
+    # offline needs port information, and host is in C9_HOSNAME
+    echo "${C9_HOSTNAME}:${C9_PORT}"
+    exit
 fi
+
+# determine external host that IDE is running on to calculate app domain
+source /home/ubuntu/.domain50 &>/dev/null
+
+if [ "$domain" == "" ]; then
+    # assume hostname is cs50.io by default
+    declare domain="cs50.io"
+fi
+
+# remove .c9.io substring from C9_HOSTNAME and replace with domain
+echo "${C9_HOSTNAME%%c9.io}${domain}"

@@ -6,6 +6,11 @@ if [ "$version" == "" ]; then
     declare version="n/a"
 fi
 
+# if we received a domain from the stats plugin, save it
+if [ $# -eq 1 ]; then
+    echo "domain=\"$1\"" >/home/ubuntu/.domain50
+fi
+
 # ask lsof if port 8080 is open, will return 0 if so, 1 otherwise
 set -o pipefail
 server=$(lsof -i :8080 | awk 'NR==2 {print $1}')
