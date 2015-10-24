@@ -13,7 +13,7 @@ fi
 
 # ask lsof if port 8080 is open, will return 0 if so, 1 otherwise
 set -o pipefail
-server=$(lsof -i :8080 | awk 'NR==2 {print $1}')
+server=$(lsof -n -i :8080 | awk 'NR==2 {print $1}')
 if [ $? == 0 ]; then
     listening="true"
 else

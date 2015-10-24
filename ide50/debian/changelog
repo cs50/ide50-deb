@@ -1,7 +1,9 @@
 ide50 (41) 2015; urgency=medium
 
   * 2015 revision of staff solution for pset6 server
+  * chmod pset6 server as ubuntu to ensure lsof can see it
   * add offline env vars to apache
+  * improve stats50 performance by not performing DNS lookups
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Sat, 24 Oct 2015 13:00:00 -0400
 
