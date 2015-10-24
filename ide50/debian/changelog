@@ -1,3 +1,9 @@
+ide50 (41) 2015; urgency=medium
+
+  * 2015 revision of staff solution for pset6 server
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Sat, 24 Oct 2015 13:00:00 -0400
+
 ide50 (40) 2015; urgency=medium
 
   * update hostname50 to default to cs50.io
