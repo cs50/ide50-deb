@@ -1,6 +1,7 @@
 ide50 (41) 2015; urgency=medium
 
   * 2015 revision of staff solution for pset6 server
+  * add offline env vars to apache
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Sat, 24 Oct 2015 13:00:00 -0400
 

@@ -78,6 +78,11 @@ echo "Setting up MySQL ..."
 /usr/bin/mysql50 install >/dev/null 2>&1
 
 if [ ${IDE_OFFLINE+x} ]; then
+    # add offline source file to apache's envvars
+    if ! grep -qs 'offline.sh' /etc/apache2/envvars; then
+        sed -i 's-ide50.sh-ide50.sh\n. /etc/profile.d/offline.sh-' /etc/apache2/envvars
+    fi
+
     # offline only: update c9sdk and plugins
     echo "Updating Cloud9 SDK ..."
     pushd /var/c9sdk >/dev/null 2>&1
