@@ -1,3 +1,15 @@
+ide50 (43) 2015; urgency=medium
+
+  * add -f option to update50 to flush apt-get Packages file cache
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Wed, 28 Oct 2015 11:30:00 -0400
+
+ide50 (42) 2015; urgency=medium
+
+  * updated 2015 pset6 server staff solution
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Mon, 26 Oct 2015 22:00:00 -0400
+
 ide50 (41) 2015; urgency=medium
 
   * 2015 revision of staff solution for pset6 server

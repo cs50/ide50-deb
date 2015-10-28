@@ -15,7 +15,13 @@ echo -e "\n\n\nUpdate50 - $(date -R)" | sudo tee -a $LOG
 echo 'Updating sources...'
 # try to fix dpkg before updating
 sudo dpkg --configure -a 2>&1 | sudo tee -a $LOG >/dev/null
-# should we do this? sudo rm -rf /var/lib/apt/lists/* | sudo tee -a $LOG >/dev/null
+
+# if requested, flush the apt-get Packages file cache
+if [ "$1" == "-f" ]; then
+    echo "CLEARING PACKAGE CACHE" | sudo tee -a $LOG
+    sudo rm -rf /var/lib/apt/lists/* | sudo tee -a $LOG >/dev/null
+fi
+
 sudo apt-get update 2>&1 | sudo tee -a $LOG
 if [ $? -ne 0 ]
 then
