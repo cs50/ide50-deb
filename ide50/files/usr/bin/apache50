@@ -45,9 +45,13 @@ start() {
     fi
     sudo sed -i "s#ServerName.*\$#ServerName $domain#" /etc/apache2/conf-available/cs50.conf
 
-    # enable and start
+    # enable the new config
     sudo a2enconf cs50 >/dev/null 2>&1
 
+    # make sure user can access log and pid files
+    sudo chown -R ubuntu:ubuntu /home/ubuntu/lib/apache2
+
+    # launch
     service apache2 start
 
     if [ $? -eq 0 ]; then
