@@ -54,6 +54,14 @@ if ! grep -qs 'ide50.sh' /etc/apache2/envvars; then
     sed -i 's-cloud9.sh-cloud9.sh\n. /etc/profile.d/ide50.sh-' /etc/apache2/envvars
 fi
 
+# make sure ubuntu can write to phpmyadmin's upload directory
+chown ubuntu /var/lib/phpmyadmin/tmp
+
+# increase phpmyadmin cookie timeout to one day
+if ! grep -qs 'LoginCookieValidity' /etc/phpmyadmin/config.inc.php; then
+    sudo sed -i '$a$cfg["LoginCookieValidity"] = 86400;'  /etc/phpmyadmin/config.inc.php
+fi
+
 # in interactive shells, prevent manual flow control so Ctrl-S doesn't pause
 if ! grep -qs 'stty -ixon' /home/ubuntu/.bashrc; then
     echo "stty -ixon" >>/home/ubuntu/.bashrc

@@ -1,3 +1,11 @@
+ide50 (45) 2015; urgency=medium
+
+  * install php5-xdebug
+  * allow ubuntu user to write to phpmyadmin upload dir
+  * increase phpmyadmin cookie timeout
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Sun, 1 Nov 2015 12:00:00 -0400
+
 ide50 (44) 2015; urgency=medium
 
   * apache50 resolves rare errors by chowning some required files to ubuntu

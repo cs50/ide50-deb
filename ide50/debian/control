@@ -10,7 +10,7 @@ Architecture: any
 Depends: apache2
 Recommends: whois, gdbserver, manpages-dev, clang, nodejs, library50-c,
   library50-php, check50, style50, php5-cgi, telnet, php5-curl, ngrok-client,
-  render50, wamerican, bc, dos2unix, libphp-phpmailer
+  render50, wamerican, bc, dos2unix, libphp-phpmailer, php5-xdebug
 Provides:
 Replaces:
 Description: install the cs50 ide software
