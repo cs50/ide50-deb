@@ -90,7 +90,13 @@ case "$1" in
     ;;
     status)
         if [ $running == 0 ]; then
-            echo "Apache is running!"
+            # try to determine doc root, printing it if found
+            doc=$(grep -osP '(?<=Directory )[^>]*' /etc/apache2/conf-enabled/cs50.conf)
+            if [ $? == 0 ]; then
+                echo "Apache is running with ${doc} as its root!"
+            else
+                echo "Apache is running!"
+            fi
         else
             echo "Apache is not running."
             exit $running
