@@ -62,12 +62,19 @@ if ! grep -qs 'LoginCookieValidity' /etc/phpmyadmin/config.inc.php; then
     sudo sed -i '$a$cfg["LoginCookieValidity"] = 86400;'  /etc/phpmyadmin/config.inc.php
 fi
 
+# enable cs50 PHP config
+if [ ! -h /etc/php5/apache2/conf.d/50-cs50.ini ]; then
+    ln -s /etc/php5/mods-available/cs50.ini /etc/php5/apache2/conf.d/50-cs50.ini
+
+    # attempt to reload apache
+    /usr/bin/apache50 reload >/dev/null 2>&1
+fi
+
 # in interactive shells, prevent manual flow control so Ctrl-S doesn't pause
 if ! grep -qs 'stty -ixon' /home/ubuntu/.bashrc; then
     echo "stty -ixon" >>/home/ubuntu/.bashrc
 fi
 
-rm -rf /home/ubuntu/cs50
 # remove old source file if it exists
 if [ -f /etc/profile.d/app.sh ]; then
     rm -f /etc/profile.d/app.sh
@@ -87,6 +94,9 @@ fi
 # set up MySQL
 echo "Setting up MySQL ..."
 /usr/bin/mysql50 install >/dev/null 2>&1
+
+# start MySQL by default
+/usr/bin/mysql50 start >/dev/null 2>&1
 
 if [ ${IDE_OFFLINE+x} ]; then
     # add offline source file to apache's envvars

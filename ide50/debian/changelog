@@ -1,6 +1,8 @@
 ide50 (47) 2015; urgency=medium
 
   * new pset6 binary to fix PNG mimetype
+  * enable display_errors in PHP
+  * start MySQL by default
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Wed, 4 Nov 2015 14:00:00 -0400
 
