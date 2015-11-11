@@ -1,3 +1,9 @@
+ide50 (48) 2015; urgency=medium
+
+  * fix deprecated comment character in php config file
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Wed, 11 Nov 2015 01:00:00 -0400
+
 ide50 (47) 2015; urgency=medium
 
   * new pset6 binary to fix PNG mimetype
