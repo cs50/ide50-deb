@@ -1,3 +1,9 @@
+ide50 (49) 2015; urgency=medium
+
+  * AP unit 3
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Mon, 30 Nov 2015 15:00:00 -0400
+
 ide50 (48) 2015; urgency=medium
 
   * fix deprecated comment character in php config file
