@@ -16,7 +16,7 @@ if [ "$(id -u)" != "0" ]; then
 
   # configure clang
   export CC=clang
-  export CFLAGS="-ggdb3 -O0 -std=c11 -Wall -Werror"
+  export CFLAGS="-ggdb3 -O0 -std=c11 -Wall -Werror -Wshadow"
   export LDLIBS="-lcs50 -lm"
 
   # protect user

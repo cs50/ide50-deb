@@ -1,6 +1,8 @@
 ide50 (50) 2015; urgency=medium
 
   * AP unit 3 revisions
+  * add Wshadow to CFLAGS
+  * install Clang 3.6
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Mon, 14 Dec 2015 18:00:00 -0400
 
