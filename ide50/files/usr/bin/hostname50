@@ -15,4 +15,4 @@ if [ "$domain" == "" ]; then
 fi
 
 # remove .c9.io substring from C9_HOSTNAME and replace with domain
-echo "${C9_HOSTNAME%%c9*.io}${domain}"
+echo "${C9_HOSTNAME%c9*.io}${domain}"

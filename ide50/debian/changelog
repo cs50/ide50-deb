@@ -1,3 +1,9 @@
+ide50 (52) 2015; urgency=medium
+
+  * single-character fix in hostname50 for some usernames
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Wed, 16 Dec 2015 00:30:00 -0400
+
 ide50 (51) 2015; urgency=medium
 
   * fix hostname50 when C9_HOSTNAME contains c9users.io
