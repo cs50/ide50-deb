@@ -38,6 +38,12 @@ chmod 755 /home/cs50/pset5/challenge \
           /home/cs50/pset3/{3x3,4x4}.txt \
           /home/cs50/unit3/{3x3,4x4,words}.txt
 
+# add symlink to clang-3.6 when missing
+if [ ! -f /usr/bin/clang ] && [ -f /usr/bin/clang-3.6 ]; then
+    ln -s /usr/bin/clang-3.6 /usr/bin/clang
+    ln -s /usr/bin/clang-3.6 /usr/bin/clang++
+fi
+
 # otherwise lsof doesn't see server
 chown ubuntu:courses /home/cs50/pset6/server
 
