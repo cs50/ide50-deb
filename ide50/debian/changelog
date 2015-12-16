@@ -1,3 +1,9 @@
+ide50 (51) 2015; urgency=medium
+
+  * fix hostname50 when C9_HOSTNAME contains c9users.io
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Tue, 15 Dec 2015 23:30:00 -0400
+
 ide50 (50) 2015; urgency=medium
 
   * AP unit 3 revisions
