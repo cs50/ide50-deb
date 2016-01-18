@@ -6,9 +6,40 @@ if [ "$version" == "" ]; then
     declare version="n/a"
 fi
 
-# if we received a domain from the stats plugin, save it
-if [ $# -eq 1 ]; then
-    echo "domain=\"$1\"" >/home/ubuntu/.domain50
+# This script compares IDs from various clients (e.g., if multiple users
+# have the same workspace open) to determine which is the "master" client,
+# and only store domain changes from that client. When a Master tab is
+# closed, another Master is randomly picked (it will be the first one to
+# request stats). Master status is granted in the following circumstances:
+# - No previous master defined (CFILE doesn't exist)
+# - The new client's request is newer than CFILE's mod time.
+# - If the new client ID matches the existing "master" client ID, we extend
+#   the modification time into the future, based on when the client expects
+#   to contact us again.
+CFILE=/home/ubuntu/.client50
+NEW_CFILE=/home/ubuntu/.client50_new
+
+# request from a stats client to update the domain
+if [ $# -eq 3 ]; then
+    # fetch existing client ID, if it exists
+    test -f $CFILE && source $CFILE &>/dev/null
+
+    # store the requesting client ID in a new client file
+    echo "client=\"$2\"" >$NEW_CFILE
+
+    # test if requestor becomes master
+    if [ ! -f $CFILE ] || [ $NEW_CFILE -nt $CFILE ] || [ "$2" == "$client" ]
+    then
+        # make requestor the new master and extend modification time into future
+        mv $NEW_CFILE $CFILE
+        touch -d "+$3 seconds" $CFILE
+
+        # set domain based on master
+        echo "domain=\"$1\"" >/home/ubuntu/.domain50
+    else
+        # requestor is not master; clean up
+        rm -f $NEW_CFILE
+    fi
 fi
 
 # ask lsof if port 8080 is open, will return 0 if so, 1 otherwise
