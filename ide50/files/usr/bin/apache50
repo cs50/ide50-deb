@@ -1,8 +1,18 @@
 #!/bin/bash
 
+vhost=""
+
 usage() {
     echo "Usage: `basename $0` [start VHOST_DIR|restart|reload|stop|status]" 1>&2
     exit 1
+}
+
+set_vhost() {
+    #ensure the param is a directory, expand it if so
+    if  [ ! -d "$1" ]; then
+        usage
+    fi
+    vhost=$(readlink -f "$1")
 }
 
 # verify usage: "start" requires another param, all others require 1
@@ -17,11 +27,7 @@ if [ "$(whoami)" != "ubuntu" ]; then
 fi
 
 start() {
-    # ensure the param is a directory, expand it if so
-    if  [ ! -d "$1" ]; then
-        usage
-    fi
-    vhost=$(readlink -f "$1")
+    set_vhost "$1"
 
     echo "Setting Apache's document root to ${vhost} ..."
 
@@ -69,10 +75,15 @@ running=$(service apache2 status >/dev/null)$?
 case "$1" in
     start)
         if [ $running == 0 ]; then
-            echo "Apache is already running!" 1>&2
-            exit 2
+            set_vhost "$2"
+            if ! grep -qs "$vhost" '/etc/apache2/conf-available/cs50.conf'; then
+                service apache2 stop
+            else
+                echo "Apache is already running!" 1>&2
+                exit 2
+            fi
         fi
-        start $2
+        start "$2"
     ;;
     stop)
         if [ $running != 0 ]; then

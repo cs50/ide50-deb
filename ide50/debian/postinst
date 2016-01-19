@@ -88,6 +88,11 @@ if [ -f /etc/profile.d/app.sh ]; then
     rm -f /etc/profile.d/app.sh
 fi
 
+# revert PS1 to old style if necessary
+if ! grep -qs  "^PS1=.*C9_PROJECT" ~/.bashrc; then
+    sudo sed -i "s-^PS1=.*\${C9_USER}-&@\${C9_PROJECT}-" ~/.bashrc
+fi
+
 # create a password50 file, if it doesn't exist
 sudo -Eu ubuntu /usr/bin/password50 >/dev/null 2>&1
 
