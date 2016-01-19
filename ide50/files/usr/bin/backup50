@@ -1,0 +1,362 @@
+#!/bin/bash
+# backup50
+# a wrapper for copy.com
+#
+# by Annaleah Ernst
+# CS50 jterm 2016
+# annaleahernst@college.harvard.edu
+
+############### BEGIN GLOBAL AND CONSTANT DECLARATIONS #########################
+set -uo pipefail
+IFS=$'\n\t'
+
+# check environment variables
+[ -z "$HOME" ] && echo "Environment variable HOME not set." && exit 1;
+[ -z "$C9_USER" ] && echo "Environment variable C9_USER not set." && exit 1;
+[ -z "$C9_PROJECT" ] && echo "Environment variable C9_PROJECT not set." && exit 1;
+
+# only run as ubuntu
+if [ "$(whoami)" != "ubuntu" ]; then
+    echo "This script must only be run by the ubuntu user (don't use sudo)!"
+    exit 2
+fi
+
+# name of script
+readonly SCRIPTNAME="backup50"
+
+# important cloud paths
+readonly CLDWKSPCS="workspaces"
+readonly CLDUSERS="$CLDWKSPCS/$C9_USER"
+readonly CLDPRJCT="$CLDUSERS/$C9_PROJECT"
+
+# important local paths
+readonly WORKDIR="$HOME/workspace"             # path to workspace
+readonly COPYLOC="$HOME/copy"                  # location of the copy folder
+readonly DOTCOPY="$HOME/.copy"                 # location of the metadata
+readonly STATUSFILE="$DOTCOPY/status.txt"      # location of status data
+readonly WATCHPID="$DOTCOPY/watch.pid"         # location of process id for running watch daemon
+readonly SYNCDIR="$DOTCOPY/userdata"           # root directory of copy.com data
+readonly SYMLINKDIR="$SYNCDIR/$CLDUSERS"       # directory containing symlink
+readonly SYMLINK="$SYMLINKDIR/$C9_PROJECT"     # symlink to workspace
+
+# the copy.com "cli" that we're wrapping
+readonly COPYCMD="$COPYLOC/x86_64/CopyCmd"           
+readonly COPYCONSOLE="$COPYLOC/x86_64/CopyConsole"
+
+# status messages
+STATUS=""
+readonly INVALIDLOGN="Incorrect username or password"
+readonly MISSLOGIN="Missing Login Information"
+readonly NOTINSTALLED="$SCRIPTNAME has not been installed. Type '$SCRIPTNAME start' to begin setup."
+readonly NOWATCH="No watch running"
+readonly NOTRUN="$SCRIPTNAME is not running!"
+
+# process variables; name, ID
+readonly PROCESSNAME="CopyConsole"
+PID=$(pgrep "$PROCESSNAME")
+readonly TIMEOUT=5       # process times out after this many seconds
+
+# messages
+readonly STARTSUCCESS="Syncing started successfully!"
+readonly STARTFAILURE="Unable to start $SCRIPTNAME at this time."
+readonly STOPSUCCESS="Syncing stopped."
+readonly STOPFAILURE="Unable to stop $SCRIPTNAME at this time."
+readonly CLDFAILURE="ERROR: Failure to connect with cloud. Try again later. Exiting..."
+readonly DNLDFAILURE="ERROR: Unable to to download binaries. Exiting..."
+readonly FILEFAILURE="ERROR: Unable to remove local file. Exiting..."
+
+# misc regexs (don't panic)
+readonly EXREGEX='s/^\///gm'                                # for listing excludes
+readonly LSREGEX='s/^d.[ \t\f\v]*|^-.[ \t\f\v]*(\S* )//gm'  # for listing files
+
+################## BEGIN FUNCTION DEFINITIONS ##################################
+
+# usage: check "error message"
+# used to standardize error detection
+check(){
+    # error check cloud cli
+    if [ $? -ne  0 ]; then 
+        stop > /dev/null
+        error_msg "$1"
+        exit 3
+    fi
+}
+
+# deletes files that are excluded on the cloud and have been (sneakily) downloaded locally 
+deleteExcludes(){
+    delete_helper(){
+        for file in $(ls "$1"); do
+            if [ "$file" != "$2" ]; then
+                rm -rf "$1/$file"
+            fi
+        done
+    }
+    # delete files in any of three sub dirs
+    delete_helper "$SYNCDIR" "$CLDWKSPCS"
+    delete_helper "$SYNCDIR/$CLDWKSPCS" "$C9_USER"
+    delete_helper "$SYNCDIR/$CLDUSERS" "$C9_PROJECT"
+}
+
+error_msg(){
+    echo "$1" >&2
+}
+
+# climb through file tree and exlude all files not in project to prevent bricking IDE
+exclude(){
+    # usage: exclude_helper [FILE/FOLDER TO KEEP] ([PATH TO CURRENT DIR])
+    exclude_helper(){
+        dir=""
+        path=""
+        # get stripped down file/directory names
+        if [ $# -eq 2 ]; then
+            # set path, start at 3rd line of search results; first line is metadata, 2nd is pwd
+            path="$2/"
+            dir=$("$COPYCMD" Cloud ls "$2" | sed -r "$LSREGEX" | tail -n +3)
+        else
+            # starting at 2nd line of search results; first is metadata
+            dir=$("$COPYCMD" Cloud ls | sed -r "$LSREGEX" | tail -n +2)
+        fi
+        check "$CLDFAILURE" # error check cloud cli
+        
+        for file in $dir; do
+            if [ "$file" != "$1" ]; then
+                echo -n "... "
+                "$COPYCMD" Cloud exclude -exclude "$path$file" > /dev/null
+                check "$CLDFAILURE" # error check cloud cli
+            fi
+        done
+    }
+    # exclude files in each sub directory of our workspaces tree
+    exclude_helper "$CLDWKSPCS"
+    exclude_helper "$C9_USER" "$CLDWKSPCS"
+    exclude_helper "$C9_PROJECT" "$CLDUSERS"
+    echo
+}
+
+# displays information on the usage of this wrapper
+help(){
+    echo "Usage: $SCRIPTNAME [start|stop|status|uninstall]"
+    echo "Functions:"
+    echo -e "\t start \t\t start Copy.com syncing, or install if first run"
+    echo -e "\t stop \t\t stop Copy.com syncing"
+    echo -e "\t status \t get info about current Copy.com processes"
+    echo -e "\t uninstall \t uninstall Copy.com program files"
+}
+
+# installs the copy.com binaries for the first time
+install(){
+    if [ ! -e "$COPYCMD" ]; then
+        echo "Downloading Copy...."; echo -n "... "
+        wget -q -O - "https://copy.com/install/linux/Copy.tgz" |  tar xzf - > /dev/null; echo -n "... "
+        check "$DNLDFAILURE" # error check download
+        echo -n "..."; echo
+        
+        # make the metadata folder if copy.com was lazy
+        if [ ! -e "$STATUSFILE" ]; then
+            mkdir -p "$DOTCOPY"
+            echo -n "$MISSLOGIN" > "$STATUSFILE"
+        fi
+        echo "$NOWATCH" > "$WATCHPID"
+        
+        # create root dir for the cloud and a link to current workspace in appropriate subfolder
+        mkdir -p "$SYMLINKDIR"  
+        ln -s "$WORKDIR" "$SYMLINK" 
+        
+        echo "Download complete."
+    else 
+        echo "Already installed."
+    fi
+    start
+}
+
+# log in to copy.com after install
+login(){
+    echo -n "Do you already have a Copy.com account? [y/N]: "; read prompt
+    if [[ "$prompt" =~ [yY](es)* ]]; then
+        echo "To setup Copy.com and backup your workspace, please enter your account information."
+        echo -n "email address: "; read email
+        echo -n "password: "; read -s pswrd; echo
+        echo "Checking..."
+        test -z $pswrd && error_msg "$INVALIDLOGN" && exit 4   # check for null password
+        
+        # attempt to login user
+        $COPYCONSOLE -daemon -u="$email" -p="$pswrd" -r="$SYNCDIR" > /dev/null
+        check "$CLDFAILURE" # error check cloud cli
+        process "init"
+    else
+        echo "Before completing setup, you need a copy.com account."
+        echo "Please proceed to https://www.copy.com and create an account. Exiting..."
+    fi
+}
+
+# handles current CopyConsole daemon process
+# arguments: [start|stop|init]
+# start: PID starts as "". Run until PID changes to a value or timeout, report success or failure
+# stop: PID starts as a value. Run until PID changes to "" or timeout, report success or failure
+# init: PID starts as "". Run until PID changes to a value, report failure or if successful...
+#       immediately run stop to prevent syncing. Run exclude on the cloud file tree. Finally,
+#       run start to begin syncing.
+process(){
+    currentPID=$PID
+    counter=0
+    # until there's a process id state change or we run out of time, search for process
+    until [ "$currentPID" != "$PID" ] || [ $counter -eq $TIMEOUT ]; do
+        echo -n "... "
+        sleep 1
+        currentPID=$(pgrep "$PROCESSNAME")
+        let counter+=1
+    done; echo
+    PID="$currentPID" # update PID
+    
+    case "$1" in
+        "init")
+            if [ -z "$PID" ]; then
+                # if there's not a process running, there was an error
+                status
+                error_msg "$STATUS. Exiting..." 
+                exit 7
+            else
+                # stop syncing and handle excludes
+                stop > /dev/null
+                echo "Setup successful. Beginning exclusions. This may take a few minutes..."
+                exclude
+                echo "Exclusions complete."
+                start
+            fi
+            ;;
+        "start")
+            # if there's a process, echo succcess, else failure
+            if [ -n "$PID" ]; then
+                # add the most recent inotify and daemon process to watch list
+                pgrep -n "inotifywait" > "$WATCHPID"
+                echo "$STARTSUCCESS" 
+            else
+                error_msg "$STARTFAILURE" 
+                exit 5
+            fi
+            ;;
+        "stop")
+            # if there's not a process, echo succcess, else failure
+            if [ -z "$PID"]; then
+                echo "$STOPSUCCESS" 
+            else
+                error_msg "$STOPFAILURE"
+                exit 6
+            fi
+            ;;
+        *)
+            ;;
+    esac
+}
+
+# set current status
+status(){
+    if [ -e "$STATUSFILE" ]; then
+        STATUS="$(head -n 1 $STATUSFILE)"
+    else
+        STATUS="$NOTINSTALLED"
+    fi
+}
+
+# start copy
+start(){
+    status  # get status
+    if [ ! -e "$COPYLOC" ]; then
+        install
+    elif [ "$STATUS" = "$MISSLOGIN" ] || [ "$STATUS" = "$INVALIDLOGN" ]; then
+        echo "Account not setup."
+        login
+    elif [ -z "$PID" ]; then
+        echo "Starting..."
+        
+        # start subshell & begin watching sync directories to deal with new files
+        (   inotifywait "@$SYNCDIR/$CLDPRJCT" "$SYNCDIR" "$SYNCDIR/$CLDWKSPCS" "$SYNCDIR/$CLDUSERS" -e move,create \
+                && echo "$NOWATCH" > "$WATCHPID" \
+                && "$SCRIPTNAME" "--delete_local_excludes" 
+        ) &> /dev/null &
+
+        # start copy daemon
+        $COPYCONSOLE -daemon > /dev/null  
+        check "$CLDFAILURE" # error check cloud cli
+        process "start"
+    else
+        echo "$SCRIPTNAME is already running!"
+    fi
+}
+
+# stop syncing
+stop(){
+    if [ -n "$PID" ]; then
+        echo "Stopping..."
+        kill $PID
+        watchPID=$(head -n 2 "$WATCHPID") # get the process id of the watcher daemon
+        test "$watchPID" != "$NOWATCH" && kill "$watchPID"
+        echo "$NOWATCH" > "$WATCHPID"
+        process "stop"
+        echo "$NOTRUN" > "$STATUSFILE"
+    else
+        echo "$NOTRUN"
+    fi
+}
+
+# (safely) uninstall copy
+uninstall(){
+    if [ -e $COPYCMD ]; then
+        echo -n "Are you sure you want to uninstall Copy? [y/N]: "; read prompt
+        if [[ "$prompt" =~ [yY](es)* ]]; then 
+            echo "Uninstalling..."; echo -n "... "
+            stop > /dev/null
+            unlink "$SYMLINK"; echo -n "... "
+            rm -rf "$COPYLOC"; echo -n "... "
+            rm -rf "$DOTCOPY"; echo
+            echo "Copy has been uninstalled."
+        fi
+    else 
+        echo "Copy is not installed!"
+    fi
+}
+
+# a bit of cleanup on exit
+exit_trap(){
+    popd > /dev/null
+}
+trap exit_trap EXIT
+
+######################### BEGIN BODY OF PROGRAM ##############################
+
+pushd "$HOME" > /dev/null
+
+if [ $# -ne 1 ]; then
+    help
+    exit 6
+fi
+
+case "$1" in
+    "help")
+        help
+        ;;
+    "start")
+        start
+        ;;
+    "status")
+        status
+        echo "$STATUS"
+        ;;
+    "stop")
+        stop
+        ;;
+    "uninstall")
+        uninstall
+        ;;
+    "--delete_local_excludes")
+        # the secret option for inotify to call...
+        stop
+        exclude && deleteExcludes
+        start
+        ;;
+    *)
+        echo "$SCRIPTNAME: unrecognized option '$1'"
+        echo "Usage: $SCRIPTNAME [help|start|stop|status|uninstall]"
+        echo "Try '$SCRIPTNAME help' for more information."
+        ;;
+esac
