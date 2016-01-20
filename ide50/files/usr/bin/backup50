@@ -10,16 +10,16 @@
 set -uo pipefail
 IFS=$'\n\t'
 
-# check environment variables
-[ -z "$HOME" ] && echo "Environment variable HOME not set." && exit 1;
-[ -z "$C9_USER" ] && echo "Environment variable C9_USER not set." && exit 1;
-[ -z "$C9_PROJECT" ] && echo "Environment variable C9_PROJECT not set." && exit 1;
-
 # only run as ubuntu
 if [ "$(whoami)" != "ubuntu" ]; then
     echo "This script must only be run by the ubuntu user (don't use sudo)!"
     exit 2
 fi
+
+# check environment variables
+[ -z "$HOME" ] && echo "Environment variable HOME not set." && exit 1;
+[ -z "$C9_USER" ] && echo "Environment variable C9_USER not set." && exit 1;
+[ -z "$C9_PROJECT" ] && echo "Environment variable C9_PROJECT not set." && exit 1;
 
 # name of script
 readonly SCRIPTNAME="backup50"
@@ -40,7 +40,7 @@ readonly SYMLINKDIR="$SYNCDIR/$CLDUSERS"       # directory containing symlink
 readonly SYMLINK="$SYMLINKDIR/$C9_PROJECT"     # symlink to workspace
 
 # the copy.com "cli" that we're wrapping
-readonly COPYCMD="$COPYLOC/x86_64/CopyCmd"           
+readonly COPYCMD="$COPYLOC/x86_64/CopyCmd"
 readonly COPYCONSOLE="$COPYLOC/x86_64/CopyConsole"
 
 # status messages
@@ -75,14 +75,14 @@ readonly LSREGEX='s/^d.[ \t\f\v]*|^-.[ \t\f\v]*(\S* )//gm'  # for listing files
 # used to standardize error detection
 check(){
     # error check cloud cli
-    if [ $? -ne  0 ]; then 
+    if [ $? -ne  0 ]; then
         stop > /dev/null
         error_msg "$1"
         exit 3
     fi
 }
 
-# deletes files that are excluded on the cloud and have been (sneakily) downloaded locally 
+# deletes files that are excluded on the cloud and have been (sneakily) downloaded locally
 deleteExcludes(){
     delete_helper(){
         for file in $(ls "$1"); do
@@ -117,7 +117,7 @@ exclude(){
             dir=$("$COPYCMD" Cloud ls | sed -r "$LSREGEX" | tail -n +2)
         fi
         check "$CLDFAILURE" # error check cloud cli
-        
+
         for file in $dir; do
             if [ "$file" != "$1" ]; then
                 echo -n "... "
@@ -150,20 +150,20 @@ install(){
         wget -q -O - "https://copy.com/install/linux/Copy.tgz" |  tar xzf - > /dev/null; echo -n "... "
         check "$DNLDFAILURE" # error check download
         echo -n "..."; echo
-        
+
         # make the metadata folder if copy.com was lazy
         if [ ! -e "$STATUSFILE" ]; then
             mkdir -p "$DOTCOPY"
             echo -n "$MISSLOGIN" > "$STATUSFILE"
         fi
         echo "$NOWATCH" > "$WATCHPID"
-        
+
         # create root dir for the cloud and a link to current workspace in appropriate subfolder
-        mkdir -p "$SYMLINKDIR"  
-        ln -s "$WORKDIR" "$SYMLINK" 
-        
+        mkdir -p "$SYMLINKDIR"
+        ln -s "$WORKDIR" "$SYMLINK"
+
         echo "Download complete."
-    else 
+    else
         echo "Already installed."
     fi
     start
@@ -178,7 +178,7 @@ login(){
         echo -n "password: "; read -s pswrd; echo
         echo "Checking..."
         test -z $pswrd && error_msg "$INVALIDLOGN" && exit 4   # check for null password
-        
+
         # attempt to login user
         $COPYCONSOLE -daemon -u="$email" -p="$pswrd" -r="$SYNCDIR" > /dev/null
         check "$CLDFAILURE" # error check cloud cli
@@ -207,13 +207,13 @@ process(){
         let counter+=1
     done; echo
     PID="$currentPID" # update PID
-    
+
     case "$1" in
         "init")
             if [ -z "$PID" ]; then
                 # if there's not a process running, there was an error
                 status
-                error_msg "$STATUS. Exiting..." 
+                error_msg "$STATUS. Exiting..."
                 exit 7
             else
                 # stop syncing and handle excludes
@@ -229,16 +229,16 @@ process(){
             if [ -n "$PID" ]; then
                 # add the most recent inotify and daemon process to watch list
                 pgrep -n "inotifywait" > "$WATCHPID"
-                echo "$STARTSUCCESS" 
+                echo "$STARTSUCCESS"
             else
-                error_msg "$STARTFAILURE" 
+                error_msg "$STARTFAILURE"
                 exit 5
             fi
             ;;
         "stop")
             # if there's not a process, echo succcess, else failure
             if [ -z "$PID"]; then
-                echo "$STOPSUCCESS" 
+                echo "$STOPSUCCESS"
             else
                 error_msg "$STOPFAILURE"
                 exit 6
@@ -268,15 +268,15 @@ start(){
         login
     elif [ -z "$PID" ]; then
         echo "Starting..."
-        
+
         # start subshell & begin watching sync directories to deal with new files
         (   inotifywait "@$SYNCDIR/$CLDPRJCT" "$SYNCDIR" "$SYNCDIR/$CLDWKSPCS" "$SYNCDIR/$CLDUSERS" -e move,create \
                 && echo "$NOWATCH" > "$WATCHPID" \
-                && "$SCRIPTNAME" "--delete_local_excludes" 
+                && "$SCRIPTNAME" "--delete_local_excludes"
         ) &> /dev/null &
 
         # start copy daemon
-        $COPYCONSOLE -daemon > /dev/null  
+        $COPYCONSOLE -daemon > /dev/null
         check "$CLDFAILURE" # error check cloud cli
         process "start"
     else
@@ -303,7 +303,7 @@ stop(){
 uninstall(){
     if [ -e $COPYCMD ]; then
         echo -n "Are you sure you want to uninstall Copy? [y/N]: "; read prompt
-        if [[ "$prompt" =~ [yY](es)* ]]; then 
+        if [[ "$prompt" =~ [yY](es)* ]]; then
             echo "Uninstalling..."; echo -n "... "
             stop > /dev/null
             unlink "$SYMLINK"; echo -n "... "
@@ -311,7 +311,7 @@ uninstall(){
             rm -rf "$DOTCOPY"; echo
             echo "Copy has been uninstalled."
         fi
-    else 
+    else
         echo "Copy is not installed!"
     fi
 }
