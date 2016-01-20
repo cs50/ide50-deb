@@ -1,3 +1,15 @@
+ide50 (53) 2015; urgency=medium
+
+  * reverted $PS1 to old style via grep and sed in debian/postinst
+  * added inotify-tools to Recommends in debian/control
+  * added decomment50 in files/usr/bin
+  * added backup50 to files/usr/bin
+  * replaced stats50 with info50
+  * updated apache50 to automatically stop when starting in new folder
+  * added home/ubuntu/.pip/pip.config
+    
+ -- CS50 <sysadmins@cs50.harvard.edu> Tue, 19 Jan 2016 20:00:00 -0400
+
 ide50 (52) 2015; urgency=medium
 
   * single-character fix in hostname50 for some usernames

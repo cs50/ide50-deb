@@ -19,6 +19,18 @@ fi
 CFILE=/home/ubuntu/.client50
 NEW_CFILE=/home/ubuntu/.client50_new
 
+check_port(){
+    # ask lsof if port 8080 is open, will return 0 if so, 1 otherwise
+    set -o pipefail
+    server=$(lsof -n -i :8080 | awk 'NR==2 {print $1}')
+    if [ $? -eq 0 ]; then
+        listening="true"
+    else
+        listening="false"
+        server="NONE"
+    fi
+}
+
 # request from a stats client to update the domain
 if [ $# -eq 3 ]; then
     # fetch existing client ID, if it exists
@@ -40,17 +52,13 @@ if [ $# -eq 3 ]; then
         # requestor is not master; clean up
         rm -f $NEW_CFILE
     fi
-fi
-
-# ask lsof if port 8080 is open, will return 0 if so, 1 otherwise
-set -o pipefail
-server=$(lsof -n -i :8080 | awk 'NR==2 {print $1}')
-if [ $? == 0 ]; then
-    listening="true"
+    check_port
+    # give the expect JSON output
+    printf '{"version":"%s","host":"%s","listening":%s,"server":"%s","user":"%s","passwd":"%s"}' \
+        "$version" "$(hostname50)" "$listening" "$server" "$(username50)" "$(password50)"
 else
-    listening="false"
-    server="NONE"
+    check_port
+    # give a more human friendly output
+    printf ' Version:\t %s\n Web Server:\t %s\n phpMyAdmin:\t %s\n User:\t\t %s\n Password:\t %s\n' \
+        "$version" "$(hostname50)" "$(hostname50)/phpmyadmin" "$(username50)" "$(password50)"
 fi
-
-printf '{"version":"%s","host":"%s","listening":%s,"server":"%s","user":"%s","passwd":"%s"}' \
-    "$version" "$(hostname50)" "$listening" "$server" "$(username50)" "$(password50)"
