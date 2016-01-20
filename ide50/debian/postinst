@@ -28,6 +28,7 @@ chmod 711 /home/cs50/hacker1/{credit,mario,water} \
           /home/cs50/unit1/{chart,credit,fahrenheit,greedy,hello,isbn,mario,pennies,skittles} \
           /home/cs50/unit2/{caesar,calc,devigenere,fahrenheit,hello,initials,pennies,vigenere} \
           /home/cs50/unit3/{fifteen,fifteen-solver,race,rng,scramble,seek} \
+          /home/cs50/unit4/{finder,scale,scramble,shrink,sudoku} \
           /home/cs50/pset1/{mario,greedy,water} \
           /home/cs50/pset2/{initials,caesar,vigenere,devigenere} \
           /home/cs50/pset3/{find,fifteen} \
@@ -36,7 +37,8 @@ chmod 711 /home/cs50/hacker1/{credit,mario,water} \
           /home/cs50/pset6/server
 chmod 755 /home/cs50/pset5/challenge \
           /home/cs50/pset3/{3x3,4x4}.txt \
-          /home/cs50/unit3/{3x3,4x4,words}.txt
+          /home/cs50/unit3/{3x3,4x4,words}.txt \
+          /home/cs50/unit4/words.txt
 
 # add symlink to clang-3.6 when missing
 if [ ! -f /usr/bin/clang ] && [ -f /usr/bin/clang-3.6 ]; then
@@ -90,7 +92,7 @@ fi
 
 # revert PS1 to old style if necessary
 if ! grep -qs  "^PS1=.*C9_PROJECT" /home/ubuntu/.bashrc; then
-    sudo sed -i "s-^PS1=.*\${C9_USER}-&@\${C9_PROJECT}-" /home/ubuntu/.bashrc
+    sed -i "s-^PS1=.*\${C9_USER}-&@\${C9_PROJECT}-" /home/ubuntu/.bashrc
 fi
 
 # create a password50 file, if it doesn't exist

@@ -14,5 +14,9 @@ if [ "$domain" == "" ]; then
     declare domain="cs50.io"
 fi
 
-# remove .c9.io substring from C9_HOSTNAME and replace with domain
-echo "${C9_HOSTNAME%c9*.io}${domain}"
+if [ "$domain" == "c9.io" ]; then
+    echo "$C9_HOSTNAME"
+else
+    # remove .c9.io substring from C9_HOSTNAME and replace with domain
+    echo "${C9_HOSTNAME%c9*.io}${domain}"
+fi

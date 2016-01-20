@@ -1,14 +1,17 @@
 ide50 (53) 2015; urgency=medium
 
-  * reverted $PS1 to old style via grep and sed in debian/postinst
+  * reverted $PS1 to old style for new workspaces
   * added inotify-tools to Recommends in debian/control
-  * added decomment50 in files/usr/bin
-  * added backup50 to files/usr/bin
-  * replaced stats50 with info50
+  * added decomment50
+  * added backup50
+  * begin migrating stats50 to info50
+  * human readable output by default to info50
   * updated apache50 to automatically stop when starting in new folder
   * added home/ubuntu/.pip/pip.config
-    
- -- CS50 <sysadmins@cs50.harvard.edu> Tue, 19 Jan 2016 20:00:00 -0400
+  * AP unit 4
+  * hostname50 allows instance to know its own domain if IDE loaded on c9.io
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Wed, 20 Jan 2015 10:30:00 -0400
 
 ide50 (52) 2015; urgency=medium
 

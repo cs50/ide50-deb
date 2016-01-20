@@ -76,7 +76,7 @@ case "$1" in
     start)
         if [ $running == 0 ]; then
             set_vhost "$2"
-            if ! grep -qs "$vhost" '/etc/apache2/conf-available/cs50.conf'; then
+            if ! grep -qs "^<Directory ${vhost}>" '/etc/apache2/conf-available/cs50.conf'; then
                 service apache2 stop
             else
                 echo "Apache is already running!" 1>&2
