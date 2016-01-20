@@ -9,7 +9,7 @@ ide50 (53) 2015; urgency=medium
   * updated apache50 to automatically stop when starting in new folder
   * added home/ubuntu/.pip/pip.config
   * AP unit 4
-  * hostname50 allows instance to know its own domain if IDE loaded on c9.io
+  * hostname50 forces c9 IDEs to use c9users.io
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Wed, 20 Jan 2015 10:30:00 -0400
 

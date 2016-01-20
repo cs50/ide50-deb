@@ -12,11 +12,9 @@ source /home/ubuntu/.domain50 &>/dev/null
 if [ "$domain" == "" ]; then
     # assume hostname is cs50.io by default
     declare domain="cs50.io"
+elif [ "$domain" == "c9.io" ]; then
+    domain="c9users.io"
 fi
 
-if [ "$domain" == "c9.io" ]; then
-    echo "$C9_HOSTNAME"
-else
-    # remove .c9.io substring from C9_HOSTNAME and replace with domain
-    echo "${C9_HOSTNAME%c9*.io}${domain}"
-fi
+# remove .c9.io substring from C9_HOSTNAME and replace with domain
+echo "${C9_HOSTNAME%c9*.io}${domain}"
