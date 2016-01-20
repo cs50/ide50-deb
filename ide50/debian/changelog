@@ -1,4 +1,4 @@
-ide50 (53) 2015;
+ide50 (53) 2015; urgency=medium
 
     * reverted $PS1 to old style via grep and sed in debian/postinst
     * added inotify-tools to Recommends in debian/control
@@ -8,7 +8,7 @@ ide50 (53) 2015;
     * updated apache50 to automatically stop when starting in new folder
     * added home/ubuntu/.pip/pip.config
     
-   -- <annaleahernst@college.harvard.edu> ---, -- Jan 2016 20:13:00 -400
+   -- CS50 <annaleahernst@college.harvard.edu> Tue, 19 Jan 2016 20:00:00 -0400
 
 ide50 (52) 2015; urgency=medium
 
