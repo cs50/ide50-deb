@@ -1,13 +1,12 @@
 #!/usr/bin/python
 # decomment50
-#
-# Annaleah Ernst & Kareem Omar, CS50 jterm 2015
-# annaleahernst@college.harvard.edu
-#
 # intelligently strips a C or php file of comments
 # outputs a newly stripped file with the tag _decommented at the end
-#
 # https://xkcd.com/208/
+#
+# Annaleah Ernst & Kareem Omar
+# CS50 jterm 2016
+# annaleahernst@college.harvard.edu
 
 import re
 from sys import argv
