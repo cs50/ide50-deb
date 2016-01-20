@@ -7,14 +7,6 @@ usage() {
     exit 1
 }
 
-set_vhost() {
-    #ensure the param is a directory, expand it if so
-    if  [ ! -d "$1" ]; then
-        usage
-    fi
-    vhost=$(readlink -f "$1")
-}
-
 # verify usage: "start" requires another param, all others require 1
 if ([ "$1" == "start" ] && [ $# -ne 2 ]) || ([ "$1" != "start" ] && [ $# -ne 1 ]); then
     usage
@@ -25,6 +17,14 @@ if [ "$(whoami)" != "ubuntu" ]; then
     echo "This script must only be run by the ubuntu user (don't use sudo)!"
     exit 1
 fi
+
+set_vhost() {
+    #ensure the param is a directory, expand it if so
+    if  [ ! -d "$1" ]; then
+        usage
+    fi
+    vhost=$(readlink -f "$1")
+}
 
 start() {
     set_vhost "$1"
