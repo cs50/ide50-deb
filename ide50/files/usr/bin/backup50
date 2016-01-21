@@ -21,6 +21,12 @@ fi
 [ -z "$C9_USER" ] && echo "Environment variable C9_USER not set." && exit 2;
 [ -z "$C9_PROJECT" ] && echo "Environment variable C9_PROJECT not set." && exit 2;
 
+# check for prerequisites
+if [ $(dpkg -s inotify-tools >/dev/null 2>&1)$? -ne 0 ]; then
+    echo "Dependencies are not installed, please run update50."
+    exit 2
+fi
+
 # name of script
 readonly SCRIPTNAME="backup50"
 
@@ -31,7 +37,7 @@ readonly CLDPRJCT="$CLDUSERS/$C9_PROJECT"
 
 # important local paths
 readonly WORKDIR="$HOME/workspace"             # path to workspace
-readonly COPYLOC="$HOME/copy"                  # location of the copy folder
+readonly COPYLOC="$HOME/bin/copy"              # location of the copy folder
 readonly DOTCOPY="$HOME/.copy"                 # location of the metadata
 readonly STATUSFILE="$DOTCOPY/status.txt"      # location of status data
 readonly WATCHPID="$DOTCOPY/watch.pid"         # location of process id for running watch daemon
@@ -120,7 +126,6 @@ exclude(){
 
         for file in $dir; do
             if [ "$file" != "$1" ]; then
-                echo -n "... "
                 "$COPYCMD" Cloud exclude -exclude "$path$file" > /dev/null
                 check "$CLDFAILURE" # error check cloud cli
             fi
@@ -130,7 +135,6 @@ exclude(){
     exclude_helper "$CLDWKSPCS"
     exclude_helper "$C9_USER" "$CLDWKSPCS"
     exclude_helper "$C9_PROJECT" "$CLDUSERS"
-    echo
 }
 
 # displays information on the usage of this wrapper
@@ -146,10 +150,15 @@ help(){
 # installs the copy.com binaries for the first time
 install(){
     if [ ! -e "$COPYCMD" ]; then
-        echo "Downloading Copy...."; echo -n "... "
-        wget -q -O - "https://copy.com/install/linux/Copy.tgz" |  tar xzf - > /dev/null; echo -n "... "
+        echo "Downloading Copy....";
+        pushd /tmp >/dev/null
+        wget -q -O - "https://copy.com/install/linux/Copy.tgz" |  tar xzf - > /dev/null;
         check "$DNLDFAILURE" # error check download
-        echo -n "..."; echo
+
+        # move into place
+        mkdir -p "$COPYLOC"
+        mv /tmp/copy/* "$COPYLOC/"
+        popd >/dev/null
 
         # make the metadata folder if copy.com was lazy
         if [ ! -e "$STATUSFILE" ]; then
@@ -174,9 +183,9 @@ login(){
     echo -n "Do you already have a Copy.com account? [y/N]: "; read prompt
     if [[ "$prompt" =~ [yY](es)* ]]; then
         echo "To setup Copy.com and backup your workspace, please enter your account information."
-        echo -n "email address: "; read email
-        echo -n "password: "; read -s pswrd; echo
-        echo "Checking..."
+        echo -n "Email address: "; read email
+        echo -n "Password: "; read -s pswrd;
+        echo -e "\nChecking..."
         test -z $pswrd && error_msg "$INVALIDLOGN" && exit 4   # check for null password
 
         # attempt to login user
@@ -201,11 +210,10 @@ process(){
     counter=0
     # until there's a process id state change or we run out of time, search for process
     until [ "$currentPID" != "$PID" ] || [ $counter -eq $TIMEOUT ]; do
-        echo -n "... "
         sleep 1
         currentPID=$(pgrep "$PROCESSNAME")
         let counter+=1
-    done; echo
+    done;
     PID="$currentPID" # update PID
 
     case "$1" in
@@ -304,11 +312,11 @@ uninstall(){
     if [ -e $COPYCMD ]; then
         echo -n "Are you sure you want to uninstall Copy? [y/N]: "; read prompt
         if [[ "$prompt" =~ [yY](es)* ]]; then
-            echo "Uninstalling..."; echo -n "... "
+            echo "Uninstalling...";
             stop > /dev/null
-            unlink "$SYMLINK"; echo -n "... "
-            rm -rf "$COPYLOC"; echo -n "... "
-            rm -rf "$DOTCOPY"; echo
+            unlink "$SYMLINK";
+            rm -rf "$COPYLOC";
+            rm -rf "$DOTCOPY";
             echo "Copy has been uninstalled."
         fi
     else
@@ -317,14 +325,14 @@ uninstall(){
 }
 
 # a bit of cleanup on exit
-exit_trap(){
-    popd > /dev/null
-}
-trap exit_trap EXIT
+#exit_trap(){
+#    popd > /dev/null
+#}
+#trap exit_trap EXIT
 
 ######################### BEGIN BODY OF PROGRAM ##############################
 
-pushd "$HOME" > /dev/null
+#pushd "$HOME" > /dev/null
 
 if [ $# -ne 1 ]; then
     help
