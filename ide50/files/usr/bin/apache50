@@ -41,15 +41,9 @@ start() {
     # update vhost dir in conf
     sudo sed -i "s#/home/ubuntu/workspace/vhosts#$vhost#g" /etc/apache2/conf-available/cs50.conf
 
-    # configure apache for online or offline
-    if [ -z ${IDE_OFFLINE+x} ]; then
-        # online IDE, externally served via proxy at C9_HOSTNAME over https
-        domain="https://$(hostname50)"
-    else
-        # offline IDE, use hostname over http
-        domain="http://$(hostname50)"
-    fi
-    sudo sed -i "s#ServerName.*\$#ServerName $domain#" /etc/apache2/conf-available/cs50.conf
+    # update ServerName
+    hostname=$(hostname50)
+    sudo sed -i "s#ServerName.*\$#ServerName ${hostname}#" /etc/apache2/conf-available/cs50.conf
 
     # enable the new config
     sudo a2enconf cs50 >/dev/null 2>&1
@@ -61,8 +55,16 @@ start() {
     service apache2 start
 
     if [ $? -eq 0 ]; then
+        if [ -z ${IDE_OFFLINE+x} ]; then
+            # online IDE
+            prot="https"
+        else
+            # offline IDE
+            prot="http"
+        fi
+
         echo "Apache started successfully!"
-        echo "Your site is now available at ${domain}"
+        echo "Your site is now available at ${prot}://${hostname}"
     else
         echo "Apache failed to start!"
         exit 3

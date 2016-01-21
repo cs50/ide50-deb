@@ -13,13 +13,13 @@ IFS=$'\n\t'
 # only run as ubuntu
 if [ "$(whoami)" != "ubuntu" ]; then
     echo "This script must only be run by the ubuntu user (don't use sudo)!"
-    exit 2
+    exit 1
 fi
 
 # check environment variables
-[ -z "$HOME" ] && echo "Environment variable HOME not set." && exit 1;
-[ -z "$C9_USER" ] && echo "Environment variable C9_USER not set." && exit 1;
-[ -z "$C9_PROJECT" ] && echo "Environment variable C9_PROJECT not set." && exit 1;
+[ -z "$HOME" ] && echo "Environment variable HOME not set." && exit 2;
+[ -z "$C9_USER" ] && echo "Environment variable C9_USER not set." && exit 2;
+[ -z "$C9_PROJECT" ] && echo "Environment variable C9_PROJECT not set." && exit 2;
 
 # name of script
 readonly SCRIPTNAME="backup50"
