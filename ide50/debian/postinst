@@ -98,6 +98,19 @@ fi
 # create a password50 file, if it doesn't exist
 sudo -Eu ubuntu /usr/bin/password50 >/dev/null 2>&1
 
+# add mysql username and password to env
+sudo cat >/etc/profile.d/mysql.sh <<EOF
+export MYSQL_USERNAME="$(username50)"
+export MYSQL_PASSWORD="$(password50)"
+export MYSQL_HOSTNAME="localhost"
+EOF
+
+# add mysql username and password env vars to apache's environment
+if ! grep -qs 'mysql.sh' /etc/apache2/envvars; then
+    sed -i 's-ide50.sh-ide50.sh\n. /etc/profile.d/mysql.sh-' /etc/apache2/envvars
+fi
+
+
 ####################
 # the remaining requires a recent update50 and some env variables must exist
 if [ -z "$C9_USER" ]; then
@@ -122,7 +135,7 @@ if [ ${IDE_OFFLINE+x} ]; then
     # offline only: update c9sdk and plugins
     echo "Updating Cloud9 SDK ..."
     pushd /var/c9sdk >/dev/null 2>&1
-    sudo -Eu ubuntu scripts/install-sdk.sh stop >/dev/null 2>&1
+    sudo -Eu ubuntu scripts/install-sdk.sh >/dev/null 2>&1
     popd >/dev/null 2>&1
     echo
     echo "All done! <3"

@@ -6,13 +6,15 @@ ide50 (53) 2015; urgency=medium
   * added backup50
   * begin migrating stats50 to info50
   * human readable output by default to info50
-  * updated apache50 to automatically stop when starting in new folder
-  * added home/ubuntu/.pip/pip.config
+  * updated apache50 to automatically restart when starting in new folder
+  * added home/ubuntu/.pip/pip.config to improve global Python usage
   * AP unit 4
   * hostname50 forces c9 IDEs to use c9users.io
+  * make MySQL login info available in new env variables MYSQL_*
   * forward http to https for online instances
+  * package info50, themes50, previewer50 for offline
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Wed, 20 Jan 2015 10:30:00 -0400
+ -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 21 Jan 2015 19:30:00 -0400
 
 ide50 (52) 2015; urgency=medium
 
