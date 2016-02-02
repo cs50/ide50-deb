@@ -1,3 +1,9 @@
+ide50 (54) 2015; urgency=medium
+
+  * add traceroute and dnsutils
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Tue, 2 Feb 2016 11:30:00 -0400
+
 ide50 (53) 2015; urgency=medium
 
   * reverted $PS1 to old style for new workspaces
@@ -14,7 +20,7 @@ ide50 (53) 2015; urgency=medium
   * forward http to https for online instances
   * package info50, themes50, previewer50 for offline
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 21 Jan 2015 19:30:00 -0400
+ -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 21 Jan 2016 19:30:00 -0400
 
 ide50 (52) 2015; urgency=medium
 
