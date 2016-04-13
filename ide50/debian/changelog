@@ -1,6 +1,7 @@
 ide50 (54) 2015; urgency=medium
 
   * add traceroute and dnsutils
+  * many plugin revisions for offline; primarily fix error due to menu change
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Tue, 2 Feb 2016 11:30:00 -0400
 
