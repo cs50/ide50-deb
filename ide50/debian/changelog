@@ -1,9 +1,15 @@
+ide50 (55) 2015; urgency=medium
+
+  * add `c9` alias for offline
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 15 Apr 2016 17:30:00 -0400
+
 ide50 (54) 2015; urgency=medium
 
   * add traceroute and dnsutils
   * many plugin revisions for offline; primarily fix error due to menu change
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Tue, 2 Feb 2016 11:30:00 -0400
+ -- CS50 <sysadmins@cs50.harvard.edu>  Tue, 12 Apr 2016 11:30:00 -0400
 
 ide50 (53) 2015; urgency=medium
 

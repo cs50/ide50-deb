@@ -132,6 +132,11 @@ if [ ${IDE_OFFLINE+x} ]; then
         sed -i 's-ide50.sh-ide50.sh\n. /etc/profile.d/offline.sh-' /etc/apache2/envvars
     fi
 
+    # add c9 alias to profile
+    if ! grep -qs 'alias c9' /etc/profile.d/offline.sh; then
+        echo -e "\nalias c9=/var/c9sdk/bin/c9" >>/etc/profile.d/offline.sh
+    fi
+
     # offline only: update c9sdk and plugins
     echo "Updating Cloud9 SDK ..."
     pushd /var/c9sdk >/dev/null 2>&1
