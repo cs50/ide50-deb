@@ -8,7 +8,7 @@ deb:
 	@echo 'Downloading latest CS50 plugins...'
 	sudo rm -rf ide50/files/var/c9sdk/plugins/
 	mkdir -p ide50/files/var/c9sdk/plugins/
-	git clone --depth=1 git@github.com:cs50/ide50-plugin.git ide50/files/var/c9sdk/plugins/
+	git clone --depth=1 git@github.com:cs50/ide50-plugins.git ide50/files/var/c9sdk/plugins/
 	rm -rf ide50/files/var/c9sdk/plugins/README.md
 	rm -rf ide50/files/var/c9sdk/plugins/.git*
 	@echo 'Fetching latest offline config file...'
