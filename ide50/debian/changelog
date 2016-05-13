@@ -1,8 +1,9 @@
 ide50 (55) 2015; urgency=medium
 
   * add `c9` alias for offline
+  * AP unit 7
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 15 Apr 2016 17:30:00 -0400
+ -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 13 May 2016 12:00:00 -0400
 
 ide50 (54) 2015; urgency=medium
 
