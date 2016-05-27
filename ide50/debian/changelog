@@ -1,3 +1,9 @@
+ide50 (56) 2015; urgency=medium
+
+  * fix apache50 to provide https protocol in ServerName for online
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 27 May 2016 12:00:00 +0100
+
 ide50 (55) 2015; urgency=medium
 
   * add `c9` alias for offline
