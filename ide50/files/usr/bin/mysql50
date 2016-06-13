@@ -90,6 +90,9 @@ EOF
         #Fix tables
         sed -i "s:'pma_\([^_]\):'pma__\1:" /etc/phpmyadmin/config.inc.php
 
+        # Set auth_type from cookie to http
+        sed -i "s:\('auth_type'.*\)'cookie':\1'http':" /etc/phpmyadmin/config.inc.php
+
         #Fix login to database
         sed -i "s:\$dbuser='phpmyadmin':\$dbuser='$username':" /etc/phpmyadmin/config-db.php
         sed -i "s:\$dbpass='[a-zA-Z0-9]*':\$dbpass='$password':" /etc/phpmyadmin/config-db.php

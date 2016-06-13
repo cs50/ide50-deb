@@ -91,8 +91,13 @@ if [ -f /etc/profile.d/app.sh ]; then
 fi
 
 # revert PS1 to old style if necessary
-if ! grep -qs  "^PS1=.*C9_PROJECT" /home/ubuntu/.bashrc; then
+if ! grep -qs "^PS1=.*C9_PROJECT" /home/ubuntu/.bashrc; then
     sed -i "s-^PS1=.*\${C9_USER}-&@\${C9_PROJECT}-" /home/ubuntu/.bashrc
+fi
+
+# automatically fix the prompt (to fix accidental printing of a ShiftOut char)
+if ! grep -qs "^PS1=.*x0f" /home/ubuntu/.bashrc; then
+    sed -i 's-^PS1=.\\\[-&\$(printf "\\x0f")-' /home/ubuntu/.bashrc
 fi
 
 # create a password50 file, if it doesn't exist

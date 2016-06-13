@@ -30,6 +30,10 @@ if [ "$(id -u)" != "0" ]; then
   alias mysql-ctl='echo "Please use mysql50 instead!"'
   alias phpmyadmin-ctl='echo "Please use mysql50 instead!"'
 
+  # shift out and in of block character palettes
+  alias break50="printf '\x0e'"
+  alias fix50="printf '\x0f'"
+
 fi
 
 # set editor
