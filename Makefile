@@ -1,5 +1,16 @@
 SHELL=/bin/bash
 
+PLUGINS := cat info presentation previewer simple theme
+
+define getplugin
+	@echo "Fetching $(1) plugin..."
+	pdir=ide50/files/var/c9sdk/plugins/c9.ide.cs50.$(1) ;\
+	mkdir -p $$pdir ;\
+	git clone --depth=1 git@github.com:cs50/harvard.cs50.$(1).git $$pdir ;\
+	rm -rf $(pdir)/README.md ;\
+	rm -rf $(pdir)/.git*
+endef
+
 all:
 
 deb:
@@ -7,10 +18,7 @@ deb:
 	@echo ''
 	@echo 'Downloading latest CS50 plugins...'
 	sudo rm -rf ide50/files/var/c9sdk/plugins/
-	mkdir -p ide50/files/var/c9sdk/plugins/
-	git clone --depth=1 git@github.com:cs50/ide50-plugins.git ide50/files/var/c9sdk/plugins/
-	rm -rf ide50/files/var/c9sdk/plugins/README.md
-	rm -rf ide50/files/var/c9sdk/plugins/.git*
+	$(foreach plugin,$(PLUGINS),$(call getplugin,$(plugin)))
 	@echo 'Fetching latest offline config file...'
 	sudo rm -rf /tmp/ide50-docker
 	mkdir -p ide50/files/var/c9sdk/configs
