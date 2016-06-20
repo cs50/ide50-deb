@@ -25,7 +25,7 @@ deb:
 	git clone --depth=1 git@github.com:cs50/ide50-docker.git /tmp/ide50-docker
 	cp /tmp/ide50-docker/ide50-offline/files/client-workspace-cs50.js ide50/files/var/c9sdk/configs/
 	@echo 'Building Deb...'
-	cd ide50 && sudo dpkg-buildpackage -us -uc > /dev/null
+	cd ide50 && dpkg-buildpackage -us -uc > /dev/null
 	rm -rf build/deb
 	mkdir -p build/deb
 	mv ide50_* build/deb
