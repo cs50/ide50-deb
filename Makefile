@@ -17,10 +17,10 @@ deb:
 	@echo 'Be sure to edit the changelog and /etc/version50!'
 	@echo ''
 	@echo 'Downloading latest CS50 plugins...'
-	sudo rm -rf ide50/files/var/c9sdk/plugins/
+	rm -rf ide50/files/var/c9sdk/plugins/
 	$(foreach plugin,$(PLUGINS),$(call getplugin,$(plugin)))
 	@echo 'Fetching latest offline config file...'
-	sudo rm -rf /tmp/ide50-docker
+	rm -rf /tmp/ide50-docker
 	mkdir -p ide50/files/var/c9sdk/configs
 	git clone --depth=1 git@github.com:cs50/ide50-docker.git /tmp/ide50-docker
 	cp /tmp/ide50-docker/ide50-offline/files/client-workspace-cs50.js ide50/files/var/c9sdk/configs/
