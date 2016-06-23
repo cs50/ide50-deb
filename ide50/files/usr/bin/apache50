@@ -50,6 +50,9 @@ start() {
     fi
     sudo sed -i "s#ServerName.*\$#ServerName ${hostname}#" /etc/apache2/conf-available/cs50.conf
 
+    # disable C9's config
+    sudo a2dissite 001-cloud9 >/dev/null 2>&1
+
     # enable the new config
     sudo a2enconf cs50 >/dev/null 2>&1
 

@@ -85,19 +85,14 @@ if ! grep -qs 'stty -ixon' /home/ubuntu/.bashrc; then
     echo "stty -ixon" >>/home/ubuntu/.bashrc
 fi
 
+# use our prompt
+if ! grep -qs 'prompt50' /home/ubuntu/.bashrc; then
+    echo "source /home/ubuntu/.prompt50" >>/home/ubuntu/.bashrc
+fi
+
 # remove old source file if it exists
 if [ -f /etc/profile.d/app.sh ]; then
     rm -f /etc/profile.d/app.sh
-fi
-
-# revert PS1 to old style if necessary
-if ! grep -qs "^PS1=.*C9_PROJECT" /home/ubuntu/.bashrc; then
-    sed -i "s-^PS1=.*\${C9_USER}-&@\${C9_PROJECT}-" /home/ubuntu/.bashrc
-fi
-
-# automatically fix the prompt (to fix accidental printing of a ShiftOut char)
-if ! grep -qs "^PS1=.*x0f" /home/ubuntu/.bashrc; then
-    sed -i 's-^PS1=.\\\[-&\$(printf "\\x0f")-' /home/ubuntu/.bashrc
 fi
 
 # create a password50 file, if it doesn't exist

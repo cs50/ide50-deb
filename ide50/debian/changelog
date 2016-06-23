@@ -3,11 +3,15 @@ ide50 (57) 2015; urgency=medium
   * add fix50 and break50 commands to fix shifted terminal char palettes
   * add SI character to terminal prompt to fix palette automatically
   * change phpMyAdmin auth to http
+  * add JDK back to workspace
+  * simplify prompt and set tmux title to pwd basename
+  * prevent different domains from having different DocumentRoots
+  * fix favicon for cs50.io domains
   * simple plugin: move print margin from 80 chars to 132
   * simple plugin: remove Debug button
   * simple plugin: add terminal beep sound
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Wed, 15 Jun 2016 11:00:00 -0400
+ -- CS50 <sysadmins@cs50.harvard.edu>  Wed, 23 Jun 2016 17:00:00 -0400
 
 ide50 (56) 2015; urgency=medium
 
