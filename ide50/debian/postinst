@@ -72,6 +72,9 @@ if ! grep -qs 'LoginCookieValidity' /etc/phpmyadmin/config.inc.php; then
     sudo sed -i '$a$cfg["LoginCookieValidity"] = 86400;'  /etc/phpmyadmin/config.inc.php
 fi
 
+# change phpmyadmin auth_type from cookie to http
+sudo sed -i "s:\('auth_type'.*\)'cookie':\1'http':" /etc/phpmyadmin/config.inc.php
+
 # enable cs50 PHP config
 if [ ! -h /etc/php5/apache2/conf.d/50-cs50.ini ]; then
     ln -s /etc/php5/mods-available/cs50.ini /etc/php5/apache2/conf.d/50-cs50.ini

@@ -10,6 +10,7 @@ ide50 (57) 2015; urgency=medium
   * simple plugin: move print margin from 80 chars to 132
   * simple plugin: remove Debug button
   * simple plugin: add terminal beep sound
+  * simple plugin: clean terminal tab title
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Wed, 23 Jun 2016 17:00:00 -0400
 
