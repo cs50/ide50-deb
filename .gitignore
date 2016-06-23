@@ -1,1 +1,5 @@
 ide50/files/var/c9sdk/plugins/c9.ide.plugins/*
+ide50/debian/files
+ide50/debian/ide50.debhelper.log
+ide50/debian/ide50.substvars
+ide50/files/var/c9sdk/configs
