@@ -1,18 +1,18 @@
-title () {
-    TITLE=${PWD##*/}
+cwdBasename () {
+    TITLE="${PWD##*/}"
 
-    if [ $PWD == $HOME ] ; then
+    if [ "$PWD" == "$HOME" ] ; then
         TITLE="~"
     fi
 
-    echo $TITLE;
+    echo -n ${TITLE}/;
 }
 
-PS1='\[$(printf "\x0f")\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)") $ '
+PS1='\[$(printf "\x0f")\033[01;34m\]\w/\[\033[00m\]$(__git_ps1 " (%s)") $ '
 
 case "$TERM" in
 xterm*|rxvt*|screen*)
-    PS1='\[\e]0;\a\033k$(title)/\033\\\]'"$PS1"
+    PS1='\[\e]0;\a\033k$(cwdBasename)\033\\\]'"$PS1"
     ;;
 *)
     ;;
