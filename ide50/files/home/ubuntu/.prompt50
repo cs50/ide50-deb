@@ -1,8 +1,18 @@
+title () {
+    TITLE=${PWD##*/}
+
+    if [ $PWD == $HOME ] ; then
+        TITLE="~"
+    fi
+
+    echo $TITLE;
+}
+
 PS1='\[$(printf "\x0f")\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)") $ '
 
 case "$TERM" in
-xterm*|rxvt*)
-    PS1='\[\e]0;\a\033k${PWD##*/}/\033\\\]'"$PS1"
+xterm*|rxvt*|screen*)
+    PS1='\[\e]0;\a\033k$(title)/\033\\\]'"$PS1"
     ;;
 *)
     ;;
