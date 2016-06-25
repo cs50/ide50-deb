@@ -1,3 +1,10 @@
+ide50 (58) 2015; urgency=medium
+
+  * fix ~ in terminal title, and improved support for first open terminal
+  * `cd` by itself now changes dir to ~/worksapce, `cd ~` changes to home dir
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Sat, 25 Jun 2016 11:00:00 -0400
+
 ide50 (57) 2015; urgency=medium
 
   * add fix50 and break50 commands to fix shifted terminal char palettes
