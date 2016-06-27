@@ -54,11 +54,11 @@ if [ $# -eq 3 ]; then
     fi
     check_port
     # give the expect JSON output
-    printf '{"version":"%s","host":"%s","listening":%s,"server":"%s","user":"%s","passwd":"%s"}' \
-        "$version" "$(hostname50)" "$listening" "$server" "$(username50)" "$(password50)"
+    printf '{"version":"%s","host":"%s","listening":%s,"server":"%s","user":"%s","passwd":"%s","offline":"%s","c9user":"%s","c9project":"%s"}' \
+        "$version" "$(hostname50)" "$listening" "$server" "$(username50)" "$(password50)" "$([ "$IDE_OFFLINE" == 1 ] && echo "true" || echo "false")" "$C9_USER" "$C9_PROJECT"
 else
     check_port
     # give a more human friendly output
-    printf ' Version:\t %s\n Web Server:\t %s\n phpMyAdmin:\t %s\n User:\t\t %s\n Password:\t %s\n' \
-        "$version" "$(hostname50)" "$(hostname50)/phpmyadmin" "$(username50)" "$(password50)"
+    printf ' Version:\t %s\n Web Server:\t %s\n phpMyAdmin:\t %s\n User:\t\t %s\n Password:\t %s\n offline:\t %s\n Owner:\t\t %s\n Project:\t %s\n' \
+        "$version" "$(hostname50)" "$(hostname50)/phpmyadmin" "$(username50)" "$(password50)" "$([ "$IDE_OFFLINE" == 1 ] && echo "true" || echo "false")" "$C9_USER" "$C9_PROJECT"
 fi
