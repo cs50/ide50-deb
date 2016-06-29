@@ -6,9 +6,6 @@ if [ "$version" == "" ]; then
     declare version="n/a"
 fi
 
-# decide if online or offline IDE
-offline=$([ ${IDE_OFFLINE+x} ] && echo "true" || echo "false")
-
 # This script compares IDs from various clients (e.g., if multiple users
 # have the same workspace open) to determine which is the "master" client,
 # and only store domain changes from that client. When a Master tab is
@@ -57,11 +54,11 @@ if [ $# -eq 3 ]; then
     fi
     check_port
     # give the expect JSON output
-    printf '{"version":"%s","host":"%s","listening":%s,"server":"%s","user":"%s","passwd":"%s","offline":"%s","c9user":"%s","c9project":"%s"}' \
-        "$version" "$(hostname50)" "$listening" "$server" "$(username50)" "$(password50)" "$offline" "$C9_USER" "$C9_PROJECT"
+    printf '{"version":"%s","host":"%s","listening":%s,"server":"%s","user":"%s","passwd":"%s"}' \
+        "$version" "$(hostname50)" "$listening" "$server" "$(username50)" "$(password50)"
 else
     check_port
     # give a more human friendly output
-    printf ' Version:\t %s\n Web Server:\t %s\n phpMyAdmin:\t %s\n User:\t\t %s\n Password:\t %s\n Offline:\t %s\n Owner:\t\t %s\n Project:\t %s\n' \
-        "$version" "$(hostname50)" "$(hostname50)/phpmyadmin" "$(username50)" "$(password50)" "$offline" "$C9_USER" "$C9_PROJECT"
+    printf ' Version:\t %s\n Web Server:\t %s\n phpMyAdmin:\t %s\n User:\t\t %s\n Password:\t %s\n \
+        "$version" "$(hostname50)" "$(hostname50)/phpmyadmin" "$(username50)" "$(password50)"
 fi
