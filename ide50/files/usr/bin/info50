@@ -59,6 +59,6 @@ if [ $# -eq 3 ]; then
 else
     check_port
     # give a more human friendly output
-    printf ' Version:\t %s\n Web Server:\t %s\n phpMyAdmin:\t %s\n User:\t\t %s\n Password:\t %s\n \
+    printf ' Version:\t %s\n Web Server:\t %s\n phpMyAdmin:\t %s\n User:\t\t %s\n Password:\t %s\n' \
         "$version" "$(hostname50)" "$(hostname50)/phpmyadmin" "$(username50)" "$(password50)"
 fi
