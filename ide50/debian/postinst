@@ -83,7 +83,7 @@ sudo sed -i "s/APACHE_RUN_GROUP=ubuntu/APACHE_RUN_GROUP=www-data/" /etc/apache2/
 sudo usermod -a -G ubuntu www-data
 
 # Uncomment the last line of /etc/sudoers
-sudo sed -i '' 's/#includedir/includedir/' /etc/sudoers
+sudo sed -i "s/#includedir/includedir/" /etc/sudoers
 
 # enable cs50 PHP config
 if [ ! -h /etc/php5/apache2/conf.d/50-cs50.ini ]; then
