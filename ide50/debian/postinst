@@ -76,8 +76,8 @@ fi
 sudo sed -i "s:\('auth_type'.*\)'cookie':\1'http':" /etc/phpmyadmin/config.inc.php
 
 # Change user running apache from ubuntu to www-data
-sudo sed -i '' 's/APACHE_RUN_USER=ubuntu/APACHE_RUN_USER=www-data/' /usr/bin/apache50
-sudo sed -i '' 's/APACHE_RUN_GROUP=ubuntu/APACHE_RUN_GROUP=www-data/' /usr/bin/apache50
+sudo sed -i "s/APACHE_RUN_USER=ubuntu/APACHE_RUN_USER=www-data/" /etc/apache2/envvars
+sudo sed -i "s/APACHE_RUN_GROUP=ubuntu/APACHE_RUN_GROUP=www-data/" /etc/apache2/envvars
 
 # Add user www-data to group ubuntu
 sudo usermod -a -G ubuntu www-data
