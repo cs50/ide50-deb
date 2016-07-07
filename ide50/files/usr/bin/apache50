@@ -18,6 +18,8 @@ if [ "$(whoami)" != "ubuntu" ]; then
     exit 1
 fi
 
+apache="sudo -S -u www-data service apache2"
+
 set_vhost() {
     #ensure the param is a directory, expand it if so
     if  [ ! -d "$1" ]; then
@@ -57,10 +59,12 @@ start() {
     sudo a2enconf cs50 >/dev/null 2>&1
 
     # make sure user can access log and pid files
-    sudo chown -R ubuntu:ubuntu /home/ubuntu/lib/apache2
+    sudo chown -R ubuntu:www-data /home/ubuntu/lib/apache2
+    sudo find /home/ubuntu/lib/apache2 -type f -exec chmod 660 {} \;
+    sudo find /home/ubuntu/lib/apache2 -type d -exec chmod 770 {} \;
 
     # launch
-    service apache2 start
+    $apache start
 
     if [ $? -eq 0 ]; then
         echo "Apache started successfully!"
@@ -72,14 +76,14 @@ start() {
 }
 
 # determine apache's status
-running=$(service apache2 status >/dev/null)$?
+running=$($apache status >/dev/null)$?
 
 case "$1" in
     start)
         if [ $running == 0 ]; then
             set_vhost "$2"
             if ! grep -qs "^<Directory ${vhost}>" '/etc/apache2/conf-available/cs50.conf'; then
-                service apache2 stop
+                $apache stop
             else
                 echo "Apache is already running!" 1>&2
                 exit 2
@@ -93,13 +97,13 @@ case "$1" in
             exit 2
         fi
 
-        service apache2 stop
+        $apache stop
     ;;
     reload)
-        service apache2 reload
+        $apache reload
     ;;
     restart)
-        service apache2 restart
+        $apache restart
     ;;
     status)
         if [ $running == 0 ]; then
