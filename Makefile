@@ -1,6 +1,6 @@
 SHELL=/bin/bash
 
-PLUGINS := cat info presentation previewer simple theme
+PLUGINS := cat info presentation previewer simple theme gist
 
 define getplugin
 	@echo "Fetching $(1) plugin..."
