@@ -6,6 +6,7 @@ ide50 (58) 2015; urgency=medium
   * fix apache50 to support directories with spaces
   * eliminate phpMyAdmin error on cookie length
   * remove info50 script
+  * support reloading profile scripts after update
   * bundle gist, audioplayer plugin
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Sat, 25 Jun 2016 11:00:00 -0400

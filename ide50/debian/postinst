@@ -170,4 +170,6 @@ else
     echo "All done! <3"
 fi
 
+c9 exec cs50updateProfileScripts &>/dev/null || true
+
 exit 0
