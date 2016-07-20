@@ -33,11 +33,11 @@ install() {
     password=$(password50)
 
     # was apache running? (status returns 0 iff running)
-    apache_running=$(service apache2 status >/dev/null)$?
+    apache_running=$(apache50 status >/dev/null)$?
 
     # stop apache if running
     if [ $apache_running == 0 ]; then
-        sudo -Eu ubuntu service apache2 stop >/dev/null 2>&1
+        apache50 stop >/dev/null 2>&1
     fi
 
     # Changes configuration file to skip table grants
@@ -121,7 +121,7 @@ EOF
 
     # restart apache if it was running
     if [ $apache_running == 0 ]; then
-        sudo -Eu ubuntu service apache2 start >/dev/null 2>&1
+        apache50 restart >/dev/null 2>&1
     fi
 
     touch /home/ubuntu/.mysql_installed
