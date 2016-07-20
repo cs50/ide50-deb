@@ -24,9 +24,6 @@ if [ "$(id -u)" != "0" ]; then
   alias mv="mv -i"
   alias rm="rm -i"
 
-  # `cd` by itself should go to ~/worksapce, `cd ~` should go to home dir
-  alias cd="HOME=~/workspace cd"
-
   alias gdb="gdb -q"
 
   alias apachectl='echo "Please use apache50 instead!"'
