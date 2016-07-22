@@ -1,3 +1,9 @@
+ide50 (59) 2015; urgency=medium
+
+  * temporarily disable loading of profile scripts
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Sat, 22 Jul 2016 17:00:00 -0400
+
 ide50 (58) 2015; urgency=medium
 
   * fix ~ in terminal title, and improved support for first open terminal
