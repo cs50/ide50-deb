@@ -1,6 +1,7 @@
 ide50 (60) 2015; urgency=medium
 
   * re-enable profile script loading
+  * fix prompt to collapse $HOME as ~
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Mon, 25 Jul 2016 17:00:00 -0400
 

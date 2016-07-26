@@ -1,18 +1,22 @@
-cwdBasename () {
-    TITLE="${PWD##*/}"
+cwdSlashAtEnd () {
+    TITLE="$(dirs +0)"
 
-    if [ "$PWD" == "$HOME" ] ; then
-        TITLE="~"
+    if [ -z "$1" ] ; then
+        # no argument, full cwd
+        TITLE="${TITLE%/}"
+    else
+        # one arg, basename only
+        TITLE="${TITLE##*/}"
     fi
 
     echo -n "${TITLE}/"
 }
 
-PS1='\[$(printf "\x0f")\033[01;34m\]${PWD%/}/\[\033[00m\]$(__git_ps1 " (%s)") $ '
+PS1='\[$(printf "\x0f")\033[01;34m\]$(cwdSlashAtEnd)\[\033[00m\]$(__git_ps1 " (%s)") $ '
 
 case "$TERM" in
 xterm-*|rxvt*|screen*)
-    PS1='\[\e]0;\a\033k$(cwdBasename)\033\\\]'"$PS1"
+    PS1='\[\e]0;\a\033k$(cwdSlashAtEnd base)\033\\\]'"$PS1"
     ;;
 *)
     ;;
