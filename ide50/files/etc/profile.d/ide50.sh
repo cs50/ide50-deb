@@ -36,6 +36,10 @@ if [ "$(id -u)" != "0" ]; then
 
 fi
 
+# python3
+alias python=python3
+alias pip=pip3
+
 # set editor
 export EDITOR=nano
 
