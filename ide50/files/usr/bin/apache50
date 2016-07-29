@@ -60,6 +60,7 @@ start() {
 
     # make sure user can access log and pid files
     sudo chown -R ubuntu:www-data /home/ubuntu/lib/apache2
+    sudo chown -R www-data:www-data /var/lib/php5
     sudo find /home/ubuntu/lib/apache2 -type f -exec chmod 660 {} \;
     sudo find /home/ubuntu/lib/apache2 -type d -exec chmod 770 {} \;
 
