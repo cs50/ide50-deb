@@ -6,7 +6,6 @@ ide50 (60) 2015; urgency=medium
   * adjust php var directory to be owned by www-data
   * remove GDB runner, and rely on system's C (Make) runner using GDB shim
   * add droplet plugin
-  * add debug50 command to execute debugger from cli
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Mon, 1 Aug 2016 14:30:00 -0400
 

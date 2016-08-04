@@ -34,9 +34,6 @@ if [ "$(id -u)" != "0" ]; then
   alias break50="printf '\x0e'"
   alias fix50="printf '\x0f'"
 
-  # alias to execute debugger from cli
-  alias debug50="c9 exec gdb50new"
-
 fi
 
 # python3
