@@ -3,6 +3,7 @@ ide50 (60) 2015; urgency=medium
   * re-enable profile script loading
   * fix prompt to collapse $HOME as ~
   * add aliases for python and pip to python3 and pip3
+  * require python3-pip package to install pip3
   * adjust php var directory to be owned by www-data
   * remove stats50; info50 script bundled with info plugin
   * add droplet plugin

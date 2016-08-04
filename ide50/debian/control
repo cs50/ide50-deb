@@ -11,7 +11,7 @@ Depends: apache2
 Recommends: whois, gdbserver, manpages-dev, clang-3.6, nodejs, library50-c,
   library50-php, check50, style50, php5-cgi, telnet, php5-curl, ngrok-client,
   render50, wamerican, bc, dos2unix, libphp-phpmailer, php5-xdebug,
-  inotify-tools, dnsutils, traceroute, openjdk-7-jdk
+  inotify-tools, dnsutils, traceroute, openjdk-7-jdk, python3-pip
 Provides:
 Replaces:
 Description: install the cs50 ide software
