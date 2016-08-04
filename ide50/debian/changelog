@@ -4,7 +4,6 @@ ide50 (60) 2015; urgency=medium
   * fix prompt to collapse $HOME as ~
   * add aliases for python and pip to python3 and pip3
   * adjust php var directory to be owned by www-data
-  * remove GDB runner, and rely on system's C (Make) runner using GDB shim
   * add droplet plugin
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Mon, 1 Aug 2016 14:30:00 -0400
