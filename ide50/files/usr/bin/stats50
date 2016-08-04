@@ -1,7 +1,0 @@
-#!/bin/bash
-
-if [ $# -eq 1 ]; then
-    info50 $1 STATS50 32
-else
-    info50
-fi
