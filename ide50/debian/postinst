@@ -15,9 +15,11 @@ chmod 644 /etc/profile.d/ide50.sh
 # remove dropbox functions
 sed -i 's:source /home/ubuntu/.dropbox50::g' ~/.bashrc
 
+# add courses group and cs50 user
 groupadd -r courses > /dev/null 2>&1 || true
 adduser --gecos "CS50,,,," --ingroup courses --disabled-login --system cs50 > /dev/null 2>&1 || true
 
+# set permissions and ownership of /home/cs50 files
 chown -R cs50.courses /home/cs50
 find /home/cs50 -type d -exec chmod 755 {} \;
 find /home/cs50 -type f -exec chmod 644 {} \;
@@ -161,7 +163,7 @@ if [ ${IDE_OFFLINE+x} ]; then
     echo "All done! <3"
     echo "Please reload your workspace to get the latest updates!"
 else
-    # plugin updates aren't necessary for online IDEs
+    # plugin updates aren't necessary for online IDEs; remove files
     rm -rf /var/c9sdk/plugins/c9.ide.cs50* >/dev/null 2>&1
     rmdir -p /var/c9sdk/plugins/ >/dev/null 2>&1
 
@@ -172,6 +174,7 @@ else
     echo "All done! <3"
 fi
 
+# ask simple plugin to update profile scripts in all open terminal windows
 c9 exec cs50updateProfileScripts &>/dev/null || true
 
 exit 0
