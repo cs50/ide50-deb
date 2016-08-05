@@ -6,6 +6,7 @@ ide50 (60) 2015; urgency=medium
   * require python3-pip package to install pip3
   * adjust php var directory to be owned by www-data
   * remove stats50; info50 script bundled with info plugin
+  * change CFLAGS to include -Wno-deprecated-declarations
   * add droplet plugin
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 4 Aug 2016 10:00:00 -0400
