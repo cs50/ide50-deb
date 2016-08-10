@@ -1,6 +1,7 @@
 ide50 (61) 2015; urgency=medium
 
   * add debug plugin
+  * change library50-c to lib50-c in debian/control
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 5 Aug 2016 17:00:00 -0400
 
