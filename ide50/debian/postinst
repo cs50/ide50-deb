@@ -174,7 +174,7 @@ else
     echo "All done! <3"
 fi
 
-# ask simple plugin to update profile scripts in all open terminal windows
-c9 exec cs50updateProfileScripts &>/dev/null || true
+# to source profile scripts
+echo "Be sure to close and re-open any terminal windows!"
 
 exit 0
