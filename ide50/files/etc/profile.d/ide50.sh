@@ -48,3 +48,6 @@ export LANG=C
 
 # Node.js
 export NODE_ENV=dev
+
+# web application environment
+export APPLICATION_ENV=dev
