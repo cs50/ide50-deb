@@ -14,9 +14,13 @@ if [ "$(id -u)" != "0" ]; then
   # set umask
   umask 0077
 
+  # enable commands installed in /opt/cs50/bin
+  [[ ":$PATH:" == *:/opt/cs50/bin:* ]] ||
+    export PATH=/opt/cs50/bin:$PATH
+
   # configure clang
   export CC=clang
-  export CFLAGS="-ggdb3 -O0 -std=c11 -Wall -Werror -Wno-deprecated-declarations -Wshadow"
+  export CFLAGS="-ggdb3 -O0 -std=c11 -Wall -Werror -Wshadow"
   export LDLIBS="-lcs50 -lm"
 
   # protect user
