@@ -1,0 +1,2 @@
+deb http://mirror.cs50.net/ide50/2015/dists/trusty/main/binary-amd64/ /
+deb http://mirror.cs50.net/ubuntu/dists/trusty/main/binary-amd64/ /
