@@ -19,6 +19,12 @@ deb:
 	@echo 'Downloading latest CS50 plugins...'
 	rm -rf ide50/files/var/c9sdk/plugins/
 	$(foreach plugin,$(PLUGINS),$(call getplugin,$(plugin)))
+ifneq ($(filter debug,$(PLUGINS)),)
+	@echo 'Updating debug50 script'
+	mkdir -p ide50/files/home/ubuntu/bin
+	cp ide50/files/var/c9sdk/plugins/c9.ide.cs50.debug/bin/debug50 ide50/files/home/ubuntu/bin
+	chmod +x ide50/files/home/ubuntu/bin/debug50
+endif
 	@echo 'Fetching latest offline config file...'
 	rm -rf /tmp/ide50-docker
 	mkdir -p ide50/files/var/c9sdk/configs
@@ -38,4 +44,5 @@ clean:
 	sudo rm -rf build
 	sudo rm -rf ide50/debian/ide50
 	sudo rm -rf ide50/files/var/c9sdk/plugins/
+	sudo rm -rf ide50/files/home/ubuntu/bin/
 	sudo rm -rf /tmp/ide50-docker

@@ -1,3 +1,10 @@
+ide50 (65) 2015; urgency=medium
+
+  * install debug50 script from debug plugin until PR has been merged by C9
+  * remove remove etc/apt/sources.list.d/cs50.list .. does no good
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 26 Aug 2016 04:00:00 -0400
+
 ide50 (64) 2015; urgency=medium
 
   * remove droplet plugin for the time being
@@ -8,7 +15,7 @@ ide50 (64) 2015; urgency=medium
   * add our "ubuntu" deb repo to apt/sources.list.d/cs50.list
   * add APPLICATION_ENV variable to shell environment
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 19 Aug 2016 00:30:00 -0400
+ -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 25 Aug 2016 23:30:00 -0400
 
 ide50 (63) 2015; urgency=medium
 
