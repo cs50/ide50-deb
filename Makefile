@@ -1,6 +1,6 @@
 SHELL=/bin/bash
 
-PLUGINS := audioplayer cat debug droplet gist info presentation previewer simple theme
+PLUGINS := audioplayer cat debug gist info presentation previewer simple theme
 
 define getplugin
 	@echo "Fetching $(1) plugin..."

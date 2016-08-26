@@ -1,5 +1,6 @@
 ide50 (64) 2015; urgency=medium
 
+  * remove droplet plugin for the time being
   * add recommended packages help50 >= 1.0.0 and server50 >= 1.0.0
   * remove -Wno-deprecated-declarations from $CFLAGS
   * prepend /opt/cs50/bin to $PATH to enable commands like help50
