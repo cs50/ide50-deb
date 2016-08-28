@@ -174,7 +174,4 @@ else
     echo "All done! <3"
 fi
 
-# to source profile scripts
-echo "Be sure to close and re-open any terminal windows!"
-
 exit 0
