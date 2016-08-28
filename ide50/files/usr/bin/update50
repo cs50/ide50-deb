@@ -38,3 +38,4 @@ then
 fi
 
 echo 'Update complete!'
+echo -e "\nBE SURE TO CLOSE AND RE-OPEN ANY TERMINAL WINDOWS <3\n"
