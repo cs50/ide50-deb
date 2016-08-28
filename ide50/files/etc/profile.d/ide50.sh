@@ -15,8 +15,12 @@ if [ "$(id -u)" != "0" ]; then
   umask 0077
 
   # enable commands installed in /opt/cs50/bin
-  [[ ":$PATH:" == *:/opt/cs50/bin:* ]] ||
-    export PATH=/opt/cs50/bin:$PATH
+  case ":$PATH:" in
+      *:/opt/cs50/bin:*)
+          : ;;
+      *)
+          export PATH=/opt/cs50/bin:$PATH ;;
+  esac
 
   # configure clang
   export CC=clang
