@@ -9,6 +9,11 @@ chown -R ubuntu:ubuntu /var/c9sdk/configs/ >/dev/null 2>&1
 
 chmod 755 /usr/bin/version50
 
+if [ -e /home/ubuntu/bin/debug50 ]; then
+    chown ubuntu:ubuntu /home/ubuntu/bin/debug50
+    chmod a+rx,g+w /home/ubuntu/bin/debug50
+fi
+
 echo "Setting configuration files ..."
 chmod 644 /etc/profile.d/ide50.sh
 

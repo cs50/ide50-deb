@@ -1,3 +1,9 @@
+ide50 (69) 2015; urgency=medium
+
+  * remove hack that installed debug50 script as root, not ubuntu
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Mon, 29 Aug 2016 16:00:00 -0400
+
 ide50 (68) 2015; urgency=medium
 
   * add warning to refresh terminals after update50
