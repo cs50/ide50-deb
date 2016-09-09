@@ -8,8 +8,8 @@ Build-Depends: debhelper (>= 9.20131227ubuntu1)
 Package: ide50
 Architecture: any
 Depends: apache2
-Recommends: whois, gdbserver, manpages-dev, clang-3.6, nodejs, lib50-c (>= 7.0.2),
-  library50-php, check50, help50 (>= 1.0.1), server50 (>= 1.0.0), style50,
+Recommends: whois, gdbserver, manpages-dev, clang-3.6, nodejs, lib50-c (>= 7.1.0),
+  library50-php, check50, help50 (>= 1.1.0), server50 (>= 1.0.0), style50,
   php5-cgi, telnet, php5-curl, ngrok-client,
   render50, wamerican, bc, dos2unix, libphp-phpmailer, php5-xdebug,
   inotify-tools, dnsutils, traceroute, openjdk-7-jdk, python3-pip

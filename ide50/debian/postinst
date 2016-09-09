@@ -32,10 +32,10 @@ chmod 711 /home/cs50/hacker1/{credit,mario,water} \
           /home/cs50/hacker2/initials \
           /home/cs50/hacker3/{find,fifteen} \
           /home/cs50/hacker4/{peek,resize} \
-          /home/cs50/unit1/{chart,credit,fahrenheit,greedy,hello,isbn,mario,pennies,skittles} \
-          /home/cs50/unit2/{caesar,calc,devigenere,fahrenheit,hello,initials,pennies,vigenere} \
-          /home/cs50/unit3/{fifteen,fifteen-solver,race,rng,scramble,seek} \
-          /home/cs50/unit4/{finder,peek,scale,scramble,shrink,sudoku} \
+          /home/cs50/chapter1/{chart,credit,fahrenheit,greedy,hello,isbn,mario,pennies,skittles} \
+          /home/cs50/chapter2/{caesar,calc,devigenere,fahrenheit,hello,initials,pennies,vigenere} \
+          /home/cs50/chapter3/{fifteen,fifteen-solver,race,rng,scramble,seek} \
+          /home/cs50/chapter4/{finder,peek,scale,scramble,shrink,sudoku} \
           /home/cs50/pset1/{mario,greedy,water} \
           /home/cs50/pset2/{initials,caesar,vigenere,devigenere} \
           /home/cs50/pset3/{find,fifteen} \
@@ -44,8 +44,8 @@ chmod 711 /home/cs50/hacker1/{credit,mario,water} \
           /home/cs50/pset6/server
 chmod 755 /home/cs50/pset5/challenge \
           /home/cs50/pset3/{3x3,4x4}.txt \
-          /home/cs50/unit3/{3x3,4x4,words}.txt \
-          /home/cs50/unit4/words.txt
+          /home/cs50/chapter3/{3x3,4x4,words}.txt \
+          /home/cs50/chapter4/words.txt
 
 # add symlink to clang-3.6 when missing
 if [ ! -f /usr/bin/clang ] && [ -f /usr/bin/clang-3.6 ]; then

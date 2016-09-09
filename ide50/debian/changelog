@@ -1,3 +1,10 @@
+ide50 (70) 2015; urgency=medium
+
+  * rename directories under ~cs50, e.g., unit1 => chapter1
+  * update version dependences of help50 and lib50-c
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Mon, 29 Aug 2016 16:00:00 -0400
+
 ide50 (69) 2015; urgency=medium
 
   * remove hack that installed debug50 script as root, not ubuntu
