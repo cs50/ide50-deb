@@ -1,3 +1,10 @@
+ide50 (71) 2015; urgency=medium
+
+  * update solution binary for caesar
+  * add -lcrypt to LDFLAGS in ide50.sh
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Mon, 09 Sep 2016 07:00:00 -0400
+
 ide50 (70) 2015; urgency=medium
 
   * rename directories under ~cs50, e.g., unit1 => chapter1
