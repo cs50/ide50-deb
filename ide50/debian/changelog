@@ -1,3 +1,9 @@
+ide50 (76) 2015; urgency=medium
+
+  * update version dependence of submit50
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Mon, 19 Sep 2016 18:00:00 -0400
+
 ide50 (75) 2015; urgency=medium
 
   * update version dependence of submit50
