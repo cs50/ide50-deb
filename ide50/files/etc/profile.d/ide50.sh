@@ -53,6 +53,9 @@ alias python=python3
 alias pip=pip3
 export PYTHONDONTWRITEBYTECODE=1
 
+# valgrind defaults
+export VALGRIND_OPTS=--memcheck:leak-check=full
+
 # set editor
 export EDITOR=nano
 
