@@ -1,14 +1,10 @@
-ide50 (80) 2015; urgency=medium
-
-  * aliases make
-
- -- CS50 <sysadmins@cs50.harvard.edu>  Sat, 01 Oct 2016 22:36:00 -0400
-
 ide50 (79) 2015; urgency=medium
 
-  * adds to CFLAGS
+  * update version dependence of help50
+  * alias make
+  * add to CFLAGS
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Sat, 01 Oct 2016 22:02:00 -0400
+ -- CS50 <sysadmins@cs50.harvard.edu>  Sun, 02 Oct 2016 07:15:00 -0400
 
 ide50 (78) 2015; urgency=medium
 
