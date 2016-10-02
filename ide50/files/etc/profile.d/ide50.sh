@@ -24,14 +24,15 @@ if [ "$(id -u)" != "0" ]; then
 
   # configure clang
   export CC=clang
-  export CFLAGS="-ggdb3 -O0 -std=c11 -Wall -Werror -Wshadow"
-  export LDLIBS="-lcs50 -lm -lcrypt"
+  export CFLAGS="-fsanitize=integer -fsanitize=undefined -ggdb3 -O0 -std=c11 -Wall -Werror -Wextra -Wno-sign-compare -Wshadow"
+  export LDLIBS="-lcrypt -lcs50 -lm"
 
   # protect user
   alias cp="cp -i"
   alias mv="mv -i"
   alias rm="rm -i"
 
+  # suppress gdb's startup output
   alias gdb="gdb -q"
 
   alias apachectl='echo "Please use apache50 instead!"'
