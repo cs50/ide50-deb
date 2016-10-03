@@ -1,3 +1,10 @@
+ide50 (80) 2015; urgency=medium
+
+  * add lib50-python dependence
+  * add VALGRIND_OPTS to environment
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Mon, 03 Oct 2016 04:00:00 -0400
+
 ide50 (79) 2015; urgency=medium
 
   * update version dependence of help50
