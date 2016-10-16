@@ -54,7 +54,7 @@ alias pip=pip3
 export PYTHONDONTWRITEBYTECODE=1
 
 # valgrind defaults
-export VALGRIND_OPTS=--memcheck:leak-check=full
+export VALGRIND_OPTS="--memcheck:leak-check=full --memcheck:track-origins=yes"
 
 # set editor
 export EDITOR=nano
