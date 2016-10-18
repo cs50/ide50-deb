@@ -1,3 +1,9 @@
+ide50 (83) 2015; urgency=medium
+
+  * update lib50-python dependence
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Mon, 17 Oct 2016 23:59:00 -0400
+
 ide50 (82) 2015; urgency=medium
 
   * add lib50-java dependence
