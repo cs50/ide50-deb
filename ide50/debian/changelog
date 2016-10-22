@@ -1,8 +1,9 @@
 ide50 (84) 2015; urgency=medium
 
-  * temporarily set python version to python3 in project settings
+  * add staff solutions for pset6
+  * for now, update50 sets python version to python3 in project settings
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Wed, 19 Oct 2016 7:30:00 -0400
+ -- CS50 <sysadmins@cs50.harvard.edu>  Fri, 21 Oct 2016 23:45:00 -0400
 
 ide50 (83) 2015; urgency=medium
 
