@@ -22,6 +22,14 @@ if [ "$(id -u)" != "0" ]; then
           export PATH=/opt/cs50/bin:$PATH ;;
   esac
 
+  # enable commands installed in $HOME/.local/bin
+  case ":$PATH:" in
+      *:$HOME/.local/bin:*)
+          : ;;
+      *)
+          export PATH=$PATH:$HOME/.local/bin ;;
+  esac
+
   # configure clang
   export CC=clang
   export CFLAGS="-fsanitize=integer -fsanitize=undefined -ggdb3 -O0 -std=c11 -Wall -Werror -Wextra -Wno-sign-compare -Wshadow"
