@@ -1,3 +1,9 @@
+ide50 (86) 2015; urgency=medium
+
+  * set ~cs50/pset6{smile,tweets} permissions after package installation
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Sat, 22 Oct 2016 19:00:00 -0400
+
 ide50 (85) 2015; urgency=medium
 
   * add ~/.local/bin to PATH environment variable
