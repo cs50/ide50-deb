@@ -37,5 +37,9 @@ then
     exit 1
 fi
 
+# set python version to python3 in project settings
+# remove when c9/harvard.cs50 #73 is merged and deployed
+sed -i 's/\(.*version.*\)"python2"/\1"python3"/' /home/ubuntu/workspace/.c9/project.settings
+
 echo 'Update complete!'
 echo -e "\nBE SURE TO CLOSE AND RE-OPEN ANY TERMINAL WINDOWS <3\n"
