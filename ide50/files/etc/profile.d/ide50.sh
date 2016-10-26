@@ -61,6 +61,10 @@ alias python=python3
 alias pip=pip3
 export PYTHONDONTWRITEBYTECODE=1
 
+# flask
+export FLASK_APP=application.py
+export FLASK_DEBUG=1
+
 # valgrind defaults
 export VALGRIND_OPTS="--memcheck:leak-check=full --memcheck:track-origins=yes"
 
