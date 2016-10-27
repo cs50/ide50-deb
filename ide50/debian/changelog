@@ -1,3 +1,10 @@
+ide50 (89) 2015; urgency=medium
+
+  * update phpliteadmin dependence
+  * make shell function for flask POSIX Bourne shell friendly
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 27 Oct 2016 10:15:00 -0400
+
 ide50 (88) 2015; urgency=medium
 
   * update lib50-python dependence
