@@ -61,9 +61,21 @@ alias python=python3
 alias pip=pip3
 export PYTHONDONTWRITEBYTECODE=1
 
+# sqlite3
+alias sqlite3="sqlite3 -column -header"
+
 # flask
 export FLASK_APP=application.py
 export FLASK_DEBUG=1
+
+function flask()
+{
+    if [[ "$1" == "run" ]]; then
+	command flask run --host=0.0.0.0 --port=8080 --with-threads "${@:2}"
+    else
+	command flask "$@"
+    fi
+}
 
 # valgrind defaults
 export VALGRIND_OPTS="--memcheck:leak-check=full --memcheck:track-origins=yes"

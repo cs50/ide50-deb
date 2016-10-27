@@ -1,3 +1,12 @@
+ide50 (88) 2015; urgency=medium
+
+  * update lib50-python dependence
+  * add sqlite3 alias
+  * add phpliteadmin, php5-sqlite, sqlite3 recommendations
+  * add envariables and shell function for flask
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 27 Oct 2016 00:30:00 -0400
+
 ide50 (87) 2015; urgency=medium
 
   * add python3-tk to recommends list of packages
