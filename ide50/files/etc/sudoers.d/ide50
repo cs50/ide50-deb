@@ -1,1 +1,2 @@
+Defaults umask_override
 ubuntu ALL=(www-data) NOPASSWD: /usr/sbin/service
