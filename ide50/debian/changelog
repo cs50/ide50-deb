@@ -1,3 +1,10 @@
+ide50 (93) 2015; urgency=medium
+
+  * update dependences of lib50-python and phpliteadmin
+  * override user's umask with sudo
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Sat, 29 Oct 2016 09:35:00 -0400
+
 ide50 (92) 2015; urgency=high
 
   * suppress CS50 compilation flags while installing python modules
