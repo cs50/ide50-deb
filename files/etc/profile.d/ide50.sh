@@ -60,7 +60,6 @@ fi
 alias pip=pip3
 alias pylint=pylint3
 alias python=python3
-alias pip=pip3
 export PYTHONDONTWRITEBYTECODE=1
 export PYTHONPATH="/home/ubuntu/.local/lib/python3.4/site-packages:/usr/lib/python3/dist-packages:/usr/local/lib/python3.4/dist-packages"
 
