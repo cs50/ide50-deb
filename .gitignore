@@ -3,3 +3,4 @@
 .viminfo
 *.deb
 files/var/c9sdk
+files/etc/version50
