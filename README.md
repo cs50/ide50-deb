@@ -1,16 +1,41 @@
 ## IDE 50
 
-### Rolling a new version of ide50 deb 
+### Rolling a new version of ide50 deb
 
-Assumes your cwd is the root of this repo.
+(Assumes your CWD is the root of this repo)
 
-1. Ensure that you've updated the [plugins](https://github.com/cs50/ide50-plugin) and the [CS50 workspace config file](https://github.com/cs50/ide50-docker/blob/master/ide50-offline/files/client-workspace-cs50.js) before proceeding, as building the deb pulls the latest commit from Master.
-1. Make desired changes to files within `ide50/files`
-1. Be sure to ovewrite `ide50/files/etc/version50` with the new version.
-1. Use your favorite text editor to add a new changelog entry to `ide50/debian/changelog`
-1. If you'd like to chmod stuff, do so in `ide50/debian/postinst`
-1. Now make the local deb with `make deb`
-1. New deb can be found at `build/deb/`! At this point if you'd like to test the deb in your machine before pushing to mirror you can do `sudo -E dpkg --force-confnew --force-confmiss -i ide50_*.deb`
+After making desired changes:
+* Be sure to set `VERSION` in `Makefile` to the new version.
+* Add changelog entry to `changelog`.
+
+#### Authentication
+
+(Should be done once)
+
+This package requires cloning some private GitHub repos meanwhile. In order to
+be able to build a version of this package, you need to have the correct access
+rights to these repos.
+
+You may use existing SSH keys or [generate](https://help.github.com/articles/generating-an-ssh-key/) new ones. Assuming you have a pair of keys:
+
+```
+$ mkdir .ssh
+$ cp path/to/public_key .ssh
+$ cp path/to/private_key .ssh
+```
+
+#### Building
+
+```
+$ make bash
+$ make deb
+```
+
+#### Installing
+
+```
+sudo -E dpkg --force-confnew --force-confmiss -i ide50_*.deb
+```
 
 ### Pushing deb to mirror
 1. Build new version of deb as described above.
