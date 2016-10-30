@@ -57,8 +57,9 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 # python3
-alias python=python3
 alias pip=pip3
+alias pylint=pylint3
+alias python=python3
 export PYTHONDONTWRITEBYTECODE=1
 
 # sqlite3
