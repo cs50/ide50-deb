@@ -66,6 +66,7 @@ export PYTHONDONTWRITEBYTECODE=1
 alias sqlite3="sqlite3 -column -header"
 
 # sudo
+# trailing space enables elevated command to be an alias
 alias sudo="sudo "
 
 # flask
