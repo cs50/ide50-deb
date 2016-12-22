@@ -7,6 +7,14 @@ chmod -R g+w /home/ubuntu/workspace
 chown -R ubuntu:ubuntu /var/c9sdk/plugins/c9.ide.cs50* >/dev/null 2>&1
 chown -R ubuntu:ubuntu /var/c9sdk/configs/ >/dev/null 2>&1
 
+chmod 755 /usr/bin/apache50
+chmod 755 /usr/bin/backup50
+chmod 755 /usr/bin/decomment50
+chmod 755 /usr/bin/hostname50
+chmod 755 /usr/bin/mysql50
+chmod 755 /usr/bin/password50
+chmod 755 /usr/bin/update50
+chmod 755 /usr/bin/username50
 chmod 755 /usr/bin/version50
 
 if [ -e /home/ubuntu/bin/debug50 ]; then
@@ -15,6 +23,7 @@ if [ -e /home/ubuntu/bin/debug50 ]; then
 fi
 
 echo "Setting configuration files ..."
+chmod 644 /etc/version50
 chmod 644 /etc/profile.d/ide50.sh
 
 # remove dropbox functions
@@ -109,6 +118,9 @@ if ! grep -qs "alias cd" /home/ubuntu/.bashrc; then
 fi
 
 # use our prompt
+if [ -f /home/ubuntu/.prompt50 ]; then
+    chmod a+r /home/ubuntu/.prompt50
+fi
 if ! grep -qs 'prompt50' /home/ubuntu/.bashrc; then
     echo "source /home/ubuntu/.prompt50" >>/home/ubuntu/.bashrc
 fi
