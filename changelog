@@ -1,6 +1,8 @@
-ide50 (94) 2015; urgency=medium
+ide50 (94) 2015; urgency=high
 
   * enables alias expansion with sudo
+  * runs Apache as ubuntu instead of www-data
+  * removes ubuntu from group www-data
 
  -- CS50 <sysadmins@cs50.harvard.edu>  Sun, 6 Nov 2016 11:25:00 -0400
 
