@@ -18,7 +18,7 @@ if [ "$(whoami)" != "ubuntu" ]; then
     exit 1
 fi
 
-apache="sudo -S -u www-data service apache2"
+apache="service apache2"
 
 set_vhost() {
     #ensure the param is a directory, expand it if so
@@ -59,8 +59,8 @@ start() {
     sudo a2enconf cs50 >/dev/null 2>&1
 
     # make sure user can access log and pid files
-    sudo chown -R ubuntu:www-data /home/ubuntu/lib/apache2
-    sudo chown -R www-data:www-data /var/lib/php5
+    sudo chown -R ubuntu:ubuntu /home/ubuntu/lib/apache2
+    sudo chown -R ubuntu:ubuntu /var/lib/php5
     sudo find /home/ubuntu/lib/apache2 -type f -exec chmod 660 {} \;
     sudo find /home/ubuntu/lib/apache2 -type d -exec chmod 770 {} \;
 
