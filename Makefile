@@ -3,6 +3,7 @@ C9SDK_DIR := $(FILES_DIR)/var/c9sdk
 CONFIGS_DIR := $(C9SDK_DIR)/configs
 OFFLINE_DIR := /tmp/ide50-docker
 PLUGINS_DIR := $(C9SDK_DIR)/plugins
+USR_DIR := $(FILES_DIR)/usr
 VERSION_FILE := $(FILES_DIR)/etc/version50
 
 PLUGINS := audioplayer cat debug gist info presentation simple theme
@@ -37,7 +38,7 @@ deb: clean Makefile
 	echo "version=$(VERSION)" > "$(VERSION_FILE)"
 
 	# set permissions
-	chmod -R 755 "$(FILES_DIR)/usr/bin/"
+	chmod -R 755 "$(USR_DIR)/bin" "$(USR_DIR)/local/bin"
 	chmod 644 "$(VERSION_FILE)" "$(FILES_DIR)/etc/profile.d/ide50.sh" "$(FILES_DIR)/home/ubuntu/.prompt50"
 
 	fpm \
