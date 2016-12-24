@@ -35,6 +35,11 @@ deb: clean Makefile
 
 	@echo "\nBuilding Deb..."
 	echo "version=$(VERSION)" > "$(VERSION_FILE)"
+
+	# set permissions
+	chmod -R 755 "$(FILES_DIR)/usr/bin/"
+	chmod 644 "$(VERSION_FILE)" "$(FILES_DIR)/etc/profile.d/ide50.sh" "$(FILES_DIR)/home/ubuntu/.prompt50"
+
 	fpm \
 	-C "$(FILES_DIR)" \
 	--after-install postinst \
