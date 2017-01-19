@@ -1,3 +1,9 @@
+ide50 (95) 2015; urgency=high
+
+  * adds temporary /usr/local/bin/sudo
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Sat, 24 Dec 2016 11:32:00 -0400
+
 ide50 (94) 2015; urgency=high
 
   * use fpm to build this package

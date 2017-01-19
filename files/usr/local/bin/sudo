@@ -1,0 +1,4 @@
+old=$(umask)
+trap "umask $old" EXIT
+umask 0022
+/usr/bin/sudo "$@"
