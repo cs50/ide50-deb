@@ -1,8 +1,9 @@
-ide50 (95) 2015; urgency=high
+ide50 (95) 2015; urgency=medium
 
+  * update submit50 dependence version
   * adds temporary /usr/local/bin/sudo
 
- -- CS50 <sysadmins@cs50.harvard.edu>  Sat, 24 Dec 2016 11:32:00 -0400
+ -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 19 Jan 2017 10:30:00 -0400
 
 ide50 (94) 2015; urgency=high
 

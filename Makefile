@@ -54,7 +54,7 @@ deb: clean Makefile
 	library50-php, manpages-dev, ngrok-client, nodejs, openjdk-7-jdk, \
 	php5-cgi, php5-curl, php5-sqlite, php5-xdebug, \
 	phpliteadmin (>= 1.1.1), python3-pip, python3-tk, render50, \
-	server50 (>= 1.0.0), sqlite3, style50, submit50 (>= 1.1.0), telnet, \
+	server50 (>= 1.0.0), sqlite3, style50, submit50 (>= 2.0.0), telnet, \
 	traceroute, wamerican, whois" \
 	--license "" \
 	--maintainer "CS50 <sysadmins@cs50.harvard.edu>" \
