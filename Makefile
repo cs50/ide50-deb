@@ -57,7 +57,6 @@ deb: clean Makefile
 	inotify-tools, \
 	lib50-c (>= 7.1.1), \
 	lib50-java (>= 1.1.1), \
-	python-cs50 (>= 1.2.4), \
 	libphp-phpmailer, \
 	library50-php, \
 	manpages-dev, \
@@ -69,6 +68,7 @@ deb: clean Makefile
 	php5-sqlite, \
 	php5-xdebug, \
 	phpliteadmin (>= 1.1.1), \
+	python-cs50 (>= 1.2.4), \
 	python3-pip, \
 	python3-tk, \
 	render50, \
