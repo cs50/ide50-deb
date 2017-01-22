@@ -47,14 +47,38 @@ deb: clean Makefile
 	--deb-changelog changelog \
 	--deb-no-default-config-files \
 	--deb-priority optional \
-	--deb-recommends "bc, check50, clang-3.6, dnsutils, dos2unix, gdbserver, \
-	help50 (>= 1.2.2), inotify-tools, lib50-c (>= 7.1.1), \
-	lib50-java (>= 1.1.1), python-cs50 (>= 1.2.4), libphp-phpmailer, \
-	library50-php, manpages-dev, ngrok-client, nodejs, openjdk-7-jdk, \
-	php5-cgi, php5-curl, php5-sqlite, php5-xdebug, \
-	phpliteadmin (>= 1.1.1), python3-pip, python3-tk, render50, \
-	server50 (>= 1.0.0), sqlite3, style50, submit50 (>= 2.0.0), telnet, \
-	traceroute, wamerican, whois" \
+	--deb-recommends "bc, \
+	check50, \
+	clang-3.6, \
+	dnsutils, \
+	dos2unix, \
+	gdbserver, \
+	help50 (>= 1.2.2), \
+	inotify-tools, \
+	lib50-c (>= 7.1.1), \
+	lib50-java (>= 1.1.1), \
+	python-cs50 (>= 1.2.4), \
+	libphp-phpmailer, \
+	library50-php, \
+	manpages-dev, \
+	ngrok-client, \
+	nodejs, \
+	openjdk-7-jdk, \
+	php5-cgi, \
+	php5-curl, \
+	php5-sqlite, \
+	php5-xdebug, \
+	phpliteadmin (>= 1.1.1), \
+	python3-pip, \
+	python3-tk, \
+	render50, \
+	sqlite3, \
+	style50, \
+	submit50 (>= 2.0.0), \
+	telnet, \
+	traceroute, \
+	wamerican, \
+	whois" \
 	--license "" \
 	--maintainer "CS50 <sysadmins@cs50.harvard.edu>" \
 	-n "$(NAME)" \
