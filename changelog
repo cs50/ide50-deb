@@ -1,3 +1,11 @@
+ide50 (96) 2015; urgency=medium
+
+  * update lib50-c dependence version
+  * update submit50 dependence version
+  * add URL to deb control to avoid dpkg fault
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Thu, 01 Feb 2017 22:30:00 -0400
+
 ide50 (95) 2015; urgency=medium
 
   * update submit50 dependence version

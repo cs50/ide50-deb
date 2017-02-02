@@ -9,7 +9,7 @@ VERSION_FILE := $(FILES_DIR)/etc/version50
 PLUGINS := audioplayer cat debug gist info presentation simple theme
 
 NAME := ide50
-VERSION := 95
+VERSION := 96
 
 define getplugin
 	@echo "\nFetching $(1)..."
@@ -49,12 +49,12 @@ deb: clean Makefile
 	--deb-no-default-config-files \
 	--deb-priority optional \
 	--deb-recommends "bc, check50, clang-3.6, dnsutils, dos2unix, gdbserver, \
-	help50 (>= 1.2.2), inotify-tools, lib50-c (>= 7.1.1), \
+	help50 (>= 1.2.2), inotify-tools, lib50-c (>= 7.1.2), \
 	lib50-java (>= 1.1.1), lib50-python (>= 1.2.4), libphp-phpmailer, \
 	library50-php, manpages-dev, ngrok-client, nodejs, openjdk-7-jdk, \
 	php5-cgi, php5-curl, php5-sqlite, php5-xdebug, \
 	phpliteadmin (>= 1.1.1), python3-pip, python3-tk, render50, \
-	server50 (>= 1.0.0), sqlite3, style50, submit50 (>= 2.0.0), telnet, \
+	server50 (>= 1.0.0), sqlite3, style50, submit50 (>= 2.1.1), telnet, \
 	traceroute, wamerican, whois" \
 	--license "" \
 	--maintainer "CS50 <sysadmins@cs50.harvard.edu>" \
@@ -66,7 +66,7 @@ deb: clean Makefile
 	--depends apache2 \
 	--description "installs necessary software on CS50 IDE" \
 	--provides "$(NAME)" \
-	--url "" \
+	--url "https://github.com/cs50" \
 	.
 
 clean:
