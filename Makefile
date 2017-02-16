@@ -9,7 +9,7 @@ VERSION_FILE := $(FILES_DIR)/etc/version50
 PLUGINS := audioplayer cat debug gist info presentation simple theme
 
 NAME := ide50
-VERSION := 96
+VERSION := 98
 
 define getplugin
 	@echo "\nFetching $(1)..."
@@ -54,7 +54,7 @@ deb: clean Makefile
 	library50-php, manpages-dev, ngrok-client, nodejs, openjdk-7-jdk, \
 	php5-cgi, php5-curl, php5-sqlite, php5-xdebug, \
 	phpliteadmin (>= 1.1.1), python3-pip, python3-tk, render50, \
-	server50 (>= 1.0.0), sqlite3, style50, submit50 (>= 2.1.1), telnet, \
+	server50 (>= 1.0.0), sqlite3, style50, submit50 (>= 2.1.4), telnet, \
 	traceroute, wamerican, whois" \
 	--license "" \
 	--maintainer "CS50 <sysadmins@cs50.harvard.edu>" \
