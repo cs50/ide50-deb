@@ -1,6 +1,6 @@
 FILES_DIR := files
 C9SDK_DIR := $(FILES_DIR)/var/c9sdk
-CONFIGS_DIR := $(C9SDK_DIR)/configs
+CONFIGS_DIR := $(C9SDK_DIR)/configs/ide
 OFFLINE_DIR := /tmp/ide50-docker
 PLUGINS_DIR := $(C9SDK_DIR)/plugins
 USR_DIR := $(FILES_DIR)/usr
@@ -9,7 +9,7 @@ VERSION_FILE := $(FILES_DIR)/etc/version50
 PLUGINS := audioplayer cat debug gist info presentation simple theme
 
 NAME := ide50
-VERSION := 98
+VERSION := 99
 
 define getplugin
 	@echo "\nFetching $(1)..."
@@ -32,7 +32,7 @@ deb: clean Makefile
 	@echo "\nFetching latest offline configs..."
 	mkdir -p "$(CONFIGS_DIR)"
 	git clone --depth=1 git@github.com:cs50/ide50-docker.git "$(OFFLINE_DIR)"
-	@cp "$(OFFLINE_DIR)"/ide50-offline/files/client-workspace-cs50.js "$(CONFIGS_DIR)"
+	@cp "$(OFFLINE_DIR)"/ide50-offline/files/workspace-cs50.js "$(CONFIGS_DIR)"
 
 	@echo "\nBuilding Deb..."
 	echo "version=$(VERSION)" > "$(VERSION_FILE)"

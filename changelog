@@ -1,3 +1,9 @@
+ide50 (99) 2015; urgency=medium
+
+  * updates configs' paths and filenames for offline IDE
+
+ -- CS50 <sysadmins@cs50.harvard.edu>  Sun, 16 Feb 2017 7:15:00 -0400
+
 ide50 (98) 2015; urgency=medium
 
   * update submit50 dependence version
