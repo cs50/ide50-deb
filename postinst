@@ -175,7 +175,8 @@ else
     rmdir -p /var/c9sdk/plugins/ >/dev/null 2>&1
 
     rm -rf /var/c9sdk/configs/client-workspace-cs50.js >/dev/null 2>&1
-    rmdir -p /var/c9sdk/configs/ >/dev/null 2>&1
+    rm -rf /var/c9sdk/configs/ide/workspace-cs50.js >/dev/null 2>&1
+    rmdir -p /var/c9sdk/configs/ide >/dev/null 2>&1
 
     echo
     echo "All done! <3"
