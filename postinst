@@ -115,10 +115,12 @@ fi
 # create a password50 file, if it doesn't exist
 sudo -Eu ubuntu /usr/bin/password50 >/dev/null 2>&1
 
+PYTHON_PACKAGES="cs50>=1.2.4 Flask Flask-SQLAlchemy Flask-Session SQLAlchemy submit50>=2.1.5"
+
 # install Flask and SQLAlchemy, suppressing CS50 compilation preferences
 if [ -x /usr/bin/pip3 ]; then
     ( unset CC CFLAGS LDLIBS
-      /usr/bin/pip3 install Flask Flask-SQLAlchemy Flask-Session SQLAlchemy >/dev/null 2>&1
+      /usr/bin/pip3 install $PYTHON_PACKAGES >/dev/null 2>&1
     )
 fi
 
@@ -168,7 +170,7 @@ if [ ${IDE_OFFLINE+x} ]; then
     popd >/dev/null 2>&1
     echo
     echo "All done! <3"
-    echo "Please reload your workspace to get the latest updates!"
+    echo "PLEASE RELOAD YOUR WORKSPACE TO GET THE LATEST UPDATES! <3"
 else
     # plugin updates aren't necessary for online IDEs; remove files
     rm -rf /var/c9sdk/plugins/c9.ide.cs50* >/dev/null 2>&1

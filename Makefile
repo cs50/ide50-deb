@@ -44,6 +44,8 @@ deb: clean Makefile
 	-C "$(FILES_DIR)" \
 	--after-install postinst \
 	--category misc \
+	--conflicts lib50-python \
+	--conflicts submit50 \
 	--deb-changelog changelog \
 	--deb-no-default-config-files \
 	--deb-priority optional \
@@ -69,13 +71,11 @@ deb: clean Makefile
 		php5-sqlite, \
 		php5-xdebug, \
 		phpliteadmin (>= 1.1.1), \
-		python-cs50 (>= 1.2.4), \
 		python3-pip, \
 		python3-tk, \
 		render50, \
 		sqlite3, \
 		style50, \
-		submit50 (>= 2.1.4), \
 		telnet, \
 		traceroute, \
 		wamerican, \
