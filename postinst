@@ -163,6 +163,9 @@ if [ ${IDE_OFFLINE+x} ]; then
         echo -e "\nalias c9=/var/c9sdk/bin/c9" >>/etc/profile.d/offline.sh
     fi
 
+    # remove old config file
+    rm -rf /var/c9sdk/configs/client-workspace-cs50.js
+
     # offline only: update c9sdk and plugins
     echo "Updating Cloud9 SDK ..."
     pushd /var/c9sdk >/dev/null 2>&1
