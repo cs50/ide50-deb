@@ -115,14 +115,13 @@ fi
 # create a password50 file, if it doesn't exist
 sudo -Eu ubuntu /usr/bin/password50 >/dev/null 2>&1
 
+# install python packages, suppressing CS50 compilation preferences
 PYTHON_PACKAGES="cs50>=1.2.4 Flask Flask-SQLAlchemy Flask-Session SQLAlchemy submit50>=2.1.5"
+(
+unset CC CFLAGS LDLIBS
+pip3 install $PYTHON_PACKAGES
+)
 
-# install Flask and SQLAlchemy, suppressing CS50 compilation preferences
-if [ -x /usr/bin/pip3 ]; then
-    ( unset CC CFLAGS LDLIBS
-      /usr/bin/pip3 install $PYTHON_PACKAGES >/dev/null 2>&1
-    )
-fi
 
 # add mysql username and password to env
 sudo cat >/etc/profile.d/mysql.sh <<EOF
