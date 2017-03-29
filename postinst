@@ -170,9 +170,6 @@ if [ ${IDE_OFFLINE+x} ]; then
     pushd /var/c9sdk >/dev/null 2>&1
     sudo -Eu ubuntu scripts/install-sdk.sh >/dev/null 2>&1
     popd >/dev/null 2>&1
-    echo
-    echo "All done! <3"
-    echo "PLEASE RELOAD YOUR WORKSPACE TO GET THE LATEST UPDATES! <3"
 else
     # plugin updates aren't necessary for online IDEs; remove files
     rm -rf /var/c9sdk/plugins/c9.ide.cs50* >/dev/null 2>&1
@@ -181,9 +178,8 @@ else
     rm -rf /var/c9sdk/configs/client-workspace-cs50.js >/dev/null 2>&1
     rm -rf /var/c9sdk/configs/ide/workspace-cs50.js >/dev/null 2>&1
     rmdir -p /var/c9sdk/configs/ide >/dev/null 2>&1
-
-    echo
-    echo "All done! <3"
 fi
+
+echo -e "\nAll done! <3"
 
 exit 0
