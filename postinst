@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# suppress CS50 compilation preferences
+unset CC CFLAGS LDLIBS
+
 echo "Resetting permissions ..."
 
 chmod -R g+w /home/ubuntu/workspace
@@ -115,12 +118,9 @@ fi
 # create a password50 file, if it doesn't exist
 sudo -Eu ubuntu /usr/bin/password50 >/dev/null 2>&1
 
-# install python packages, suppressing CS50 compilation preferences
+# install python packages
 PYTHON_PACKAGES="cs50>=1.2.4 Flask Flask-SQLAlchemy Flask-Session SQLAlchemy submit50>=2.1.5"
-(
-unset CC CFLAGS LDLIBS
-pip3 install $PYTHON_PACKAGES
-)
+( pip3 install $PYTHON_PACKAGES )
 
 
 # add mysql username and password to env
