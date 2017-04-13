@@ -70,7 +70,7 @@ deb: clean Makefile
 		php5-curl, \
 		php5-sqlite, \
 		php5-xdebug, \
-		phpliteadmin (>= 1.1.1), \
+		phpliteadmin (>= 1.2.2), \
 		python3-pip, \
 		python3-tk, \
 		render50, \
