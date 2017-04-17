@@ -1,13 +1,3 @@
-# set maximum file size to 512MB
-ulimit -f 524288
-
-# disable auto-logout
-export TMOUT=0
-
-# suppress this error for now: /home/jharvard/.dropbox-dist/libz.so.1: version `ZLIB_1.2.3.3' not found (required by /usr/lib/libxml2.so.2) F$
-# http://forums.dropbox.com/topic.php?id=48321 http://forums.dropbox.com/topic.php?id=19439
-alias dropbox="dropbox 2> /dev/null"
-
 # if not root
 if [ "$(id -u)" != "0" ]; then
 
@@ -56,6 +46,12 @@ if [ "$(id -u)" != "0" ]; then
 
 fi
 
+# set maximum file size to 512MB
+ulimit -f 524288
+
+# disable auto-logout
+export TMOUT=0
+
 # python3
 alias pip=pip3
 alias pylint=pylint3
@@ -97,3 +93,7 @@ export NODE_ENV=dev
 
 # web application environment
 export APPLICATION_ENV=dev
+
+# short-circuit RVM's cd script
+# https://news.ycombinator.com/item?id=1637354
+export rvm_project_rvmrc=0
