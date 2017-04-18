@@ -58,8 +58,8 @@ deb: clean Makefile
 		gdbserver, \
 		help50 (>= 1.2.2), \
 		inotify-tools, \
-		lib50-c (>= 7.1.2), \
-		lib50-java (>= 1.1.1), \
+		libcs50 (>= 7.2.1), \
+		libcs50-java (>= 2.0.0), \
 		libphp-phpmailer, \
 		library50-php, \
 		manpages-dev, \
