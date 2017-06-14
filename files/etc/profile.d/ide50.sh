@@ -52,6 +52,9 @@ ulimit -f 524288
 # disable auto-logout
 export TMOUT=0
 
+# java
+export CLASSPATH=.:/usr/share/java/cs50.jar
+
 # python3
 alias pip=pip3
 alias pylint=pylint3
