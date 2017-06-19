@@ -38,14 +38,12 @@ deb: clean Makefile
 
 	# set permissions
 	chmod -R 755 "$(FILES_DIR)/usr/bin/"
-	chmod 644 "$(VERSION_FILE)" "$(FILES_DIR)/etc/profile.d/ide50.sh" "$(FILES_DIR)/home/ubuntu/.prompt50"
+	chmod 644 "$(FILES_DIR)/etc/profile.d/ide50.sh" "$(FILES_DIR)/home/ubuntu/.prompt50" "$(VERSION_FILE)"
 
 	fpm \
 	-C "$(FILES_DIR)" \
 	--after-install postinst \
 	--category misc \
-	--conflicts lib50-python \
-	--conflicts submit50 \
 	--deb-changelog changelog \
 	--deb-no-default-config-files \
 	--deb-priority optional \
@@ -58,10 +56,7 @@ deb: clean Makefile
 		gdbserver, \
 		help50 (>= 1.2.2), \
 		inotify-tools, \
-		libcs50 (>= 7.2.1), \
-		libcs50-java (>= 2.0.0), \
 		libphp-phpmailer, \
-		library50-php, \
 		manpages-dev, \
 		ngrok-client, \
 		nodejs, \
