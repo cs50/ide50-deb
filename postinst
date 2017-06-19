@@ -1,185 +1,207 @@
 #!/bin/bash
 
-# suppress CS50 compilation preferences
-unset CC CFLAGS LDLIBS
+# summary of how this script can be called:
+#        * <postinst> `configure' <most-recently-configured-version>
+#        * <old-postinst> `abort-upgrade' <new version>
+#        * <conflictor's-postinst> `abort-remove' `in-favour' <package>
+#          <new-version>
+#        * <postinst> `abort-remove'
+#        * <deconfigured's-postinst> `abort-deconfigure' `in-favour'
+#          <failed-install-package> <version> `removing'
+#          <conflicting-package> <version>
+# for details, see http://www.debian.org/doc/debian-policy/ or
+# the debian-policy package
 
-echo "Resetting permissions ..."
+case "$1" in
+    configure)
 
-chmod -R g+w /home/ubuntu/workspace
-#don't do this, eats space! chown -R ubuntu:ubuntu /home/ubuntu >/dev/null 2>&1
-chown -R ubuntu:ubuntu /var/c9sdk/plugins/c9.ide.cs50* >/dev/null 2>&1
-chown -R ubuntu:ubuntu /var/c9sdk/configs/ >/dev/null 2>&1
+        # suppress CS50 compilation preferences
+        unset CC CFLAGS LDLIBS
 
-if [ -e /home/ubuntu/bin/debug50 ]; then
-    chown ubuntu:ubuntu /home/ubuntu/bin/debug50
-    chmod a+rx,g+w /home/ubuntu/bin/debug50
-fi
+        echo "Resetting permissions ..."
+        chmod -R g+w /home/ubuntu/workspace
 
-# remove dropbox functions
-sed -i 's:source /home/ubuntu/.dropbox50::g' ~/.bashrc
+        # don't do this, eats space! chown -R ubuntu:ubuntu /home/ubuntu >/dev/null 2>&1
 
-# add courses group and cs50 user
-groupadd -r courses > /dev/null 2>&1 || true
-adduser --gecos "CS50,,,," --ingroup courses --disabled-login --system cs50 > /dev/null 2>&1 || true
+        if [ -e /home/ubuntu/bin/debug50 ]; then
+            chown ubuntu:ubuntu /home/ubuntu/bin/debug50
+            chmod a+rx,g+w /home/ubuntu/bin/debug50
+        fi
 
-# set permissions and ownership of /home/cs50 files
-chown -R cs50.courses /home/cs50
-find /home/cs50 -type d -exec chmod 755 {} \;
-find /home/cs50 -type f -exec chmod 644 {} \;
-chmod 711 /home/cs50/hacker1/{credit,mario,water} \
-          /home/cs50/hacker2/initials \
-          /home/cs50/hacker3/{find,fifteen} \
-          /home/cs50/hacker4/{peek,resize} \
-          /home/cs50/chapter1/{chart,credit,fahrenheit,greedy,hello,isbn,mario,pennies,skittles} \
-          /home/cs50/chapter2/{caesar,calc,devigenere,fahrenheit,hello,initials,pennies,vigenere} \
-          /home/cs50/chapter3/{fifteen,fifteen-solver,race,rng,scramble,seek} \
-          /home/cs50/chapter4/{finder,peek,scale,scramble,shrink,sudoku} \
-          /home/cs50/pset1/{mario,greedy,water} \
-          /home/cs50/pset2/{initials,caesar,vigenere,devigenere} \
-          /home/cs50/pset3/{find,fifteen} \
-          /home/cs50/pset4/{peek,resize} \
-          /home/cs50/pset5/speller \
-          /home/cs50/pset6/server
-chmod 755 /home/cs50/pset5/challenge \
-          /home/cs50/pset3/{3x3,4x4}.txt \
-          /home/cs50/chapter3/{3x3,4x4,words}.txt \
-          /home/cs50/chapter4/words.txt \
-          /home/cs50/pset6/{smile,tweets}
+        # remove dropbox functions
+        sed -i 's:source /home/ubuntu/.dropbox50::g' ~/.bashrc
 
-# add symlink to clang-3.6 when missing
-if [ ! -f /usr/bin/clang ] && [ -f /usr/bin/clang-3.6 ]; then
-    ln -s /usr/bin/clang-3.6 /usr/bin/clang
-    ln -s /usr/bin/clang-3.6 /usr/bin/clang++
-fi
+        # add courses group and cs50 user
+        groupadd -r courses > /dev/null 2>&1 || true
+        adduser --gecos "CS50,,,," --ingroup courses --disabled-login --system cs50 > /dev/null 2>&1 || true
 
-# otherwise lsof doesn't see server
-chown ubuntu:courses /home/cs50/pset6/server
+        # set permissions and ownership of /home/cs50 files
+        chown -R cs50.courses /home/cs50
+        find /home/cs50 -type d -exec chmod 755 {} \;
+        find /home/cs50 -type f -exec chmod 644 {} \;
+        chmod 711 /home/cs50/hacker1/{credit,mario,water} \
+                  /home/cs50/hacker2/initials \
+                  /home/cs50/hacker3/{find,fifteen} \
+                  /home/cs50/hacker4/{peek,resize} \
+                  /home/cs50/chapter1/{chart,credit,fahrenheit,greedy,hello,isbn,mario,pennies,skittles} \
+                  /home/cs50/chapter2/{caesar,calc,devigenere,fahrenheit,hello,initials,pennies,vigenere} \
+                  /home/cs50/chapter3/{fifteen,fifteen-solver,race,rng,scramble,seek} \
+                  /home/cs50/chapter4/{finder,peek,scale,scramble,shrink,sudoku} \
+                  /home/cs50/pset1/{mario,greedy,water} \
+                  /home/cs50/pset2/{initials,caesar,vigenere,devigenere} \
+                  /home/cs50/pset3/{find,fifteen} \
+                  /home/cs50/pset4/{peek,resize} \
+                  /home/cs50/pset5/speller \
+                  /home/cs50/pset6/server
+        chmod 755 /home/cs50/pset5/challenge \
+                  /home/cs50/pset3/{3x3,4x4}.txt \
+                  /home/cs50/chapter3/{3x3,4x4,words}.txt \
+                  /home/cs50/chapter4/words.txt \
+                  /home/cs50/pset6/{smile,tweets}
 
-# prep instance's index page
-if [ -f /var/www/html/index.html ]; then
-    rm -f /var/www/html/index.html
-fi
+        # add symlink to clang-3.6 when missing
+        if [ ! -f /usr/bin/clang ] && [ -f /usr/bin/clang-3.6 ]; then
+            ln -s /usr/bin/clang-3.6 /usr/bin/clang
+            ln -s /usr/bin/clang-3.6 /usr/bin/clang++
+        fi
 
-# remove apache test file from workspace
-if grep -qs '^Success$' /var/www/html/file; then
-    rm -f /var/www/html/file
-fi
+        # otherwise lsof doesn't see server
+        chown ubuntu:courses /home/cs50/pset6/server
 
-# add ide50 source file to apache's envvars
-if ! grep -qs 'ide50.sh' /etc/apache2/envvars; then
-    sed -i 's-cloud9.sh-cloud9.sh\n. /etc/profile.d/ide50.sh-' /etc/apache2/envvars
-fi
+        # remove instance's index page
+        if [ -f /var/www/html/index.html ]; then
+            rm -f /var/www/html/index.html
+        fi
 
-# make sure ubuntu can write to phpmyadmin's upload directory
-chown ubuntu /var/lib/phpmyadmin/tmp
+        # remove apache test file from workspace
+        if grep -qs '^Success$' /var/www/html/file; then
+            rm -f /var/www/html/file
+        fi
 
-# increase phpmyadmin cookie timeout to one day
-if ! grep -qs 'LoginCookieValidity' /etc/phpmyadmin/config.inc.php; then
-    sudo sed -i '$a$cfg["LoginCookieValidity"] = 86400;'  /etc/phpmyadmin/config.inc.php
-fi
+        # add ide50 source file to apache's envvars
+        if ! grep -qs 'ide50.sh' /etc/apache2/envvars; then
+            sed -i 's-cloud9.sh-cloud9.sh\n. /etc/profile.d/ide50.sh-' /etc/apache2/envvars
+        fi
 
-# change phpmyadmin auth_type from cookie to http
-sudo sed -i "s:\('auth_type'.*\)'cookie':\1'http':" /etc/phpmyadmin/config.inc.php
+        # make sure ubuntu can write to phpmyadmin's upload directory
+        chown ubuntu /var/lib/phpmyadmin/tmp
 
-# Change user running apache from www-data to ubuntu
-sudo sed -i "s/APACHE_RUN_USER=www-data/APACHE_RUN_USER=ubuntu/" /etc/apache2/envvars
-sudo sed -i "s/APACHE_RUN_GROUP=www-data/APACHE_RUN_GROUP=ubuntu/" /etc/apache2/envvars
+        # increase phpmyadmin cookie timeout to one day
+        if ! grep -qs 'LoginCookieValidity' /etc/phpmyadmin/config.inc.php; then
+            sudo sed -i '$a$cfg["LoginCookieValidity"] = 86400;'  /etc/phpmyadmin/config.inc.php
+        fi
 
-# remove ubuntu from group www-data
-sudo gpasswd -d ubuntu www-data 2>/dev/null
+        # change phpmyadmin auth_type from cookie to http
+        sudo sed -i "s:\('auth_type'.*\)'cookie':\1'http':" /etc/phpmyadmin/config.inc.php
 
-# enable cs50 PHP config
-if [ ! -h /etc/php5/apache2/conf.d/50-cs50.ini ]; then
-    ln -s /etc/php5/mods-available/cs50.ini /etc/php5/apache2/conf.d/50-cs50.ini
+        # Change user running apache from www-data to ubuntu
+        sudo sed -i "s/APACHE_RUN_USER=www-data/APACHE_RUN_USER=ubuntu/" /etc/apache2/envvars
+        sudo sed -i "s/APACHE_RUN_GROUP=www-data/APACHE_RUN_GROUP=ubuntu/" /etc/apache2/envvars
 
-    # attempt to reload apache
-    /usr/bin/apache50 reload >/dev/null 2>&1
-fi
+        # remove ubuntu from group www-data
+        if groups ubuntu | grep www-data; then
+            sudo gpasswd -d ubuntu www-data 2>/dev/null
+        fi
 
-# in interactive shells, prevent manual flow control so Ctrl-S doesn't pause
-if ! grep -qs 'stty -ixon' /home/ubuntu/.bashrc; then
-    echo "stty -ixon" >>/home/ubuntu/.bashrc
-fi
+        # enable cs50 PHP config
+        if [ ! -h /etc/php5/apache2/conf.d/50-cs50.ini ]; then
+            ln -s /etc/php5/mods-available/cs50.ini /etc/php5/apache2/conf.d/50-cs50.ini
 
-# allow `cd` to bring user back to workspace (`cd ~` to homedir)
-if ! grep -qs "alias cd" /home/ubuntu/.bashrc; then
-    echo 'alias cd="HOME=~/workspace cd"' >>/home/ubuntu/.bashrc
-fi
+            # attempt to reload apache
+            /usr/bin/apache50 reload >/dev/null 2>&1
+        fi
 
-if ! grep -qs 'prompt50' /home/ubuntu/.bashrc; then
-    echo "source /home/ubuntu/.prompt50" >>/home/ubuntu/.bashrc
-fi
+        # in interactive shells, prevent manual flow control so Ctrl-S doesn't pause
+        if ! grep -qs 'stty -ixon' /home/ubuntu/.bashrc; then
+            echo "stty -ixon" >>/home/ubuntu/.bashrc
+        fi
 
-# remove old source file if it exists
-if [ -f /etc/profile.d/app.sh ]; then
-    rm -f /etc/profile.d/app.sh
-fi
+        # allow `cd` to bring user back to workspace (`cd ~` to homedir)
+        if ! grep -qs "alias cd" /home/ubuntu/.bashrc; then
+            echo 'alias cd="HOME=~/workspace cd"' >>/home/ubuntu/.bashrc
+        fi
 
-# create a password50 file, if it doesn't exist
-sudo -Eu ubuntu /usr/bin/password50 >/dev/null 2>&1
+        if ! grep -qs 'prompt50' /home/ubuntu/.bashrc; then
+            echo "source /home/ubuntu/.prompt50" >>/home/ubuntu/.bashrc
+        fi
 
-# install python packages
-PYTHON_PACKAGES="cs50>=1.3.0 Flask Flask-SQLAlchemy Flask-Session SQLAlchemy submit50>=2.2.0"
-( pip3 install $PYTHON_PACKAGES )
+        # remove old source file if it exists
+        if [ -f /etc/profile.d/app.sh ]; then
+            rm -f /etc/profile.d/app.sh
+        fi
 
+        # create a password50 file, if it doesn't exist
+        sudo -Eu ubuntu /usr/bin/password50 >/dev/null 2>&1
 
-# add mysql username and password to env
-sudo cat >/etc/profile.d/mysql.sh <<EOF
+        # add mysql username and password to env
+        sudo cat >/etc/profile.d/mysql.sh <<EOF
 export MYSQL_USERNAME="$(username50)"
 export MYSQL_PASSWORD="$(password50)"
 export MYSQL_HOSTNAME="localhost"
 EOF
 
-# add mysql username and password env vars to apache's environment
-if ! grep -qs 'mysql.sh' /etc/apache2/envvars; then
-    sed -i 's-ide50.sh-ide50.sh\n. /etc/profile.d/mysql.sh-' /etc/apache2/envvars
-fi
+        # add mysql username and password env vars to apache's environment
+        if ! grep -qs 'mysql.sh' /etc/apache2/envvars; then
+            sed -i 's-ide50.sh-ide50.sh\n. /etc/profile.d/mysql.sh-' /etc/apache2/envvars
+        fi
 
+        ####################
+        # the remaining requires a recent update50 and some env variables must exist
+        if [ -z "$C9_USER" ]; then
+            echo
+            echo "Please run update50 again to complete the installation!"
+            exit 0
+        fi
 
-####################
-# the remaining requires a recent update50 and some env variables must exist
-if [ -z "$C9_USER" ]; then
-    echo
-    echo "Please run update50 again to complete the installation!"
-    exit 0
-fi
+        # set up MySQL
+        echo "Setting up MySQL ..."
+        /usr/bin/mysql50 install >/dev/null 2>&1
 
-# set up MySQL
-echo "Setting up MySQL ..."
-/usr/bin/mysql50 install >/dev/null 2>&1
+        # start MySQL by default
+        /usr/bin/mysql50 start >/dev/null 2>&1
 
-# start MySQL by default
-/usr/bin/mysql50 start >/dev/null 2>&1
+        if [ ${IDE_OFFLINE+x} ]; then
+            chown -R ubuntu:ubuntu /var/c9sdk/plugins/c9.ide.cs50* >/dev/null 2>&1
+            chown -R ubuntu:ubuntu /var/c9sdk/configs/ >/dev/null 2>&1
 
-if [ ${IDE_OFFLINE+x} ]; then
-    # add offline source file to apache's envvars
-    if ! grep -qs 'offline.sh' /etc/apache2/envvars; then
-        sed -i 's-ide50.sh-ide50.sh\n. /etc/profile.d/offline.sh-' /etc/apache2/envvars
-    fi
+            # add offline source file to apache's envvars
+            if ! grep -qs 'offline.sh' /etc/apache2/envvars; then
+                sed -i 's-ide50.sh-ide50.sh\n. /etc/profile.d/offline.sh-' /etc/apache2/envvars
+            fi
 
-    # add c9 alias to profile
-    if ! grep -qs 'alias c9' /etc/profile.d/offline.sh; then
-        echo -e "\nalias c9=/var/c9sdk/bin/c9" >>/etc/profile.d/offline.sh
-    fi
+            # add c9 alias to profile
+            if ! grep -qs 'alias c9' /etc/profile.d/offline.sh; then
+                echo -e "\nalias c9=/var/c9sdk/bin/c9" >>/etc/profile.d/offline.sh
+            fi
 
-    # remove old config file
-    rm -rf /var/c9sdk/configs/client-workspace-cs50.js
+            # remove old config file
+            rm -rf /var/c9sdk/configs/client-workspace-cs50.js
 
-    # offline only: update c9sdk and plugins
-    echo "Updating Cloud9 SDK ..."
-    pushd /var/c9sdk >/dev/null 2>&1
-    sudo -Eu ubuntu scripts/install-sdk.sh >/dev/null 2>&1
-    popd >/dev/null 2>&1
-else
-    # plugin updates aren't necessary for online IDEs; remove files
-    rm -rf /var/c9sdk/plugins/c9.ide.cs50* >/dev/null 2>&1
-    rmdir -p /var/c9sdk/plugins/ >/dev/null 2>&1
+            # offline only: update c9sdk and plugins
+            echo "Updating Cloud9 SDK ..."
+            pushd /var/c9sdk >/dev/null 2>&1
+            sudo -Eu ubuntu scripts/install-sdk.sh >/dev/null 2>&1
+            popd >/dev/null 2>&1
+        else
+            # plugin updates aren't necessary for online IDEs; remove files
+            rm -rf /var/c9sdk/plugins/c9.ide.cs50* >/dev/null 2>&1
+            rmdir -p /var/c9sdk/plugins/ >/dev/null 2>&1
 
-    rm -rf /var/c9sdk/configs/client-workspace-cs50.js >/dev/null 2>&1
-    rm -rf /var/c9sdk/configs/ide/workspace-cs50.js >/dev/null 2>&1
-    rmdir -p /var/c9sdk/configs/ide >/dev/null 2>&1
-fi
+            rm -rf /var/c9sdk/configs/client-workspace-cs50.js >/dev/null 2>&1
+            rm -rf /var/c9sdk/configs/ide/workspace-cs50.js >/dev/null 2>&1
+            rmdir -p /var/c9sdk/configs/ide >/dev/null 2>&1
+        fi
 
-echo -e "\nAll done! <3"
+        echo -e "\nAll done! <3"
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
 
 exit 0

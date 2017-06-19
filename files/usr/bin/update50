@@ -4,38 +4,14 @@
 #
 # To run, execute "update50" at the command line.
 
+#!/bin/bash
 
-echo -e "\nDO NOT CLOSE THIS WINDOW OR PUT YOUR COMPUTER TO SLEEP <3\n"
-sleep 2
-
-LOG=/home/ubuntu/lib/ide50.log
-
-echo -e "\n\n\nUpdate50 - $(date -R)" | sudo tee -a $LOG
-
-echo 'Updating sources...'
-# try to fix dpkg before updating
-sudo dpkg --configure -a 2>&1 | sudo tee -a $LOG >/dev/null
-
-# if requested, flush the apt-get Packages file cache
-if [ "$1" == "-f" ]; then
-    echo "CLEARING PACKAGE CACHE" | sudo tee -a $LOG
-    sudo rm -rf /var/lib/apt/lists/* | sudo tee -a $LOG >/dev/null
-fi
-
-sudo apt-get update 2>&1 | sudo tee -a $LOG
-if [ $? -ne 0 ]
-then
+LOG=/var/log/ide50.log
+curl -sL https://gist.githubusercontent.com/kzidane/a29a2a8fdb27b12a64618ced18504193/raw/ | sudo bash -s - "$@" 2>&1 | sudo tee -a $LOG
+if [ $? -ne 0 ]; then
     echo "Something went wrong! The output has been logged in $LOG"
     exit 1
 fi
 
-echo 'Reinstalling ide package...'
-sudo -E apt-get -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite" install --reinstall --yes --force-yes --assume-yes ide50 2>&1 | sudo tee -a $LOG
-if [ $? -ne 0 ]
-then
-    echo "Something went wrong! The output has been logged in $LOG"
-    exit 1
-fi
-
-echo 'Update complete!'
+echo "Update complete!"
 echo -e "\nBE SURE TO CLOSE AND RE-OPEN ANY TERMINAL WINDOWS <3\n"
