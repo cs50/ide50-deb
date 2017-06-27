@@ -127,60 +127,6 @@ flask()
     fi
 }
 
-# http-server
-http-server()
-{
-	# IP address
-	addr=$(/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
-
-	# default options
-	a="-a $addr"
-	c="-c-1"
-	cors="--cors"
-	i="-i false"
-	p="-p 8080"
-
-	# override default options
-	while test ${#} -gt 0
-	do
-		if [[ "$1" =~ ^-c-?[0-9]+$ ]]; then
-			c="$1"
-			shift
-		elif [[ "$1" =~ ^--cors(=.*)?$ ]]; then
-			cors="$1"
-			shift
-		elif [[ "$1" =~ ^-i\ .+$ ]]; then
-			i="$1 $2"
-			shift
-			shift
-		elif [[ "$1" =~ ^-p$ ]]; then
-			p="$1 $2"
-			shift
-			shift
-		else
-			shift
-		fi
-	done
-
-	# spawn http-server, retaining colorized output
-	script --flush --quiet --return /dev/null --command "http-server $a $c $cors $i $p" |
-		while IFS= read -r line
-		do
-			# rewrite address as $C9_HOSTNAME
-			if [[ "$line" =~ "Available on:" ]]; then
-				rewrite=true
-			fi
-			if [[ "$rewrite" = true && "$line" =~ ^(.+)http://$addr:(.+)$ ]]; then
-				echo "${BASH_REMATCH[1]}http://$C9_HOSTNAME:${BASH_REMATCH[2]}"
-			else
-				echo "$line"
-			fi
-			if [[ "$rewrite" = true && "$line" =~ "Hit CTRL-C to stop the server" ]]; then
-				rewrite=
-			fi
-		done
-}
-
 # valgrind defaults
 export VALGRIND_OPTS="--memcheck:leak-check=full --memcheck:track-origins=yes"
 
