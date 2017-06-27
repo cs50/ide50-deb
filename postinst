@@ -122,6 +122,9 @@ if [ -x /usr/bin/pip3 ]; then
     )
 fi
 
+# install http-server
+npm install -g http-server
+
 # add mysql username and password to env
 sudo cat >/etc/profile.d/mysql.sh <<EOF
 export MYSQL_USERNAME="$(username50)"
