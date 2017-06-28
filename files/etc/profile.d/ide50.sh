@@ -66,6 +66,9 @@ alias sqlite3="sqlite3 -column -header"
 # trailing space enables elevated command to be an alias
 alias sudo="sudo "
 
+# apt-get
+export DEBIAN_FRONTEND=noninteractive
+
 # flask
 export FLASK_APP=application.py
 export FLASK_DEBUG=1
