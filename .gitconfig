@@ -1,0 +1,12 @@
+# This is Git's per-user configuration file.
+[core]
+# Please adapt and uncomment the following lines:
+	user = David J. Malan
+	email = malan@harvard.edu
+	editor = /usr/bin/vim
+	excludesfile = ~/.gitignore_global
+[push]
+	default = simple
+[user]
+	name = David J. Malan
+	email = malan@harvard.edu
