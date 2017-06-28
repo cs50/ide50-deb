@@ -97,7 +97,7 @@ http-server()
         elif [[ "$1" =~ ^--cors(=.*)?$ ]]; then
             cors="$1"
             shift
-        elif [[ "$1" =~ ^-i\ .+$ ]]; then
+        elif [[ "$1" =~ ^-i$ ]]; then
             i="$1 $2"
             shift
             shift
