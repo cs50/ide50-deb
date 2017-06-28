@@ -174,6 +174,11 @@ http-server()
             shift
             shift
         else
+            if [[ -z "$options" ]]; then
+                options="$1"
+            else
+                options+=" $1"
+            fi
             shift
         fi
     done
