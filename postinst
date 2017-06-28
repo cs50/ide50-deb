@@ -123,6 +123,9 @@ PYTHON_PACKAGES="cs50>=1.3.0 Flask Flask-SQLAlchemy Flask-Session SQLAlchemy sub
 ( pip3 install $PYTHON_PACKAGES )
 
 
+# install http-server
+npm install -g http-server
+
 # add mysql username and password to env
 sudo cat >/etc/profile.d/mysql.sh <<EOF
 export MYSQL_USERNAME="$(username50)"
