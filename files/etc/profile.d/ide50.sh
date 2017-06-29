@@ -116,7 +116,7 @@ flask()
             do
                 # rewrite address as $C9_HOSTNAME
                 if [[ "$C9_HOSTNAME" && "$line" =~ ^( \* Running on http://)[^:]+(:.+)$ ]]; then
-                    echo "${BASH_REMATCH[1]}" "$C9_HOSTNAME" "${BASH_REMATCH[2]}"
+                    echo "${BASH_REMATCH[1]}""$C9_HOSTNAME""${BASH_REMATCH[2]}"
                 else
                     echo "$line"
                 fi
