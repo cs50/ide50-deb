@@ -119,7 +119,7 @@ fi
 sudo -Eu ubuntu /usr/bin/password50 >/dev/null 2>&1
 
 # install python packages
-PYTHON_PACKAGES="cs50>=1.3.0 Flask Flask-SQLAlchemy Flask-Session SQLAlchemy submit50>=2.2.0"
+PYTHON_PACKAGES="cs50==2.0.0 Flask Flask-SQLAlchemy Flask-Session SQLAlchemy submit50==2.2.0"
 ( pip3 install $PYTHON_PACKAGES )
 
 
