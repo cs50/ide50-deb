@@ -44,8 +44,6 @@ deb: clean Makefile
 	-C "$(FILES_DIR)" \
 	--after-install postinst \
 	--category misc \
-	--conflicts lib50-python \
-	--conflicts submit50 \
 	--deb-changelog changelog \
 	--deb-no-default-config-files \
 	--deb-priority optional \
@@ -55,17 +53,17 @@ deb: clean Makefile
 		clang-3.6, \
 		dnsutils, \
 		dos2unix, \
+		git-lfs, \
 		gdbserver, \
-		help50 (>= 1.2.2), \
 		inotify-tools, \
-		libcs50 (>= 7.2.1), \
-		libcs50-java (>= 2.0.0), \
+		libcs50 (= 8.0.3-0ubuntu1), \
+		libcs50-java (= 2.0.2-0ubuntu1), \
 		libphp-phpmailer, \
-		library50-php, \
 		manpages-dev, \
 		ngrok-client, \
 		nodejs, \
 		openjdk-7-jdk, \
+		php-cs50 (= 6.0.0-0ubuntu1), \
 		php5-cgi, \
 		php5-curl, \
 		php5-sqlite, \
@@ -73,7 +71,6 @@ deb: clean Makefile
 		phpliteadmin (>= 1.2.2), \
 		python3-pip, \
 		python3-tk, \
-		render50, \
 		sqlite3, \
 		style50, \
 		telnet, \
