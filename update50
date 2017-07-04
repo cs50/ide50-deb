@@ -1,0 +1,52 @@
+#!/bin/bash
+
+set -e
+
+echo "Adding external repos..."
+
+# add external apt repos
+# install cs50 ppa
+if [ ! -f /etc/apt/sources.list.d/cs50-ppa-trusty.list ]; then
+    sudo add-apt-repository -y ppa:cs50/ppa
+    sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/cs50-ppa-trusty.list" \
+        -o Dir::Etc::sourceparts="-"
+fi
+
+# install git-core ppa
+if [ ! -f /etc/apt/sources.list.d/git-core-ppa-trusty.list ]; then
+    sudo add-apt-repository ppa:git-core/ppa
+    sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/git-core-ppa-trusty.list" \
+        -o Dir::Etc::sourceparts="-"
+fi
+
+# install git-lfs apt repo
+# https://packagecloud.io/github/git-lfs/install#manual
+if [ ! -f /etc/apt/sources.list.d/github_git-lfs.list ]; then
+    curl -sSL https://packagecloud.io/github/git-lfs/gpgkey | sudo apt-key add -
+    echo "deb https://packagecloud.io/github/git-lfs/ubuntu/ trusty main" | sudo tee /etc/apt/sources.list.d/github_git-lfs.list && \
+        echo "deb-src https://packagecloud.io/github/git-lfs/ubuntu/ trusty main" | sudo tee -a /etc/apt/sources.list.d/github_git-lfs.list
+    sudo chmod a+r /etc/apt/sources.list.d/github_git-lfs.list
+    sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/github_git-lfs.list" \
+        -o Dir::Etc::sourceparts="-"
+fi
+
+echo 'Updating sources...'
+# try to fix dpkg before updating
+sudo dpkg --configure -a
+
+# if requested, flush the apt-get Packages file cache
+if [ "$1" == "-f" ]; then
+    echo "CLEARING PACKAGE CACHE"
+    sudo rm -rf /var/lib/apt/lists/*
+fi
+
+sudo apt-get update
+
+echo 'Reinstalling ide package...'
+sudo -E apt-get -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite" install --reinstall --yes --force-yes --assume-yes ide50
+
+echo 'Removing unneeded packages...'
+/usr/bin/sudo apt-get autoremove -y
+
+echo 'Update complete!'
+echo -e "\nBE SURE TO CLOSE AND RE-OPEN ANY TERMINAL WINDOWS <3\n"
