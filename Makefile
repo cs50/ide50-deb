@@ -53,6 +53,7 @@ deb: clean Makefile
 		clang-3.6, \
 		dnsutils, \
 		dos2unix, \
+		git (>= 1:2.13.0-0ppa1~ubuntu14.04.1), \
 		git-lfs, \
 		gdbserver, \
 		inotify-tools, \
