@@ -47,8 +47,9 @@ deb: clean Makefile
 	--deb-changelog changelog \
 	--deb-no-default-config-files \
 	--deb-priority optional \
-	--deb-recommends \
-		"bc, \
+	--depends \
+		"apache2, \
+		bc, \
 		check50, \
 		clang-3.6, \
 		dnsutils, \
@@ -85,7 +86,6 @@ deb: clean Makefile
 	-t deb \
 	-v $(VERSION) \
 	--vendor CS50 \
-	--depends apache2 \
 	--description "installs necessary software on CS50 IDE" \
 	--provides "$(NAME)" \
 	--url "https://github.com/cs50" \
