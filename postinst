@@ -118,18 +118,6 @@ fi
 # create a password50 file, if it doesn't exist
 sudo -Eu ubuntu /usr/bin/password50 >/dev/null 2>&1
 
-# install python packages
-PYTHON_PACKAGES="cs50==2.1.0 \
-    Flask \
-    Flask-SQLAlchemy \
-    Flask-Session \
-    help50==2.0.0 \
-    render50==2.0.0 \
-    SQLAlchemy \
-    submit50==2.3.0"
-( pip3 install $PYTHON_PACKAGES )
-
-
 # add mysql username and password to env
 sudo cat >/etc/profile.d/mysql.sh <<EOF
 export MYSQL_USERNAME="$(username50)"

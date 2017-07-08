@@ -30,7 +30,7 @@ if [ ! -f /etc/apt/sources.list.d/github_git-lfs.list ]; then
         -o Dir::Etc::sourceparts="-"
 fi
 
-echo 'Updating sources...'
+echo "Updating sources..."
 # try to fix dpkg before updating
 sudo dpkg --configure -a
 
@@ -42,11 +42,22 @@ fi
 
 sudo apt-get update
 
-echo 'Reinstalling ide package...'
+echo "Reinstalling ide package..."
 sudo -E apt-get -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite" install --reinstall --yes --force-yes --assume-yes ide50
 
-echo 'Removing unneeded packages...'
+echo "Removing unneeded packages..."
 /usr/bin/sudo apt-get autoremove -y
 
-echo 'Update complete!'
+echo "Installing Python packages..."
+PYTHON_PACKAGES="cs50==2.1.0 \
+    Flask \
+    Flask-SQLAlchemy \
+    Flask-Session \
+    help50==2.0.0 \
+    render50==2.0.0 \
+    SQLAlchemy \
+    submit50==2.3.0"
+( pip3 install $PYTHON_PACKAGES )
+
+echo "Update complete!"
 echo -e "\nBE SURE TO CLOSE AND RE-OPEN ANY TERMINAL WINDOWS <3\n"
