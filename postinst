@@ -11,7 +11,9 @@ chown -R ubuntu:ubuntu /var/c9sdk/plugins/c9.ide.cs50* >/dev/null 2>&1
 chown -R ubuntu:ubuntu /var/c9sdk/configs/ >/dev/null 2>&1
 
 # ensure cs50.list is world-readable
-chmod a+r /etc/apt/sources.list.d/cs50.list >/dev/null 2>&1
+if [ -f /etc/apt/sources.list.d/cs50.list ]; then
+    chmod a+r /etc/apt/sources.list.d/cs50.list >/dev/null 2>&1
+fi
 
 # remove dropbox functions
 sed -i 's:source /home/ubuntu/.dropbox50::g' ~/.bashrc
