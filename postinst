@@ -10,11 +10,6 @@ chmod -R g+w /home/ubuntu/workspace
 chown -R ubuntu:ubuntu /var/c9sdk/plugins/c9.ide.cs50* >/dev/null 2>&1
 chown -R ubuntu:ubuntu /var/c9sdk/configs/ >/dev/null 2>&1
 
-if [ -e /home/ubuntu/bin/debug50 ]; then
-    chown ubuntu:ubuntu /home/ubuntu/bin/debug50
-    chmod a+rx,g+w /home/ubuntu/bin/debug50
-fi
-
 # remove dropbox functions
 sed -i 's:source /home/ubuntu/.dropbox50::g' ~/.bashrc
 
