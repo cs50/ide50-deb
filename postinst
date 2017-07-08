@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# suppress CS50 compilation preferences
-unset CC CFLAGS LDLIBS
-
 echo "Resetting permissions ..."
 
 chmod -R g+w /home/ubuntu/workspace
