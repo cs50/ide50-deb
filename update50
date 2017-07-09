@@ -52,7 +52,7 @@ echo "Removing unneeded packages..."
 /usr/bin/sudo apt-get autoremove -y
 
 echo "Installing Python packages..."
-PYTHON_PACKAGES="cs50==2.1.0 \
+PYTHON_PACKAGES="cs50==2.2.0 \
     Flask \
     Flask-SQLAlchemy \
     Flask-Session \
