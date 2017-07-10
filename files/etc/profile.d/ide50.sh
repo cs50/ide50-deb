@@ -82,9 +82,9 @@ flask()
             echo "Usage: flask run [OPTIONS]"
             echo
             echo "Error: The file/path provided ($FLASK_APP) does not appear to exist.  Please verify the path is correct.  If app is not on PYTHONPATH, ensure the extension is .py"
-            exit 1
+            return 1
         fi
- 
+
         # default options
         host="--host=0.0.0.0"
         port="--port=8080"
