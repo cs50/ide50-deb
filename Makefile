@@ -44,28 +44,29 @@ deb: clean Makefile
 	-C "$(FILES_DIR)" \
 	--after-install postinst \
 	--category misc \
-	--conflicts lib50-python \
-	--conflicts submit50 \
 	--deb-changelog changelog \
 	--deb-no-default-config-files \
 	--deb-priority optional \
-	--deb-recommends \
-		"bc, \
+	--depends \
+		"apache2, \
+		bc, \
 		check50, \
 		clang-3.6, \
 		dnsutils, \
 		dos2unix, \
+		git (>= 1:2.13.0-0ppa1~ubuntu14.04.1), \
+		git-lfs, \
 		gdbserver, \
-		help50 (>= 1.2.2), \
 		inotify-tools, \
-		libcs50 (>= 7.2.1), \
-		libcs50-java (>= 2.0.0), \
+		libcs50 (= 8.0.3-0ubuntu1), \
+		libcs50-java (= 2.0.2-0ubuntu1), \
 		libphp-phpmailer, \
-		library50-php, \
+		libxslt1-dev, \
 		manpages-dev, \
 		ngrok-client, \
 		nodejs, \
 		openjdk-7-jdk, \
+		php-cs50 (= 6.0.0-0ubuntu1), \
 		php5-cgi, \
 		php5-curl, \
 		php5-sqlite, \
@@ -73,7 +74,6 @@ deb: clean Makefile
 		phpliteadmin (>= 1.2.2), \
 		python3-pip, \
 		python3-tk, \
-		render50, \
 		sqlite3, \
 		style50, \
 		telnet, \
@@ -87,7 +87,6 @@ deb: clean Makefile
 	-t deb \
 	-v $(VERSION) \
 	--vendor CS50 \
-	--depends apache2 \
 	--description "installs necessary software on CS50 IDE" \
 	--provides "$(NAME)" \
 	--url "https://github.com/cs50" \

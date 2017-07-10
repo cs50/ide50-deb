@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# suppress CS50 compilation preferences
-unset CC CFLAGS LDLIBS
-
 echo "Resetting permissions ..."
 
 chmod -R g+w /home/ubuntu/workspace
@@ -10,9 +7,9 @@ chmod -R g+w /home/ubuntu/workspace
 chown -R ubuntu:ubuntu /var/c9sdk/plugins/c9.ide.cs50* >/dev/null 2>&1
 chown -R ubuntu:ubuntu /var/c9sdk/configs/ >/dev/null 2>&1
 
-if [ -e /home/ubuntu/bin/debug50 ]; then
-    chown ubuntu:ubuntu /home/ubuntu/bin/debug50
-    chmod a+rx,g+w /home/ubuntu/bin/debug50
+# ensure cs50.list is world-readable
+if [ -f /etc/apt/sources.list.d/cs50.list ]; then
+    chmod a+r /etc/apt/sources.list.d/cs50.list >/dev/null 2>&1
 fi
 
 # remove dropbox functions
@@ -117,11 +114,6 @@ fi
 
 # create a password50 file, if it doesn't exist
 sudo -Eu ubuntu /usr/bin/password50 >/dev/null 2>&1
-
-# install python packages
-PYTHON_PACKAGES="cs50>=1.3.0 Flask Flask-SQLAlchemy Flask-Session SQLAlchemy submit50>=2.2.0"
-( pip3 install $PYTHON_PACKAGES )
-
 
 # add mysql username and password to env
 sudo cat >/etc/profile.d/mysql.sh <<EOF

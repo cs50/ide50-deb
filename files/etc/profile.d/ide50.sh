@@ -22,7 +22,7 @@ if [ "$(id -u)" != "0" ]; then
 
   # configure clang
   export CC=clang
-  export CFLAGS="-fsanitize=integer -fsanitize=undefined -ggdb3 -O0 -std=c11 -Wall -Werror -Wextra -Wno-sign-compare -Wshadow"
+  export CFLAGS="-fsanitize=integer -fsanitize=undefined -ggdb3 -O0 -std=gnu11 -Wall -Werror -Wextra -Wno-sign-compare -Wshadow"
   export LDLIBS="-lcrypt -lcs50 -lm"
 
   # protect user
@@ -51,6 +51,9 @@ ulimit -f 524288
 
 # disable auto-logout
 export TMOUT=0
+
+# java
+export CLASSPATH=.:/usr/share/java/cs50.jar
 
 # python3
 alias pip=pip3
