@@ -55,6 +55,16 @@ sudo -E apt-get -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force
 echo "Removing unneeded packages..."
 /usr/bin/sudo apt-get autoremove -y
 
+# ensure npm prefix is writable
+# some old workspaces have this prefix mounted read-only
+npm_prefix="$(npm get prefix -g)"
+if [ ! -w "$npm_prefix" ]; then
+    npm set prefix -g "${NVM_DIR:=~/.nvm}/versions/node/$(node --version)"
+fi
+
+echo "Installing npm packages..."
+npm install -g http-server
+
 echo "Installing Python packages..."
 
 # clean up pip's build cache
