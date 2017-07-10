@@ -78,7 +78,7 @@ flask()
     if [[ "$1" == "run" ]]; then
 
         # otherwise FLASK_DEBUG=1 suppresses this error in shell
-        if [[ "$FLASK_DEBUG" && ! -z "$FLASK_APP" && ! -f "$FLASK_APP" ]]; then
+        if [ "$FLASK_DEBUG" ] && [ ! -z "$FLASK_APP" ] && [ ! -f "$FLASK_APP" ]; then
             echo "Usage: flask run [OPTIONS]"
             echo
             echo "Error: The file/path provided ($FLASK_APP) does not appear to exist.  Please verify the path is correct.  If app is not on PYTHONPATH, ensure the extension is .py"
@@ -94,17 +94,17 @@ flask()
         shift
         while test ${#} -gt 0
         do
-            if [[ "$1" =~ ^--host= ]]; then
+            if [ echo "$1" | grep -q "^--host=" ]; then
                 host="$1"
-            elif [[ "$1" =~ ^--port= ]]; then
+            elif [ echo "$1" | grep -q "^--port=" ]; then
                 port="$1"
-            elif [[ "$1" =~ ^--with(out)?-threads$ ]]; then
+            elif [ echo "$1" | grep -q "^--with\(out\)\?-threads$" ]; then
                 threads="$1"
             else
-                if [[ -z "$options" ]]; then
+                if [ -z "$options" ]; then
                     options="$1"
                 else
-                    options+=" $1"
+                    options="$options $1"
                 fi
             fi
             shift
@@ -115,12 +115,7 @@ flask()
             while IFS= read -r line
             do
                 # rewrite address as $C9_HOSTNAME
-                if [[ "$C9_HOSTNAME" && "$line" =~ ^( \* Running on http://)[^:]+(:.+)$ ]]; then
-                    echo "${BASH_REMATCH[1]}""$C9_HOSTNAME""${BASH_REMATCH[2]}"
-                else
-                    echo "$line"
-                fi
-                shift
+                echo $line | sed "s#\( *Running on http://\)[^:]\+\(:.\+\)#\1$C9_HOSTNAME\2#"
             done
     else
         command flask "$@"
