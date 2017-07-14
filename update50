@@ -7,6 +7,12 @@ unset CC CFLAGS LDLIBS
 
 echo "Adding external repos..."
 
+# hotfix to install apt-transport-https
+if [ -f /etc/apt/sources.list.d/github_git-lfs.list ]; then
+    sudo mv /etc/apt/sources.list.d/github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list.disabled
+fi
+sudo apt-get update && sudo apt-get install -y apt-transport-https
+
 # add external apt repos
 # install cs50 ppa
 if [ ! -f /etc/apt/sources.list.d/cs50-ppa-trusty.list ]; then
