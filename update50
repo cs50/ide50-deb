@@ -7,6 +7,12 @@ unset CC CFLAGS LDLIBS
 
 echo "Adding external repos..."
 
+# hotfix to install apt-transport-https
+if [ -f /etc/apt/sources.list.d/github_git-lfs.list ]; then
+    sudo mv /etc/apt/sources.list.d/github_git-lfs.list /etc/apt/sources.list.d/github_git-lfs.list.disabled
+fi
+sudo apt-get update && sudo apt-get install -y apt-transport-https
+
 # add external apt repos
 # install cs50 ppa
 if [ ! -f /etc/apt/sources.list.d/cs50-ppa-trusty.list ]; then
@@ -26,8 +32,8 @@ fi
 # https://packagecloud.io/github/git-lfs/install#manual
 if [ ! -f /etc/apt/sources.list.d/github_git-lfs.list ]; then
     curl -sSL https://packagecloud.io/github/git-lfs/gpgkey | sudo apt-key add -
-    echo "deb http://packagecloud.io/github/git-lfs/ubuntu/ trusty main" | sudo tee /etc/apt/sources.list.d/github_git-lfs.list && \
-        echo "deb-src http://packagecloud.io/github/git-lfs/ubuntu/ trusty main" | sudo tee -a /etc/apt/sources.list.d/github_git-lfs.list
+    echo "deb https://packagecloud.io/github/git-lfs/ubuntu/ trusty main" | sudo tee /etc/apt/sources.list.d/github_git-lfs.list && \
+        echo "deb-src https://packagecloud.io/github/git-lfs/ubuntu/ trusty main" | sudo tee -a /etc/apt/sources.list.d/github_git-lfs.list
     sudo chmod a+r /etc/apt/sources.list.d/github_git-lfs.list
     sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/github_git-lfs.list" \
         -o Dir::Etc::sourceparts="-"
