@@ -1,7 +1,7 @@
 FILES_DIR := files
 C9SDK_DIR := $(FILES_DIR)/var/c9sdk
 CONFIGS_DIR := $(C9SDK_DIR)/configs/ide
-OFFLINE_DIR := /tmp/ide50-docker
+OFFLINE_DIR := /tmp/ide50-offline
 PLUGINS_DIR := $(C9SDK_DIR)/plugins
 VERSION_FILE := $(FILES_DIR)/etc/version50
 
@@ -30,8 +30,8 @@ deb: clean Makefile
 
 	@echo "\nFetching latest offline configs..."
 	mkdir -p "$(CONFIGS_DIR)"
-	git clone --depth=1 git@github.com:cs50/ide50-docker.git "$(OFFLINE_DIR)"
-	@cp "$(OFFLINE_DIR)"/ide50-offline/files/workspace-cs50.js "$(CONFIGS_DIR)"
+	git clone --depth=1 git@github.com:cs50/ide50-offline.git "$(OFFLINE_DIR)"
+	@cp "$(OFFLINE_DIR)"/files/workspace-cs50.js "$(CONFIGS_DIR)"
 
 	@echo "\nBuilding Deb..."
 	echo "version=$(VERSION)" > "$(VERSION_FILE)"
