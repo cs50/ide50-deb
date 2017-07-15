@@ -49,7 +49,6 @@ deb: clean Makefile
 	--deb-priority optional \
 	--depends \
 		"apache2, \
-		apt-transport-https, \
 		bc, \
 		check50, \
 		clang-3.6, \
@@ -59,7 +58,7 @@ deb: clean Makefile
 		git-lfs, \
 		gdbserver, \
 		inotify-tools, \
-		libcs50 (= 8.0.3-0ubuntu1), \
+		libcs50 (= 8.0.4-0ubuntu1), \
 		libcs50-java (= 2.0.2-0ubuntu1), \
 		libphp-phpmailer, \
 		libxslt1-dev, \
