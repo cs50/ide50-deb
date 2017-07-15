@@ -49,7 +49,6 @@ deb: clean Makefile
 	--deb-priority optional \
 	--depends \
 		"apache2, \
-		apt-transport-https, \
 		bc, \
 		check50, \
 		clang-3.6, \
