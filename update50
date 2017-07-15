@@ -7,6 +7,9 @@ unset CC CFLAGS LDLIBS
 
 echo "Adding external repos..."
 
+# install apt-transport-https
+sudo apt-get update && sudo apt-get install -y apt-transport-https
+
 # add external apt repos
 # install cs50 ppa
 if [ ! -f /etc/apt/sources.list.d/cs50-ppa-trusty.list ]; then
@@ -52,6 +55,9 @@ echo "Removing unneeded packages..."
 /usr/bin/sudo apt-get autoremove -y
 
 echo "Installing Python packages..."
+
+# clean up pip's build cache
+/usr/bin/sudo rm -rf /tmp/pip_build_root/*
 PYTHON_PACKAGES="cs50==2.2.0 \
     Flask \
     Flask-SQLAlchemy \

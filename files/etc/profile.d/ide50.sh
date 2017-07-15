@@ -74,6 +74,7 @@ export FLASK_APP=application.py
 export FLASK_DEBUG=1
 flask()
 {
+<<<<<<< HEAD
     # flask run
     if [[ "$1" == "run" ]]; then
 
@@ -117,6 +118,11 @@ flask()
                 # rewrite address as $C9_HOSTNAME
                 echo $line | sed "s#\( *Running on http://\)[^:]\+\(:.\+\)#\1$C9_HOSTNAME\2#"
             done
+=======
+    if [ "$1" = "run" ]; then
+        shift
+        command flask run --host=0.0.0.0 --port=8080 --with-threads "$@"
+>>>>>>> master
     else
         command flask "$@"
     fi
