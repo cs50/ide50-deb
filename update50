@@ -59,10 +59,6 @@ echo "Installing Python packages..."
 
 # clean up pip's build cache
 /usr/bin/sudo rm -rf /tmp/pip_build_root/*
-
-# upgrade pip3
-/usr/bin/sudo easy_install-3.4 -U pip
-
 PYTHON_PACKAGES="cs50==2.2.0 \
     Flask \
     Flask-SQLAlchemy \
