@@ -70,7 +70,8 @@ PYTHON_PACKAGES="cs50==2.2.0 \
     help50==2.0.0 \
     render50==2.0.0 \
     SQLAlchemy \
-    submit50==2.3.0"
+    submit50==2.3.0 \
+    virtualenv"
 ( /usr/bin/sudo pip3 install $PYTHON_PACKAGES )
 
 echo "Update complete!"
