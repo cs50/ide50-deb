@@ -62,7 +62,7 @@ nvm alias default 7.6.0
 
 # composer
 # https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-14-04
-if [ ! -f /usr/local/bin/composer ]; then
+if ! which composer &>/dev/null; then
     curl -sS https://getcomposer.org/installer | \
         sudo php -- --install-dir=/usr/local/bin --filename=composer
 fi
@@ -70,7 +70,7 @@ fi
 # hub
 # https://hub.github.com/
 # http://stackoverflow.com/a/27869453
-if [ ! -f /usr/local/bin/hub ]; then
+if ! which hub &>/dev/null; then
     mkdir /tmp/hub-linux-amd64 && \
         curl -s -L https://github.com/github/hub/releases/latest | \
         egrep -o '/github/hub/releases/download/.*/hub-linux-amd64-.*.tgz' | \
