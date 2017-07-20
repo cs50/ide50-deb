@@ -62,8 +62,10 @@ nvm alias default 7.6.0
 
 # composer
 # https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-14-04
-curl -sS https://getcomposer.org/installer | \
-	sudo php -- --install-dir=/usr/local/bin --filename=composer
+if [ ! -f /usr/local/bin/composer ]; then
+    curl -sS https://getcomposer.org/installer | \
+        sudo php -- --install-dir=/usr/local/bin --filename=composer
+fi
 
 # hub
 # https://hub.github.com/
