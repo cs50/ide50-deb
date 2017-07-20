@@ -73,7 +73,7 @@ mkdir /tmp/hub-linux-amd64 && \
 	egrep -o '/github/hub/releases/download/.*/hub-linux-amd64-.*.tgz' | \
 	wget --base=http://github.com/ -i - -O - | \
 	tar xvz -C /tmp/hub-linux-amd64 --strip-components 1 && \
-    /tmp/hub-linux-amd64/install && \
+    sudo /tmp/hub-linux-amd64/install && \
     rm -rf /tmp/hub-linux-amd64
 
 echo "Removing unneeded packages..."
