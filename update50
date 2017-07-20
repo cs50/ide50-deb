@@ -70,13 +70,15 @@ fi
 # hub
 # https://hub.github.com/
 # http://stackoverflow.com/a/27869453
-mkdir /tmp/hub-linux-amd64 && \
-	curl -s -L https://github.com/github/hub/releases/latest | \
-	egrep -o '/github/hub/releases/download/.*/hub-linux-amd64-.*.tgz' | \
-	wget --base=http://github.com/ -i - -O - | \
-	tar xvz -C /tmp/hub-linux-amd64 --strip-components 1 && \
-    sudo /tmp/hub-linux-amd64/install && \
-    rm -rf /tmp/hub-linux-amd64
+if [ ! -f /usr/local/bin/hub ]; then
+    mkdir /tmp/hub-linux-amd64 && \
+        curl -s -L https://github.com/github/hub/releases/latest | \
+        egrep -o '/github/hub/releases/download/.*/hub-linux-amd64-.*.tgz' | \
+        wget --base=http://github.com/ -i - -O - | \
+        tar xvz -C /tmp/hub-linux-amd64 --strip-components 1 && \
+        sudo /tmp/hub-linux-amd64/install && \
+        rm -rf /tmp/hub-linux-amd64
+fi
 
 echo "Removing unneeded packages..."
 /usr/bin/sudo apt-get autoremove -y
