@@ -95,4 +95,4 @@ export APPLICATION_ENV=dev
 export rvm_project_rvmrc=0
 
 # remember ide50.sh was executed
-IDE50_SH_EXECUTED=1
+export IDE50_SH_EXECUTED=1
