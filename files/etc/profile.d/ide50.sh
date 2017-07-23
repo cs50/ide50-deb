@@ -1,3 +1,10 @@
+#!/bin/sh
+
+if [ "$IDE50_SH_EXECUTED" ]; then
+    # already executed, let's not overwrite the path
+    return
+fi
+
 # if not root
 if [ "$(id -u)" != "0" ]; then
 
@@ -100,3 +107,6 @@ export APPLICATION_ENV=dev
 # short-circuit RVM's cd script
 # https://news.ycombinator.com/item?id=1637354
 export rvm_project_rvmrc=0
+
+# remember ide50.sh was executed
+IDE50_SH_EXECUTED=1
