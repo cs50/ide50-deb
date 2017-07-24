@@ -101,9 +101,8 @@ if ! which pyenv &>/dev/null; then
     rm -f /tmp/master.zip
     sudo mv /tmp/pyenv-master /opt/pyenv
     sudo chmod a+x /opt/pyenv/bin/pyenv
-    /opt/pyenv/bin/pyenv install 3.6.0
 fi
-
+/opt/pyenv/bin/pyenv install --skip-existing 3.6.0
 /opt/pyenv/bin/pyenv rehash
 /opt/pyenv/bin/pyenv global 3.6.0
 
