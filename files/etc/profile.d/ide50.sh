@@ -53,6 +53,7 @@ alias pip=pip3
 alias pylint=pylint3
 alias python=python3
 export PYTHONDONTWRITEBYTECODE=1
+unset PYTHONPATH
 
 # pyenv
 export PYENV_ROOT=/opt/pyenv
