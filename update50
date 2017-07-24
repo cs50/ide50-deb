@@ -80,6 +80,33 @@ if ! which hub &>/dev/null; then
         rm -rf /tmp/hub-linux-amd64
 fi
 
+# pyenv
+if ! which pyenv &>/dev/null; then
+    export PYENV_ROOT=/opt/pyenv
+    sudo apt-get install -y \
+        build-essential \
+        curl \
+        libbz2-dev \
+        libncurses5-dev \
+        libncursesw5-dev \
+        libreadline-dev \
+        libsqlite3-dev \
+        libssl-dev \
+        llvm \
+        wget \
+        xz-utils \
+        zlib1g-dev
+    wget -P /tmp https://github.com/yyuu/pyenv/archive/master.zip
+    unzip -q -d /tmp /tmp/master.zip
+    rm -f /tmp/master.zip
+    sudo mv /tmp/pyenv-master /opt/pyenv
+    sudo chmod a+x /opt/pyenv/bin/pyenv
+    /opt/pyenv/bin/pyenv install 3.6.0
+fi
+
+/opt/pyenv/bin/pyenv rehash
+/opt/pyenv/bin/pyenv global 3.6.0
+
 echo "Removing unneeded packages..."
 /usr/bin/sudo apt-get autoremove -y
 
@@ -87,9 +114,6 @@ echo "Installing Python packages..."
 
 # clean up pip's build cache
 /usr/bin/sudo rm -rf /tmp/pip_build_root/*
-
-# upgrade pip3
-/usr/bin/sudo easy_install-3.4 -U pip
 
 PYTHON_PACKAGES="cs50==2.2.0 \
     Flask \

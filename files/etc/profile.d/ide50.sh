@@ -11,7 +11,7 @@ if [ "$(id -u)" != "0" ]; then
     # set umask
     umask 0077
 
-    export PATH=/opt/cs50/bin:$PATH:$HOME/.local/bin ;;
+    export PATH=/opt/cs50/bin:$PATH:$HOME/.local/bin
 
     # configure clang
     export CC=clang
@@ -54,6 +54,10 @@ alias pylint=pylint3
 alias python=python3
 export PYTHONDONTWRITEBYTECODE=1
 export PYTHONPATH="/home/ubuntu/.local/lib/python3.4/site-packages:/usr/lib/python3/dist-packages:/usr/local/lib/python3.4/dist-packages"
+
+# pyenv
+export PYENV_ROOT=/opt/pyenv
+export PATH=$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH
 
 # sqlite3
 alias sqlite3="sqlite3 -column -header"
