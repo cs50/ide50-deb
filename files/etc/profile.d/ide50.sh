@@ -147,7 +147,7 @@ flask()
 }
 
 # http-server
-http-server()
+http_server()
 {
     # default options
     a="-a 0.0.0.0"
@@ -159,26 +159,26 @@ http-server()
     # override default options
     while test ${#} -gt 0
     do
-        if [[ "$1" =~ ^-a$ ]]; then
+        if echo "$1" | egrep -q "^-a$"; then
             a="$1 $2"
             shift
             shift
-        elif [[ "$1" =~ ^-c-?[0-9]+$ ]]; then
+        elif echo "$1" | egrep -q "^-c-?[0-9]+$"; then
             c="$1"
             shift
-        elif [[ "$1" =~ ^--cors(=.*)?$ ]]; then
+        elif echo "$1" | egrep -q "^--cors(=.*)?$"; then
             cors="$1"
             shift
-        elif [[ "$1" =~ ^-i$ ]]; then
+        elif echo "$1" | egrep -q "^-i$"; then
             i="$1 $2"
             shift
             shift
-        elif [[ "$1" =~ ^-p$ ]]; then
+        elif echo "$1" | egrep -q "^-p$"; then
             p="$1 $2"
             shift
             shift
         else
-            if [[ -z "$options" ]]; then
+            if [ -z "$options" ]; then
                 options="$1"
             else
                 options+=" $1"
@@ -192,26 +192,25 @@ http-server()
         while IFS= read -r line
         do
             # rewrite address as $C9_HOSTNAME
-            if [[ "$C9_HOSTNAME" && "$line" =~ "Available on:" ]]; then
+            if [ "$C9_HOSTNAME" ] && echo "$line" | egrep -q "Available on:"; then
                 echo "$line"
                 IFS= read -r line
-                if [[ "$line" =~ ^(.+http://)[^:]+(:.+)$ ]]; then
-                    echo "${BASH_REMATCH[1]}""$C9_HOSTNAME""${BASH_REMATCH[2]}"
-                    while IFS= read -r line
-                    do
-                        if [[ "$line" =~ "Hit CTRL-C to stop the server" ]]; then
-                            echo "$line"
-                            break
-                        fi
-                    done
-                else
-                    echo "$line"
-                fi
+                echo "$line" | sed "s#\(.*http://\)[^:]\+\(:.\+\)#\1$C9_HOSTNAME\2#"
+                while IFS= read -r line
+                do
+                    if echo "$line" | egrep -q "Hit CTRL-C to stop the server"; then
+                        echo "$line"
+                        break
+                    fi
+                done
             else
                 echo "$line"
             fi
         done
 }
+
+# can't have dash in sh function names
+alias http-server="http_server"
 
 # valgrind defaults
 export VALGRIND_OPTS="--memcheck:leak-check=full --memcheck:track-origins=yes"
