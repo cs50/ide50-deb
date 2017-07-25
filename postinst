@@ -10,7 +10,7 @@ chown -R ubuntu:ubuntu /var/c9sdk/configs/ >/dev/null 2>&1
 chown -R ubuntu:ubuntu /home/ubuntu/.local/ 2>&1
 chmod a+r /etc/apt/sources.list.d/cs50.list >/dev/null 2>&1 || true
 chmod a+r /home/ubuntu/workspace/.eslintrc 2>&1 || true
-chmod a+r /home/ubuntu/.local/lib/python3.4/site-packages/pylint50.py || true
+chmod a+r /home/ubuntu/.cs50/py_modules/pylint50.py || true
 
 # remove dropbox functions
 sed -i 's:source /home/ubuntu/.dropbox50::g' ~/.bashrc
