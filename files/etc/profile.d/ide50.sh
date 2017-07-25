@@ -53,6 +53,8 @@ alias pip=pip3
 alias pylint=pylint3
 alias python=python3
 export PYTHONDONTWRITEBYTECODE=1
+
+# unset so user doesn't have to restart IDE
 unset PYTHONPATH
 
 # pyenv
