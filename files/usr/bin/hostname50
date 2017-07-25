@@ -7,7 +7,7 @@ if [ "$IDE_OFFLINE" ]; then
 fi
 
 # determine external host that IDE is running on to calculate app domain
-source /home/ubuntu/.domain50 &>/dev/null
+source /home/ubuntu/.cs50/stats/.domain50 &>/dev/null
 
 if [ "$domain" == "" ]; then
     # assume hostname is cs50.io by default
