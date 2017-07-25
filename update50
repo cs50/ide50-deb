@@ -115,7 +115,7 @@ echo "Installing Python packages..."
 
 # use pip for python3.6
 unset PYTHONPATH
-export PATH=$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH
+export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
 PYTHON_PACKAGES="cs50==2.2.0 \
     Flask \
     Flask-SQLAlchemy \
