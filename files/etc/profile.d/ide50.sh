@@ -11,10 +11,10 @@ if [ "$(id -u)" != "0" ]; then
     # set umask
     umask 0077
 
-    export PATH=/opt/cs50/bin:$PATH:$HOME/.local/bin
+    export PATH="/opt/cs50/bin:$PATH:$HOME/.local/bin"
 
     # configure clang
-    export CC=clang
+    export CC="clang"
     export CFLAGS="-fsanitize=integer -fsanitize=undefined -ggdb3 -O0 -std=c11 -Wall -Werror -Wextra -Wno-sign-compare -Wshadow"
     export LDLIBS="-lcrypt -lcs50 -lm"
 
@@ -43,23 +43,23 @@ fi
 ulimit -f 524288
 
 # disable auto-logout
-export TMOUT=0
+export TMOUT="0"
 
 # java
-export CLASSPATH=.:/usr/share/java/cs50.jar
+export CLASSPATH=".:/usr/share/java/cs50.jar"
 
 # python3
-alias pip=pip3
-alias pylint=pylint3
-alias python=python3
-export PYTHONDONTWRITEBYTECODE=1
+alias pip="pip3"
+alias pylint="pylint3"
+alias python="python3"
+export PYTHONDONTWRITEBYTECODE="1"
 
 # unset so user doesn't have to restart IDE
 unset PYTHONPATH
 
 # pyenv
-export PYENV_ROOT=/opt/pyenv
-export PATH=$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH
+export PYENV_ROOT="/opt/pyenv"
+export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
 
 # sqlite3
 alias sqlite3="sqlite3 -column -header"
@@ -69,8 +69,8 @@ alias sqlite3="sqlite3 -column -header"
 alias sudo="sudo "
 
 # flask
-export FLASK_APP=application.py
-export FLASK_DEBUG=1
+export FLASK_APP="application.py"
+export FLASK_DEBUG="1"
 flask()
 {
     if [ "$1" = "run" ]; then
@@ -85,20 +85,20 @@ flask()
 export VALGRIND_OPTS="--memcheck:leak-check=full --memcheck:track-origins=yes"
 
 # set editor
-export EDITOR=nano
+export EDITOR="nano"
 
 # set locale
-export LANG=C
+export LANG="C"
 
 # Node.js
-export NODE_ENV=dev
+export NODE_ENV="dev"
 
 # web application environment
-export APPLICATION_ENV=dev
+export APPLICATION_ENV="dev"
 
 # short-circuit RVM's cd script
 # https://news.ycombinator.com/item?id=1637354
-export rvm_project_rvmrc=0
+export rvm_project_rvmrc="0"
 
 # remember ide50.sh was executed
-export IDE50_SH_EXECUTED=1
+export IDE50_SH_EXECUTED="1"
