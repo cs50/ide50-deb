@@ -104,8 +104,11 @@ if ! grep -qs "alias cd" /home/ubuntu/.bashrc; then
 fi
 
 if ! grep -qs 'prompt50' /home/ubuntu/.bashrc; then
-    echo "source /home/ubuntu/.prompt50" >>/home/ubuntu/.bashrc
+    echo "source /home/ubuntu/.cs50/.prompt50" >>/home/ubuntu/.bashrc
 fi
+
+# update path in existing .bashrc files
+sed -i "s#\(/home/ubuntu/\)\(.prompt50\)#\1.cs50/\2#" /home/ubuntu/.bashrc
 
 # remove old source file if it exists
 if [ -f /etc/profile.d/app.sh ]; then

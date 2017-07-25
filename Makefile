@@ -38,7 +38,7 @@ deb: clean Makefile
 
 	# set permissions
 	chmod -R 755 "$(FILES_DIR)/usr/bin/"
-	chmod 644 "$(VERSION_FILE)" "$(FILES_DIR)/etc/profile.d/ide50.sh" "$(FILES_DIR)/home/ubuntu/.prompt50"
+	chmod 644 "$(VERSION_FILE)" "$(FILES_DIR)/etc/profile.d/ide50.sh" "$(FILES_DIR)/home/ubuntu/.cs50/.prompt50"
 
 	fpm \
 	-C "$(FILES_DIR)" \
