@@ -87,11 +87,11 @@ flask()
         shift
         while test ${#} -gt 0
         do
-            if echo "$1" | grep -q "^--host="; then
+            if echo "$1" | egrep -q "^--host="; then
                 host="$1"
-            elif echo "$1" | grep -q "^--port="; then
+            elif echo "$1" | egrep -q "^--port="; then
                 port="$1"
-            elif echo "$1" | grep -q "^--with\(out\)\?-threads$"; then
+            elif echo "$1" | egrep -q "^--with(out)?-threads$"; then
                 threads="$1"
             else
                 if [ -z "$options" ]; then
