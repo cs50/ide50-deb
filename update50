@@ -68,7 +68,7 @@ PYTHON_PACKAGES="cs50==2.2.0 \
     Flask-SQLAlchemy \
     Flask-Session \
     help50==2.0.0 \
-    render50==2.0.0 \
+    render50==2.0.1 \
     SQLAlchemy \
     submit50==2.3.0 \
     virtualenv"
