@@ -172,6 +172,4 @@ else
     rmdir -p /var/c9sdk/configs/ide >/dev/null 2>&1
 fi
 
-echo -e "\nAll done! <3"
-
 exit 0
