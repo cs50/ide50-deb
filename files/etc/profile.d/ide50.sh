@@ -11,7 +11,7 @@ if [ "$(id -u)" != "0" ]; then
     # set umask
     umask 0077
 
-    export PATH=/opt/cs50/bin:$PATH:$HOME/.local/bin ;;
+    export PATH=/opt/cs50/bin:$PATH:$HOME/.local/bin
 
     # configure clang
     export CC=clang
@@ -62,6 +62,9 @@ alias sqlite3="sqlite3 -column -header"
 # trailing space enables elevated command to be an alias
 alias sudo="sudo "
 
+# apt-get
+export DEBIAN_FRONTEND=noninteractive
+
 # flask
 export FLASK_APP=application.py
 export FLASK_DEBUG=1
@@ -74,6 +77,72 @@ flask()
         command flask "$@"
     fi
 }
+
+# http-server
+http_server()
+{
+    # default options
+    a="-a 0.0.0.0"
+    c="-c-1"
+    cors="--cors"
+    i="-i false"
+    p="-p 8080"
+
+    # override default options
+    while test ${#} -gt 0
+    do
+        if echo "$1" | egrep -q "^-a$"; then
+            a="$1 $2"
+            shift
+            shift
+        elif echo "$1" | egrep -q "^-c-?[0-9]+$"; then
+            c="$1"
+            shift
+        elif echo "$1" | egrep -q "^--cors(=.*)?$"; then
+            cors="$1"
+            shift
+        elif echo "$1" | egrep -q "^-i$"; then
+            i="$1 $2"
+            shift
+            shift
+        elif echo "$1" | egrep -q "^-p$"; then
+            p="$1 $2"
+            shift
+            shift
+        else
+            if [ -z "$options" ]; then
+                options="$1"
+            else
+                options+=" $1"
+            fi
+            shift
+        fi
+    done
+
+    # spawn http-server, retaining colorized output
+    script --flush --quiet --return /dev/null --command "http-server $a $c $cors $i $p $options" |
+        while IFS= read -r line
+        do
+            # rewrite address as $C9_HOSTNAME
+            if [ "$C9_HOSTNAME" ] && echo "$line" | egrep -q "Available on:"; then
+                echo "$line"
+                IFS= read -r line
+                echo "$line" | sed "s#\(.*http://\)[^:]\+\(:.\+\)#\1$C9_HOSTNAME\2#"
+                while IFS= read -r line
+                do
+                    if echo "$line" | egrep -q "Hit CTRL-C to stop the server"; then
+                        echo "$line"
+                        break
+                    fi
+                done
+            else
+                echo "$line"
+            fi
+        done
+}
+
+# can't have dash in sh function names
+alias http-server="http_server"
 
 # valgrind defaults
 export VALGRIND_OPTS="--memcheck:leak-check=full --memcheck:track-origins=yes"
