@@ -59,14 +59,18 @@ echo "Installing Python packages..."
 
 # clean up pip's build cache
 /usr/bin/sudo rm -rf /tmp/pip_build_root/*
-PYTHON_PACKAGES="cs50==2.2.0 \
+
+# install python packages
+PYTHON_PACKAGES="check50==2.0.0 \
+    cs50==2.2.0 \
     Flask \
     Flask-SQLAlchemy \
     Flask-Session \
     help50==2.0.0 \
-    render50==2.0.0 \
+    render50==2.0.1 \
     SQLAlchemy \
-    submit50==2.3.1"
+    submit50==2.4.0 \
+    virtualenv"
 ( /usr/bin/sudo pip3 install $PYTHON_PACKAGES )
 
 echo "Update complete!"

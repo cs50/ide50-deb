@@ -5,10 +5,10 @@ OFFLINE_DIR := /tmp/ide50-offline
 PLUGINS_DIR := $(C9SDK_DIR)/plugins
 VERSION_FILE := $(FILES_DIR)/etc/version50
 
-PLUGINS := audioplayer cat debug gist info presentation simple theme
+PLUGINS := audioplayer cat debug gist hex info presentation simple theme
 
 NAME := ide50
-VERSION := 102
+VERSION := 103
 
 define getplugin
 	@echo "\nFetching $(1)..."
@@ -50,7 +50,6 @@ deb: clean Makefile
 	--depends \
 		"apache2, \
 		bc, \
-		check50, \
 		clang-3.6, \
 		dnsutils, \
 		dos2unix, \
