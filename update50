@@ -63,14 +63,15 @@ echo "Installing Python packages..."
 # upgrade pip3
 /usr/bin/sudo easy_install-3.4 -U pip
 
-PYTHON_PACKAGES="cs50==2.2.0 \
+PYTHON_PACKAGES=" check50==2.0.0 \
+    cs50==2.2.0 \
     Flask \
     Flask-SQLAlchemy \
     Flask-Session \
     help50==2.0.0 \
     render50==2.0.1 \
     SQLAlchemy \
-    submit50==2.3.0 \
+    submit50==2.4.0 \
     virtualenv"
 ( /usr/bin/sudo pip3 install $PYTHON_PACKAGES )
 
