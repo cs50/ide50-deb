@@ -11,7 +11,7 @@ if [ "$(id -u)" != "0" ]; then
     # set umask
     umask 0077
 
-    export PATH=/opt/cs50/bin:$PATH:$HOME/.local/bin ;;
+    export PATH=/opt/cs50/bin:$PATH:$HOME/.local/bin
 
     # configure clang
     export CC=clang
