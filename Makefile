@@ -50,7 +50,6 @@ deb: clean Makefile
 	--depends \
 		"apache2, \
 		bc, \
-		check50, \
 		clang-3.6, \
 		dnsutils, \
 		dos2unix, \
