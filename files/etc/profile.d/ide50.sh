@@ -1,48 +1,48 @@
 # if not root
 if [ "$(id -u)" != "0" ]; then
 
-  # set umask
-  umask 0077
+    # set umask
+    umask 0077
 
-  # enable commands installed in /opt/cs50/bin
-  case ":$PATH:" in
-      *:/opt/cs50/bin:*)
-          : ;;
-      *)
-          export PATH=/opt/cs50/bin:$PATH ;;
-  esac
+    # enable commands installed in /opt/cs50/bin
+    case ":$PATH:" in
+        *:/opt/cs50/bin:*)
+            : ;;
+        *)
+            export PATH=/opt/cs50/bin:$PATH ;;
+    esac
 
-  # enable commands installed in $HOME/.local/bin
-  case ":$PATH:" in
-      *:$HOME/.local/bin:*)
-          : ;;
-      *)
-          export PATH=$PATH:$HOME/.local/bin ;;
-  esac
+    # enable commands installed in $HOME/.local/bin
+    case ":$PATH:" in
+        *:$HOME/.local/bin:*)
+            : ;;
+        *)
+            export PATH=$PATH:$HOME/.local/bin ;;
+    esac
 
-  # configure clang
-  export CC=clang
-  export CFLAGS="-fsanitize=integer -fsanitize=undefined -ggdb3 -O0 -std=c11 -Wall -Werror -Wextra -Wno-sign-compare -Wshadow"
-  export LDLIBS="-lcrypt -lcs50 -lm"
+    # configure clang
+    export CC=clang
+    export CFLAGS="-fsanitize=integer -fsanitize=undefined -ggdb3 -O0 -std=c11 -Wall -Werror -Wextra -Wno-sign-compare -Wshadow"
+    export LDLIBS="-lcrypt -lcs50 -lm"
 
-  # protect user
-  alias cp="cp -i"
-  alias mv="mv -i"
-  alias rm="rm -i"
+    # protect user
+    alias cp="cp -i"
+    alias mv="mv -i"
+    alias rm="rm -i"
 
-  # suppress gdb's startup output
-  alias gdb="gdb -q"
+    # suppress gdb's startup output
+    alias gdb="gdb -q"
 
-  # unconditionally make all targets
-  alias make="make -B"
+    # unconditionally make all targets
+    alias make="make -B"
 
-  alias apachectl='echo "Please use apache50 instead!"'
-  alias mysql-ctl='echo "Please use mysql50 instead!"'
-  alias phpmyadmin-ctl='echo "Please use mysql50 instead!"'
+    alias apachectl='echo "Please use apache50 instead!"'
+    alias mysql-ctl='echo "Please use mysql50 instead!"'
+    alias phpmyadmin-ctl='echo "Please use mysql50 instead!"'
 
-  # shift out and in of block character palettes
-  alias break50="printf '\x0e'"
-  alias fix50="printf '\x0f'"
+    # shift out and in of block character palettes
+    alias break50="printf '\x0e'"
+    alias fix50="printf '\x0f'"
 fi
 
 # set maximum file size to 512MB
