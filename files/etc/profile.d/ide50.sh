@@ -1,42 +1,48 @@
-#!/bin/sh
-
-if [ "$IDE50_SH_EXECUTED" ]; then
-    # already executed, let's not overwrite the path
-    return
-fi
-
 # if not root
 if [ "$(id -u)" != "0" ]; then
 
-    # set umask
-    umask 0077
+  # set umask
+  umask 0077
 
-    export PATH=/opt/cs50/bin:$PATH:$HOME/.local/bin
+  # enable commands installed in /opt/cs50/bin
+  case ":$PATH:" in
+      *:/opt/cs50/bin:*)
+          : ;;
+      *)
+          export PATH=/opt/cs50/bin:$PATH ;;
+  esac
 
-    # configure clang
-    export CC=clang
-    export CFLAGS="-fsanitize=integer -fsanitize=undefined -ggdb3 -O0 -std=c11 -Wall -Werror -Wextra -Wno-sign-compare -Wshadow"
-    export LDLIBS="-lcrypt -lcs50 -lm"
+  # enable commands installed in $HOME/.local/bin
+  case ":$PATH:" in
+      *:$HOME/.local/bin:*)
+          : ;;
+      *)
+          export PATH=$PATH:$HOME/.local/bin ;;
+  esac
 
-    # protect user
-    alias cp="cp -i"
-    alias mv="mv -i"
-    alias rm="rm -i"
+  # configure clang
+  export CC=clang
+  export CFLAGS="-fsanitize=integer -fsanitize=undefined -ggdb3 -O0 -std=c11 -Wall -Werror -Wextra -Wno-sign-compare -Wshadow"
+  export LDLIBS="-lcrypt -lcs50 -lm"
 
-    # suppress gdb's startup output
-    alias gdb="gdb -q"
+  # protect user
+  alias cp="cp -i"
+  alias mv="mv -i"
+  alias rm="rm -i"
 
-    # unconditionally make all targets
-    alias make="make -B"
+  # suppress gdb's startup output
+  alias gdb="gdb -q"
 
-    alias apachectl='echo "Please use apache50 instead!"'
-    alias mysql-ctl='echo "Please use mysql50 instead!"'
-    alias phpmyadmin-ctl='echo "Please use mysql50 instead!"'
+  # unconditionally make all targets
+  alias make="make -B"
 
-    # shift out and in of block character palettes
-    alias break50="printf '\x0e'"
-    alias fix50="printf '\x0f'"
+  alias apachectl='echo "Please use apache50 instead!"'
+  alias mysql-ctl='echo "Please use mysql50 instead!"'
+  alias phpmyadmin-ctl='echo "Please use mysql50 instead!"'
 
+  # shift out and in of block character palettes
+  alias break50="printf '\x0e'"
+  alias fix50="printf '\x0f'"
 fi
 
 # set maximum file size to 512MB
@@ -93,6 +99,3 @@ export APPLICATION_ENV=dev
 # short-circuit RVM's cd script
 # https://news.ycombinator.com/item?id=1637354
 export rvm_project_rvmrc=0
-
-# remember ide50.sh was executed
-export IDE50_SH_EXECUTED=1
