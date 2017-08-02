@@ -80,7 +80,7 @@ export FLASK_DEBUG="1"
 flask()
 {
     # flask run
-    if [[ "$1" == "run" ]]; then
+    if [ "$1" == "run" ]; then
 
         # otherwise FLASK_DEBUG=1 suppresses this error in shell
         if [ "$FLASK_DEBUG" ] && [ ! -z "$FLASK_APP" ] && [ ! -f "$FLASK_APP" ]; then
