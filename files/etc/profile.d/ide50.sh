@@ -95,9 +95,49 @@ export FLASK_APP="application.py"
 export FLASK_DEBUG="1"
 flask()
 {
-    if [ "$1" = "run" ]; then
+    # flask run
+    if [ "$1" == "run" ]; then
+
+        # otherwise FLASK_DEBUG=1 suppresses this error in shell
+        if [ "$FLASK_DEBUG" ] && [ ! -z "$FLASK_APP" ] && [ ! -f "$FLASK_APP" ]; then
+            echo "Usage: flask run [OPTIONS]"
+            echo
+            echo "Error: The file/path provided ($FLASK_APP) does not appear to exist.  Please verify the path is correct.  If app is not on PYTHONPATH, ensure the extension is .py"
+            return 1
+        fi
+
+        # default options
+        host="--host=0.0.0.0"
+        port="--port=8080"
+        threads="--with-threads"
+
+        # override default options
         shift
-        command flask run --host=0.0.0.0 --port=8080 --with-threads "$@"
+        while test ${#} -gt 0
+        do
+            if echo "$1" | egrep -q "^--host="; then
+                host="$1"
+            elif echo "$1" | egrep -q "^--port="; then
+                port="$1"
+            elif echo "$1" | egrep -q "^--with(out)?-threads$"; then
+                threads="$1"
+            else
+                if [ -z "$options" ]; then
+                    options="$1"
+                else
+                    options="$options $1"
+                fi
+            fi
+            shift
+        done
+
+        # spawn flask
+        script --flush --quiet --return /dev/null --command 'FLASK_APP="$FLASK_APP" FLASK_DEBUG="$FLASK_DEBUG" flask run $host $port $threads $options' |
+            while IFS= read -r line
+            do
+                # rewrite address as $C9_HOSTNAME
+                echo $line | sed "s#\( *Running on http://\)[^:]\+\(:.\+\)#\1$C9_HOSTNAME\2#"
+            done
     else
         command flask "$@"
     fi
