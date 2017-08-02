@@ -52,16 +52,83 @@ sudo apt-get update
 echo "Reinstalling ide package..."
 sudo -E apt-get -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite" install --reinstall --yes --force-yes --assume-yes ide50
 
+echo "Installing other packages..."
+
+# node 7.6.0
+export NVM_DIR="/home/ubuntu/.nvm"
+. $NVM_DIR/nvm.sh
+nvm install 7.6.0
+nvm alias default 7.6.0
+
+# composer
+# https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-14-04
+if ! which composer &>/dev/null; then
+    curl -sS https://getcomposer.org/installer | \
+        sudo php -- --install-dir=/usr/local/bin --filename=composer
+fi
+
+# hub
+# https://hub.github.com/
+# http://stackoverflow.com/a/27869453
+if ! which hub &>/dev/null; then
+    mkdir /tmp/hub-linux-amd64 && \
+        curl -s -L https://github.com/github/hub/releases/latest | \
+        egrep -o '/github/hub/releases/download/.*/hub-linux-amd64-.*.tgz' | \
+        wget --base=http://github.com/ -i - -O - | \
+        tar xvz -C /tmp/hub-linux-amd64 --strip-components 1 && \
+        sudo /tmp/hub-linux-amd64/install && \
+        rm -rf /tmp/hub-linux-amd64
+fi
+
+# pyenv
+export PYENV_ROOT="/opt/pyenv"
+if ! which pyenv &>/dev/null; then
+    sudo apt-get install -y \
+        build-essential \
+        curl \
+        libbz2-dev \
+        libncurses5-dev \
+        libncursesw5-dev \
+        libreadline-dev \
+        libsqlite3-dev \
+        libssl-dev \
+        llvm \
+        wget \
+        xz-utils \
+        zlib1g-dev
+    wget -P /tmp https://github.com/yyuu/pyenv/archive/master.zip
+    unzip -q -d /tmp /tmp/master.zip
+    rm -f /tmp/master.zip
+    sudo mv /tmp/pyenv-master /opt/pyenv
+fi
+/opt/pyenv/bin/pyenv install --skip-existing 3.6.0
+/opt/pyenv/bin/pyenv rehash
+/opt/pyenv/bin/pyenv global 3.6.0
+
 echo "Removing unneeded packages..."
 /usr/bin/sudo apt-get autoremove -y
+
+# ensure npm prefix is writable
+# some old workspaces have this prefix mounted read-only
+npm_prefix="$(npm get prefix -g)"
+if [ ! -w "$npm_prefix" ]; then
+    npm set prefix -g "${NVM_DIR:=~/.nvm}/versions/node/$(node --version)"
+fi
+
+echo "Installing npm packages..."
+npm install -g http-server
 
 echo "Installing Python packages..."
 
 # clean up pip's build cache
 /usr/bin/sudo rm -rf /tmp/pip_build_root/*
 
+# use pip for python3.6
+unset PYTHONPATH
+export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
+
 # install python packages
-PYTHON_PACKAGES="check50==2.0.0 \
+PYTHON_PACKAGES="check50==2.0.1 \
     cs50==2.2.0 \
     Flask \
     Flask-SQLAlchemy \
