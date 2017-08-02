@@ -37,11 +37,10 @@ if [ "$(id -u)" != "0" ]; then
             : ;;
         *)
             export PATH="$PYENV_ROOT/shims:$PATH"
-
     esac
 
     # configure clang
-    export CC=clang
+    export CC="clang"
     export CFLAGS="-fsanitize=integer -fsanitize=undefined -ggdb3 -O0 -std=c11 -Wall -Werror -Wextra -Wno-sign-compare -Wshadow"
     export LDLIBS="-lcrypt -lcs50 -lm"
 
@@ -139,7 +138,7 @@ flask()
             while IFS= read -r line
             do
                 # rewrite address as $C9_HOSTNAME
-                echo $line | sed "s#\( *Running on http://\)[^:]\+\(:.\+\)#\1$C9_HOSTNAME\2#"
+                echo "$line" | sed "s#\( *Running on http://\)[^:]\+\(:.\+\)#\1$C9_HOSTNAME\2#"
             done
     else
         command flask "$@"
@@ -188,7 +187,7 @@ http_server()
     done
 
     # spawn http-server, retaining colorized output
-    script --flush --quiet --return /dev/null --command "http-server $a $c $cors $i $p $options" |
+    script --flush --quiet --return /dev/null --command 'http-server "$a" "$c" "$cors" "$i" "$p" "$options"' |
         while IFS= read -r line
         do
             # rewrite address as $C9_HOSTNAME
