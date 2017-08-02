@@ -4,12 +4,15 @@ if [ "$(id -u)" != "0" ]; then
     # set umask
     umask 0077
 
+    # set pyenv root
+    export PYENV_ROOT="/opt/pyenv"
+
     # enable commands installed in /opt/cs50/bin
     case ":$PATH:" in
         *:/opt/cs50/bin:*)
             : ;;
         *)
-            export PATH=/opt/cs50/bin:$PATH ;;
+            export PATH="/opt/cs50/bin:$PATH" ;;
     esac
 
     # enable commands installed in $HOME/.local/bin
@@ -17,7 +20,24 @@ if [ "$(id -u)" != "0" ]; then
         *:$HOME/.local/bin:*)
             : ;;
         *)
-            export PATH=$PATH:$HOME/.local/bin ;;
+            export PATH="$PATH:$HOME/.local/bin" ;;
+
+    esac
+
+    # enable pyenv commands
+    case ":$PATH:" in
+        *:$PYENV_ROOT/bin:*)
+            : ;;
+        *)
+            export PATH="$PYENV_ROOT/bin:$PATH"
+    esac
+
+    case ":$PATH:" in
+        *:$PYENV_ROOT/shims:*)
+            : ;;
+        *)
+            export PATH="$PYENV_ROOT/shims:$PATH"
+
     esac
 
     # configure clang
@@ -62,10 +82,6 @@ export PYTHONDONTWRITEBYTECODE="1"
 
 # unset so user doesn't have to restart IDE
 unset PYTHONPATH
-
-# pyenv
-export PYENV_ROOT="/opt/pyenv"
-export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
 
 # sqlite3
 alias sqlite3="sqlite3 -column -header"
