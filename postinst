@@ -23,7 +23,7 @@ adduser --gecos "CS50,,,," --ingroup courses --disabled-login --system cs50 > /d
 chown -R cs50.courses /home/cs50
 find /home/cs50 -type d -exec chmod 755 {} \;
 find /home/cs50 -type f -exec chmod 644 {} \;
-chmod 711 /home/cs50/hacker1/{credit,mario,water} \
+chmod 711 /home/cs50/hacker1/{credit,mario} \
           /home/cs50/hacker2/initials \
           /home/cs50/hacker3/{find,fifteen} \
           /home/cs50/hacker4/{peek,resize} \
