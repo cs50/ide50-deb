@@ -139,7 +139,7 @@ PYTHON_PACKAGES="check50==2.0.1 \
     passlib \
     render50==2.0.1 \
     SQLAlchemy \
-    submit50==2.4.0 \
+    submit50==2.4.1 \
     virtualenv"
 ( /usr/bin/sudo pip3 install $PYTHON_PACKAGES )
 
