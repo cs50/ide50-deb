@@ -134,7 +134,7 @@ flask()
         done
 
         # spawn flask
-        script --flush --quiet --return /dev/null --command 'FLASK_APP="$FLASK_APP" FLASK_DEBUG="$FLASK_DEBUG" flask run $host $port $threads $options' |
+        script --flush --quiet --return /dev/null --command "FLASK_APP=\"$FLASK_APP\" FLASK_DEBUG=\"$FLASK_DEBUG\" flask run $host $port $threads $options" |
             while IFS= read -r line
             do
                 # rewrite address as $C9_HOSTNAME
@@ -187,7 +187,7 @@ http_server()
     done
 
     # spawn http-server, retaining colorized output
-    script --flush --quiet --return /dev/null --command 'http-server "$a" "$c" "$cors" "$i" "$p" "$options"' |
+    script --flush --quiet --return /dev/null --command "http-server $a $c $cors $i $p $options" |
         while IFS= read -r line
         do
             # rewrite address as $C9_HOSTNAME
