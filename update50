@@ -2,6 +2,12 @@
 
 set -e
 
+# ensure workspace has disk size < 5GB
+if [ $(df --output=size / |  awk 'NR==2 {print $1}') -lt 5242880 ]; then
+    echo "You have an old workspace. See https://cs50.ly/disk for instructions on how to upgrade your workspace!"
+    exit 1
+fi
+
 # suppress CS50 compilation preferences
 unset CC CFLAGS LDLIBS
 
