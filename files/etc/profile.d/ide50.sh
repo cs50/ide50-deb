@@ -137,8 +137,8 @@ flask()
         script --flush --quiet --return /dev/null --command "FLASK_APP=\"$FLASK_APP\" FLASK_DEBUG=\"$FLASK_DEBUG\" flask run $host $port $threads $options" |
             while IFS= read -r line
             do
-                # rewrite address as $C9_HOSTNAME
-                echo "$line" | sed "s#\( *Running on http://\)[^:]\+\(:.\+\)#\1$C9_HOSTNAME\2#"
+                # rewrite address as hostname50
+                echo "$line" | sed "s#\( *Running on http://\)[^:]\+\(:.\+\)#\1$(hostname50)\2#"
             done
     else
         command flask "$@"
@@ -190,11 +190,11 @@ http_server()
     script --flush --quiet --return /dev/null --command "http-server $a $c $cors $i $p $options" |
         while IFS= read -r line
         do
-            # rewrite address as $C9_HOSTNAME
-            if [ "$C9_HOSTNAME" ] && echo "$line" | egrep -q "Available on:"; then
+            # rewrite address as hostname50
+            if command -v hostname50 >/dev/null 2>&1 && echo "$line" | egrep -q "Available on:"; then
                 echo "$line"
                 IFS= read -r line
-                echo "$line" | sed "s#\(.*http://\)[^:]\+\(:.\+\)#\1$C9_HOSTNAME\2#"
+                echo "$line" | sed "s#\(.*http://\)[^:]\+\(:.\+\)#\1$(hostname50)\2#"
                 while IFS= read -r line
                 do
                     if echo "$line" | egrep -q "Hit CTRL-C to stop the server"; then
