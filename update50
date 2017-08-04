@@ -107,6 +107,8 @@ if ! which pyenv &>/dev/null; then
     rm -f /tmp/master.zip
     sudo mv /tmp/pyenv-master /opt/pyenv
 fi
+
+echo "WARNING: installing Python may take a while. Thank you for your patience! <3"
 /opt/pyenv/bin/pyenv install --skip-existing 3.6.0
 /opt/pyenv/bin/pyenv rehash
 /opt/pyenv/bin/pyenv global 3.6.0
