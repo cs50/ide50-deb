@@ -15,6 +15,14 @@ if [ "$(id -u)" != "0" ]; then
             export PATH="/opt/cs50/bin:$PATH" ;;
     esac
 
+    # enable commands installed in /home/ubuntu/.cs50/bin
+    case ":$PATH:" in
+        *:/home/ubuntu/.cs50/bin:*)
+            : ;;
+        *)
+            export PATH="/home/ubuntu/.cs50/bin:$PATH" ;;
+    esac
+
     # enable commands installed in $HOME/.local/bin
     case ":$PATH:" in
         *:$HOME/.local/bin:*)
