@@ -110,7 +110,6 @@ fi
 
 echo "FYI: installing Python may take a while. Thank you for your patience! <3"
 /opt/pyenv/bin/pyenv install --skip-existing 3.6.0
-/opt/pyenv/bin/pyenv rehash
 /opt/pyenv/bin/pyenv global system 3.6.0
 
 echo "Removing unneeded packages..."
@@ -154,6 +153,8 @@ PYTHON_PACKAGES="check50==2.0.1 \
     twython \
     virtualenv"
 ( /usr/bin/sudo pip3.6 install $PYTHON_PACKAGES )
+
+/opt/pyenv/bin/pyenv rehash
 
 echo "Update complete!"
 echo -e "\nBE SURE TO CLOSE AND RE-OPEN ANY TERMINAL WINDOWS <3\n"
