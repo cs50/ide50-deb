@@ -12,7 +12,9 @@ fi
 unset CC CFLAGS LDLIBS
 
 # remove old .info50 and update50 if they exists
-rm -f /home/ubuntu/bin/{.info50,update50}
+if [ -f /home/ubuntu/.cs50/bin/update50 ]; then
+    rm -f /home/ubuntu/bin/{.info50,update50}
+fi
 
 echo "Adding external repos..."
 
