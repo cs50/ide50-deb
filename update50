@@ -153,7 +153,7 @@ PYTHON_PACKAGES="check50==2.0.1 \
     termcolor \
     twython \
     virtualenv"
-( /usr/bin/sudo pip3 install $PYTHON_PACKAGES )
+( /usr/bin/sudo pip3.6 install $PYTHON_PACKAGES )
 
 echo "Update complete!"
 echo -e "\nBE SURE TO CLOSE AND RE-OPEN ANY TERMINAL WINDOWS <3\n"
