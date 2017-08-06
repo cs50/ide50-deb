@@ -8,6 +8,7 @@ chown -R ubuntu:ubuntu /var/c9sdk/plugins/c9.ide.cs50* >/dev/null 2>&1
 chown -R ubuntu:ubuntu /var/c9sdk/configs/ >/dev/null 2>&1
 
 chown -R ubuntu:ubuntu /home/ubuntu/.local/ 2>&1
+chown -R ubuntu:ubuntu /home/ubuntu/.cs50/ 2>&1
 chmod a+r /etc/apt/sources.list.d/cs50.list >/dev/null 2>&1 || true
 chmod a+r /home/ubuntu/workspace/.eslintrc 2>&1 || true
 chmod a+r /home/ubuntu/.cs50/py_modules/pylint50.py || true
