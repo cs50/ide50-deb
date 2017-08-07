@@ -71,7 +71,6 @@ deb: clean Makefile
 		php5-sqlite, \
 		php5-xdebug, \
 		phpliteadmin (>= 1.2.2), \
-		python3-tk, \
 		sqlite3, \
 		style50, \
 		telnet, \
