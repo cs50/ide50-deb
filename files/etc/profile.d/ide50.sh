@@ -87,9 +87,6 @@ alias pylint="pylint3"
 alias python="python3"
 export PYTHONDONTWRITEBYTECODE="1"
 
-# unset so user doesn't have to restart IDE
-unset PYTHONPATH
-
 # sqlite3
 alias sqlite3="sqlite3 -column -header"
 
