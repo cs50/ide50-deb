@@ -11,6 +11,12 @@ fi
 # suppress CS50 compilation preferences
 unset CC CFLAGS LDLIBS
 
+# remove old files if new update50 exists
+if [ -f /home/ubuntu/.cs50/bin/update50 ]; then
+    rm -f /home/ubuntu/{.client50,.domain50,.password50,.prompt50}
+    rm -f /home/ubuntu/bin/{.info50,debug50,update50}
+fi
+
 echo "Adding external repos..."
 
 # install apt-transport-https
