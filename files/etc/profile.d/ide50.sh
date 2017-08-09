@@ -82,9 +82,11 @@ export TMOUT="0"
 export CLASSPATH=".:/usr/share/java/cs50.jar"
 
 # python3
-alias pip="pip3"
+alias pip="pip3.6"
+alias pip3="pip3.6"
 alias pylint="pylint3"
-alias python="python3"
+alias python="python3.6"
+alias python3="python3.6"
 export PYTHONDONTWRITEBYTECODE="1"
 
 # sqlite3
