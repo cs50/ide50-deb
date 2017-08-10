@@ -115,8 +115,8 @@ if ! which pyenv &>/dev/null; then
 fi
 
 echo "FYI: installing Python may take a while. Thank you for your patience! <3"
-sudo /opt/pyenv/bin/pyenv install --skip-existing 3.6.0
-sudo /opt/pyenv/bin/pyenv global 3.6.0
+/opt/pyenv/bin/pyenv install --skip-existing 3.6.0
+/opt/pyenv/bin/pyenv global 3.6.0
 
 echo "Removing unneeded packages..."
 sudo apt-get autoremove -y
