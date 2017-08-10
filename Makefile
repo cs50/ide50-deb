@@ -8,7 +8,7 @@ VERSION_FILE := $(FILES_DIR)/etc/version50
 PLUGINS := audioplayer cat debug gist hex info presentation simple theme
 
 NAME := ide50
-VERSION := 109
+VERSION := 110
 
 define getplugin
 	@echo "\nFetching $(1)..."
@@ -38,7 +38,7 @@ deb: clean Makefile
 
 	# set permissions
 	chmod -R 755 "$(FILES_DIR)/usr/bin/"
-	chmod 644 "$(VERSION_FILE)" "$(FILES_DIR)/etc/profile.d/ide50.sh" "$(FILES_DIR)/home/ubuntu/.prompt50"
+	chmod 644 "$(VERSION_FILE)" "$(FILES_DIR)/etc/profile.d/ide50.sh" "$(FILES_DIR)/home/ubuntu/.cs50/prompt"
 
 	fpm \
 	-C "$(FILES_DIR)" \

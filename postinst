@@ -8,9 +8,10 @@ chown -R ubuntu:ubuntu /var/c9sdk/plugins/c9.ide.cs50* >/dev/null 2>&1
 chown -R ubuntu:ubuntu /var/c9sdk/configs/ >/dev/null 2>&1
 
 chown -R ubuntu:ubuntu /home/ubuntu/.local/ 2>&1
+chown -R ubuntu:ubuntu /home/ubuntu/.cs50/ 2>&1
 chmod a+r /etc/apt/sources.list.d/cs50.list >/dev/null 2>&1 || true
 chmod a+r /home/ubuntu/workspace/.eslintrc 2>&1 || true
-chmod a+r /home/ubuntu/.local/lib/python3.4/site-packages/pylint50.py || true
+chmod a+r /home/ubuntu/.cs50/py_modules/pylint50.py || true
 
 # remove dropbox functions
 sed -i 's:source /home/ubuntu/.dropbox50::g' ~/.bashrc
@@ -103,9 +104,12 @@ if ! grep -qs "alias cd" /home/ubuntu/.bashrc; then
     echo 'alias cd="HOME=~/workspace cd"' >>/home/ubuntu/.bashrc
 fi
 
-if ! grep -qs 'prompt50' /home/ubuntu/.bashrc; then
-    echo "source /home/ubuntu/.prompt50" >>/home/ubuntu/.bashrc
+if ! grep -qs 'prompt' /home/ubuntu/.bashrc; then
+    echo "source /home/ubuntu/.cs50/prompt" >>/home/ubuntu/.bashrc
 fi
+
+# update path in existing .bashrc files
+sed -i "s#\(/home/ubuntu/\).prompt50#\1.cs50/prompt#" /home/ubuntu/.bashrc
 
 # remove old source file if it exists
 if [ -f /etc/profile.d/app.sh ]; then

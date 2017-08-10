@@ -15,6 +15,14 @@ if [ "$(id -u)" != "0" ]; then
             export PATH="/opt/cs50/bin:$PATH" ;;
     esac
 
+    # enable commands installed in /home/ubuntu/.cs50/bin
+    case ":$PATH:" in
+        *:/home/ubuntu/.cs50/bin:*)
+            : ;;
+        *)
+            export PATH="/home/ubuntu/.cs50/bin:$PATH" ;;
+    esac
+
     # enable commands installed in $HOME/.local/bin
     case ":$PATH:" in
         *:$HOME/.local/bin:*)
@@ -78,9 +86,6 @@ alias pip="pip3"
 alias pylint="pylint3"
 alias python="python3"
 export PYTHONDONTWRITEBYTECODE="1"
-
-# unset so user doesn't have to restart IDE
-unset PYTHONPATH
 
 # sqlite3
 alias sqlite3="sqlite3 -column -header"

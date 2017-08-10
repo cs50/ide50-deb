@@ -11,6 +11,12 @@ fi
 # suppress CS50 compilation preferences
 unset CC CFLAGS LDLIBS
 
+# remove old files if new update50 exists
+if [ -f /home/ubuntu/.cs50/bin/update50 ]; then
+    rm -f /home/ubuntu/{.client50,.domain50,.password50,.prompt50}
+    rm -f /home/ubuntu/bin/{.info50,debug50,update50}
+fi
+
 echo "Adding external repos..."
 
 # install apt-transport-https
@@ -109,12 +115,12 @@ if ! which pyenv &>/dev/null; then
 fi
 
 echo "FYI: installing Python may take a while. Thank you for your patience! <3"
+sudo chown -R ubuntu:ubuntu /opt/pyenv
 /opt/pyenv/bin/pyenv install --skip-existing 3.6.0
-/opt/pyenv/bin/pyenv rehash
 /opt/pyenv/bin/pyenv global 3.6.0
 
 echo "Removing unneeded packages..."
-/usr/bin/sudo apt-get autoremove -y
+sudo apt-get autoremove -y
 
 # ensure npm prefix is writable
 # some old workspaces have this prefix mounted read-only
@@ -129,7 +135,7 @@ npm install -g http-server
 echo "Installing Python packages..."
 
 # clean up pip's build cache
-/usr/bin/sudo rm -rf /tmp/pip_build_root/*
+sudo rm -rf /tmp/pip_build_root/*
 
 # use pip for python3.6
 unset PYTHONPATH
@@ -149,12 +155,22 @@ PYTHON_PACKAGES="check50==2.0.1 \
     plotly \
     render50==2.0.1 \
     SQLAlchemy \
-    style50==2.0.0 \
+    style50==2.1.0 \
     submit50==2.4.1 \
     termcolor \
     twython \
     virtualenv"
-( /usr/bin/sudo pip3 install $PYTHON_PACKAGES )
+( sudo pip3 install $PYTHON_PACKAGES )
+/opt/pyenv/bin/pyenv rehash
 
 echo "Update complete!"
-echo -e "\nBE SURE TO CLOSE AND RE-OPEN ANY TERMINAL WINDOWS <3\n"
+
+# restart terminals and reload page
+if [ ${IDE_OFFLINE+x} ]; then
+    C9="/var/c9sdk/bin/c9"
+else
+    C9="/mnt/shared/sbin/c9"
+fi
+
+$C9 exec restart_terminals
+
