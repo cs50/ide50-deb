@@ -163,4 +163,13 @@ PYTHON_PACKAGES="check50==2.0.1 \
 sudo /opt/pyenv/bin/pyenv rehash
 
 echo "Update complete!"
-echo -e "\nBE SURE TO CLOSE AND RE-OPEN ANY TERMINAL WINDOWS <3\n"
+
+# restart terminals and reload page
+if [ ${IDE_OFFLINE+x} ]; then
+    C9="/var/c9sdk/bin/c9"
+else
+    C9="/mnt/shared/sbin/c9"
+fi
+
+$C9 exec restart_terminals
+
