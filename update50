@@ -115,12 +115,11 @@ if ! which pyenv &>/dev/null; then
 fi
 
 echo "FYI: installing Python may take a while. Thank you for your patience! <3"
-/opt/pyenv/bin/pyenv install --skip-existing 3.6.0
-/opt/pyenv/bin/pyenv rehash
-/opt/pyenv/bin/pyenv global 3.6.0
+sudo /opt/pyenv/bin/pyenv install --skip-existing 3.6.0
+sudo /opt/pyenv/bin/pyenv global 3.6.0
 
 echo "Removing unneeded packages..."
-/usr/bin/sudo apt-get autoremove -y
+sudo apt-get autoremove -y
 
 # ensure npm prefix is writable
 # some old workspaces have this prefix mounted read-only
@@ -135,7 +134,7 @@ npm install -g http-server
 echo "Installing Python packages..."
 
 # clean up pip's build cache
-/usr/bin/sudo rm -rf /tmp/pip_build_root/*
+sudo rm -rf /tmp/pip_build_root/*
 
 # use pip for python3.6
 unset PYTHONPATH
@@ -160,7 +159,8 @@ PYTHON_PACKAGES="check50==2.0.1 \
     termcolor \
     twython \
     virtualenv"
-( /usr/bin/sudo pip3 install $PYTHON_PACKAGES )
+( sudo pip3 install $PYTHON_PACKAGES )
+sudo /opt/pyenv/bin/pyenv rehash
 
 echo "Update complete!"
 echo -e "\nBE SURE TO CLOSE AND RE-OPEN ANY TERMINAL WINDOWS <3\n"
