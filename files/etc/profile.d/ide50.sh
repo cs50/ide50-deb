@@ -196,7 +196,7 @@ http_server()
         while IFS= read -r line
         do
             # rewrite address as hostname50
-            if command -v hostname50 >/dev/null 2>&1 && echo "$line" | egrep -q "Available on:"; then
+            if command -v hostname50 > /dev/null 2>&1 && echo "$line" | egrep -q "Available on:"; then
                 echo "$line"
                 IFS= read -r line
                 echo "$line" | sed "s#\(.*http://\)[^:]\+\(:.\+\)#\1$(hostname50)\2#"

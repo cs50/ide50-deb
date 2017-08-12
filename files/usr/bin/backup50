@@ -22,7 +22,7 @@ fi
 [ -z "$C9_PROJECT" ] && echo "Environment variable C9_PROJECT not set." && exit 2;
 
 # check for prerequisites
-if [ $(dpkg -s inotify-tools >/dev/null 2>&1)$? -ne 0 ]; then
+if [ $(dpkg -s inotify-tools > /dev/null 2>&1)$? -ne 0 ]; then
     echo "Dependencies are not installed, please run update50."
     exit 2
 fi
@@ -151,14 +151,14 @@ help(){
 install(){
     if [ ! -e "$COPYCMD" ]; then
         echo "Downloading Copy....";
-        pushd /tmp >/dev/null
+        pushd /tmp > /dev/null
         wget -q -O - "https://copy.com/install/linux/Copy.tgz" |  tar xzf - > /dev/null;
         check "$DNLDFAILURE" # error check download
 
         # move into place
         mkdir -p "$COPYLOC"
         mv /tmp/copy/* "$COPYLOC/"
-        popd >/dev/null
+        popd > /dev/null
 
         # make the metadata folder if copy.com was lazy
         if [ ! -e "$STATUSFILE" ]; then

@@ -16,7 +16,7 @@ if [ "$UID" != "0" ]; then
      exit
  fi
 
-running=$(service mysql status >/dev/null)$?
+running=$(service mysql status > /dev/null)$?
 
 installed() {
     if [ -f /home/ubuntu/.mysql_installed ]; then
@@ -33,11 +33,11 @@ install() {
     password=$(password50)
 
     # was apache running? (status returns 0 iff running)
-    apache_running=$(apache50 status >/dev/null)$?
+    apache_running=$(apache50 status > /dev/null)$?
 
     # stop apache if running
     if [ $apache_running == 0 ]; then
-        apache50 stop >/dev/null 2>&1
+        apache50 stop > /dev/null 2>&1
     fi
 
     # Changes configuration file to skip table grants
@@ -53,7 +53,7 @@ pid-file=/var/run/mysqld/mysqld.pid
 port=3306
 EOF
 
-    service mysql start >/dev/null 2>&1
+    service mysql start > /dev/null 2>&1
 
     # reset user and password in MySQL
     mysql --force --user=root > /dev/null 2>&1 <<EOF
@@ -67,7 +67,7 @@ EOF
     sleep 1
 
     # Put original config file back in place
-    service mysql stop >/dev/null 2>&1
+    service mysql stop > /dev/null 2>&1
     mv /etc/mysql/.my.cnf /etc/mysql/my.cnf
 
     # install phpmyadmin if it's not yet installed
@@ -111,17 +111,17 @@ EOF
             sed -i "$ a\$cfg[\"AllowThirdPartyFraming\"] = true;" /etc/phpmyadmin/config.inc.php
         fi
 
-        service mysql start >/dev/null 2>&1
+        service mysql start > /dev/null 2>&1
 
-        mysql -u $username -p$password -e "CREATE DATABASE IF NOT EXISTS phpmyadmin" &>/dev/null
+        mysql -u $username -p$password -e "CREATE DATABASE IF NOT EXISTS phpmyadmin" &> /dev/null
         zcat /usr/share/doc/phpmyadmin/examples/create_tables.sql.gz | mysql -u $username -p$password phpmyadmin
 
-        service mysql stop >/dev/null 2>&1
+        service mysql stop > /dev/null 2>&1
     fi
 
     # restart apache if it was running
     if [ $apache_running == 0 ]; then
-        apache50 restart >/dev/null 2>&1
+        apache50 restart > /dev/null 2>&1
     fi
 
     touch /home/ubuntu/.mysql_installed
