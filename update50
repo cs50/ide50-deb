@@ -173,4 +173,3 @@ else
 fi
 
 $C9 exec restart_terminals
-
