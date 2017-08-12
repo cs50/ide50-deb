@@ -213,6 +213,11 @@ http_server()
         done
 }
 
+# language
+if [ -f /home/ubuntu/.cs50/language ] && ! grep -qs '/home/ubuntu/.cs50/language' /home/ubuntu/.bashrc; then
+    source /home/ubuntu/.cs50/language
+fi
+
 # can't have dash in sh function names
 alias http-server="http_server"
 

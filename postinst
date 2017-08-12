@@ -104,10 +104,6 @@ if ! grep -qs "alias cd" /home/ubuntu/.bashrc; then
     echo 'alias cd="HOME=~/workspace cd"' >> /home/ubuntu/.bashrc
 fi
 
-if [ -f /home/ubuntu/.cs50/language ] && ! grep -qs '/home/ubuntu/.cs50/language' /home/ubuntu/.bashrc; then
-    echo "source /home/ubuntu/.cs50/language" >> /home/ubuntu/.bashrc
-fi
-
 if [ -f /home/ubuntu/.cs50/prompt ] && ! grep -qs 'prompt' /home/ubuntu/.bashrc; then
     echo "source /home/ubuntu/.cs50/prompt" >> /home/ubuntu/.bashrc
 fi
