@@ -160,7 +160,7 @@ PYTHON_PACKAGES="check50==2.0.1 \
     termcolor \
     twython \
     virtualenv"
-( sudo pip3 install $PYTHON_PACKAGES )
+( sudo -H pip3 install $PYTHON_PACKAGES )
 /opt/pyenv/bin/pyenv rehash
 
 echo "Update complete!"
