@@ -58,15 +58,15 @@ deb: clean Makefile
 		git-lfs, \
 		gdbserver, \
 		inotify-tools, \
-		libcs50 (= 8.0.5-0ubuntu1), \
-		libcs50-java (= 2.0.2-0ubuntu1), \
+		libcs50 (>= 8.0.5-0ubuntu1), \
+		libcs50-java (>= 2.0.2-0ubuntu1), \
 		libphp-phpmailer, \
 		libxslt1-dev, \
 		manpages-dev, \
 		ngrok-client, \
 		nodejs, \
 		openjdk-7-jdk, \
-		php-cs50 (= 6.0.0-0ubuntu1), \
+		php-cs50 (>= 6.0.0-0ubuntu1), \
 		php5-cgi, \
 		php5-curl, \
 		php5-sqlite, \
