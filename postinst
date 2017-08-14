@@ -3,13 +3,13 @@
 echo "Resetting permissions ..."
 
 chmod -R g+w /home/ubuntu/workspace
-#don't do this, eats space! chown -R ubuntu:ubuntu /home/ubuntu >/dev/null 2>&1
-chown -R ubuntu:ubuntu /var/c9sdk/plugins/c9.ide.cs50* >/dev/null 2>&1
-chown -R ubuntu:ubuntu /var/c9sdk/configs/ >/dev/null 2>&1
+#don't do this, eats space! chown -R ubuntu:ubuntu /home/ubuntu > /dev/null 2>&1
+chown -R ubuntu:ubuntu /var/c9sdk/plugins/c9.ide.cs50* > /dev/null 2>&1
+chown -R ubuntu:ubuntu /var/c9sdk/configs/ > /dev/null 2>&1
 
 chown -R ubuntu:ubuntu /home/ubuntu/.local/ 2>&1
 chown -R ubuntu:ubuntu /home/ubuntu/.cs50/ 2>&1
-chmod a+r /etc/apt/sources.list.d/cs50.list >/dev/null 2>&1 || true
+chmod a+r /etc/apt/sources.list.d/cs50.list > /dev/null 2>&1 || true
 chmod a+r /home/ubuntu/workspace/.eslintrc 2>&1 || true
 chmod a+r /home/ubuntu/.cs50/py_modules/pylint50.py || true
 
@@ -84,28 +84,28 @@ sudo sed -i "s/APACHE_RUN_USER=www-data/APACHE_RUN_USER=ubuntu/" /etc/apache2/en
 sudo sed -i "s/APACHE_RUN_GROUP=www-data/APACHE_RUN_GROUP=ubuntu/" /etc/apache2/envvars
 
 # remove ubuntu from group www-data
-sudo gpasswd -d ubuntu www-data 2>/dev/null
+sudo gpasswd -d ubuntu www-data 2> /dev/null
 
 # enable cs50 PHP config
 if [ ! -h /etc/php5/apache2/conf.d/50-cs50.ini ]; then
     ln -s /etc/php5/mods-available/cs50.ini /etc/php5/apache2/conf.d/50-cs50.ini
 
     # attempt to reload apache
-    /usr/bin/apache50 reload >/dev/null 2>&1
+    /usr/bin/apache50 reload > /dev/null 2>&1
 fi
 
 # in interactive shells, prevent manual flow control so Ctrl-S doesn't pause
 if ! grep -qs 'stty -ixon' /home/ubuntu/.bashrc; then
-    echo "stty -ixon" >>/home/ubuntu/.bashrc
+    echo "stty -ixon" >> /home/ubuntu/.bashrc
 fi
 
 # allow `cd` to bring user back to workspace (`cd ~` to homedir)
 if ! grep -qs "alias cd" /home/ubuntu/.bashrc; then
-    echo 'alias cd="HOME=~/workspace cd"' >>/home/ubuntu/.bashrc
+    echo 'alias cd="HOME=~/workspace cd"' >> /home/ubuntu/.bashrc
 fi
 
-if ! grep -qs 'prompt' /home/ubuntu/.bashrc; then
-    echo "source /home/ubuntu/.cs50/prompt" >>/home/ubuntu/.bashrc
+if [ -f /home/ubuntu/.cs50/prompt ] && ! grep -qs 'prompt' /home/ubuntu/.bashrc; then
+    echo "source /home/ubuntu/.cs50/prompt" >> /home/ubuntu/.bashrc
 fi
 
 # update path in existing .bashrc files
@@ -117,10 +117,10 @@ if [ -f /etc/profile.d/app.sh ]; then
 fi
 
 # create a password50 file, if it doesn't exist
-sudo -Eu ubuntu /usr/bin/password50 >/dev/null 2>&1
+sudo -Eu ubuntu /usr/bin/password50 > /dev/null 2>&1
 
 # add mysql username and password to env
-sudo cat >/etc/profile.d/mysql.sh <<EOF
+sudo cat > /etc/profile.d/mysql.sh <<EOF
 export MYSQL_USERNAME="$(username50)"
 export MYSQL_PASSWORD="$(password50)"
 export MYSQL_HOSTNAME="localhost"
@@ -142,10 +142,10 @@ fi
 
 # set up MySQL
 echo "Setting up MySQL ..."
-/usr/bin/mysql50 install >/dev/null 2>&1
+/usr/bin/mysql50 install > /dev/null 2>&1
 
 # start MySQL by default
-/usr/bin/mysql50 start >/dev/null 2>&1
+/usr/bin/mysql50 start > /dev/null 2>&1
 
 if [ ${IDE_OFFLINE+x} ]; then
     # add offline source file to apache's envvars
@@ -155,7 +155,7 @@ if [ ${IDE_OFFLINE+x} ]; then
 
     # add c9 alias to profile
     if ! grep -qs 'alias c9' /etc/profile.d/offline.sh; then
-        echo -e "\nalias c9=/var/c9sdk/bin/c9" >>/etc/profile.d/offline.sh
+        echo -e "\nalias c9=/var/c9sdk/bin/c9" >> /etc/profile.d/offline.sh
     fi
 
     # remove old config file
@@ -163,17 +163,17 @@ if [ ${IDE_OFFLINE+x} ]; then
 
     # offline only: update c9sdk and plugins
     echo "Updating Cloud9 SDK ..."
-    pushd /var/c9sdk >/dev/null 2>&1
-    sudo -Eu ubuntu scripts/install-sdk.sh >/dev/null 2>&1
-    popd >/dev/null 2>&1
+    pushd /var/c9sdk > /dev/null 2>&1
+    sudo -Eu ubuntu scripts/install-sdk.sh > /dev/null 2>&1
+    popd > /dev/null 2>&1
 else
     # plugin updates aren't necessary for online IDEs; remove files
-    rm -rf /var/c9sdk/plugins/c9.ide.cs50* >/dev/null 2>&1
-    rmdir -p /var/c9sdk/plugins/ >/dev/null 2>&1
+    rm -rf /var/c9sdk/plugins/c9.ide.cs50* > /dev/null 2>&1
+    rmdir -p /var/c9sdk/plugins/ > /dev/null 2>&1
 
-    rm -rf /var/c9sdk/configs/client-workspace-cs50.js >/dev/null 2>&1
-    rm -rf /var/c9sdk/configs/ide/workspace-cs50.js >/dev/null 2>&1
-    rmdir -p /var/c9sdk/configs/ide >/dev/null 2>&1
+    rm -rf /var/c9sdk/configs/client-workspace-cs50.js > /dev/null 2>&1
+    rm -rf /var/c9sdk/configs/ide/workspace-cs50.js > /dev/null 2>&1
+    rmdir -p /var/c9sdk/configs/ide > /dev/null 2>&1
 fi
 
 exit 0

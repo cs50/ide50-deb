@@ -34,7 +34,7 @@ start() {
     echo "Setting Apache's document root to ${vhost} ..."
 
     # disable prior cs50 configuration, if available
-    sudo a2disconf cs50 >/dev/null 2>&1
+    sudo a2disconf cs50 > /dev/null 2>&1
 
     # copy template over
     sudo cp /etc/apache2/conf-available/cs50-template.conf /etc/apache2/conf-available/cs50.conf
@@ -53,10 +53,10 @@ start() {
     sudo sed -i "s#ServerName.*\$#ServerName ${hostname}#g" /etc/apache2/conf-available/cs50.conf
 
     # disable C9's config
-    sudo a2dissite 001-cloud9 >/dev/null 2>&1
+    sudo a2dissite 001-cloud9 > /dev/null 2>&1
 
     # enable the new config
-    sudo a2enconf cs50 >/dev/null 2>&1
+    sudo a2enconf cs50 > /dev/null 2>&1
 
     # make sure user can access log and pid files
     sudo chown -R ubuntu:ubuntu /home/ubuntu/lib/apache2
@@ -77,7 +77,7 @@ start() {
 }
 
 # determine apache's status
-running=$($apache status >/dev/null)$?
+running=$($apache status > /dev/null)$?
 
 case "$1" in
     start)
