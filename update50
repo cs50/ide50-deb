@@ -172,4 +172,7 @@ else
     C9="/mnt/shared/sbin/c9"
 fi
 
-$C9 exec restart_terminals
+# avoid running when building Docker image
+if [ -x "$C9" ]; then
+    $C9 exec restart_terminals
+fi
