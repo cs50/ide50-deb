@@ -174,5 +174,5 @@ fi
 
 # avoid running when building Docker image
 if [ -x "$C9" ]; then
-    $C9 exec restart_terminals
+    $C9 exec complete_update   
 fi
