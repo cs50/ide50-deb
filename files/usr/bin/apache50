@@ -43,14 +43,7 @@ start() {
     # update vhost dir in conf
     sudo sed -i "s#/home/ubuntu/workspace/vhosts#$vhost#g" /etc/apache2/conf-available/cs50.conf
 
-    # update ServerName
-    if [ -z ${IDE_OFFLINE+x} ]; then
-        # online IDE
-        hostname="https://$(hostname50)"
-    else
-        hostname="$(hostname50)"
-    fi
-    sudo sed -i "s#ServerName.*\$#ServerName ${hostname}#g" /etc/apache2/conf-available/cs50.conf
+    sudo sed -i "s#ServerName.*\$#ServerName $(hostname50)#g" /etc/apache2/conf-available/cs50.conf
 
     # disable C9's config
     sudo a2dissite 001-cloud9 > /dev/null 2>&1
@@ -69,7 +62,7 @@ start() {
 
     if [ $? -eq 0 ]; then
         echo "Apache started successfully!"
-        echo "Your site is now available at ${hostname}"
+        echo "Your site is now available at $(hostname50 --c9-port --protocol)"
     else
         echo "Apache failed to start!"
         exit 3
