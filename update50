@@ -142,7 +142,7 @@ unset PYTHONPATH
 export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
 
 # install python packages
-PYTHON_PACKAGES="check50==2.0.2 \
+PYTHON_PACKAGES="check50==2.0.4 \
     cs50==2.2.0 \
     feedparser \
     Flask \
