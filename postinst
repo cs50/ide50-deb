@@ -149,6 +149,10 @@ if [ ${IDE_OFFLINE+x} ]; then
     # offline only: update c9sdk and plugins
     echo "Updating Cloud9 SDK ..."
     pushd /var/c9sdk > /dev/null 2>&1
+
+    # https://github.com/c9/core/issues/432
+    npm install -g npm@4.6.1
+    git reset --hard
     sudo -Eu ubuntu scripts/install-sdk.sh > /dev/null 2>&1
     popd > /dev/null 2>&1
 else
