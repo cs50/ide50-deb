@@ -58,7 +58,7 @@ deb: clean Makefile
 		git-lfs, \
 		gdbserver, \
 		inotify-tools, \
-		libcs50 (>= 8.0.7-0ubuntu1), \
+		libcs50 (>= 8.1.0-0ubuntu1), \
 		libcs50-java (>= 2.0.2-0ubuntu1), \
 		libphp-phpmailer, \
 		libxslt1-dev, \
