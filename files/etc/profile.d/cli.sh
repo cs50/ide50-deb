@@ -1,6 +1,9 @@
 # if not root
 if [ "$(id -u)" != "0" ]; then
 
+	# prompt
+	export PROMPT_COMMAND='__git_ps1 "\w/" " \\\$ "'
+
     # set umask
     umask 0077
 
@@ -23,6 +26,12 @@ if [ "$(id -u)" != "0" ]; then
     # shift out and in of block character palettes
     alias break50="printf '\x0e'"
     alias fix50="printf '\x0f'"
+
+	# message of the day
+	if [ -f /etc/motd ]; then
+		cat /etc/motd
+	fi
+
 fi
 
 # java
