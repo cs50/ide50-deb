@@ -4,49 +4,6 @@ if [ "$(id -u)" != "0" ]; then
     # set umask
     umask 0077
 
-    # set pyenv root
-    export PYENV_ROOT="/opt/pyenv"
-
-    # enable commands installed in /opt/cs50/bin
-    case ":$PATH:" in
-        *:/opt/cs50/bin:*)
-            : ;;
-        *)
-            export PATH="/opt/cs50/bin:$PATH" ;;
-    esac
-
-    # enable commands installed in /home/ubuntu/.cs50/bin
-    case ":$PATH:" in
-        *:/home/ubuntu/.cs50/bin:*)
-            : ;;
-        *)
-            export PATH="/home/ubuntu/.cs50/bin:$PATH" ;;
-    esac
-
-    # enable commands installed in $HOME/.local/bin
-    case ":$PATH:" in
-        *:$HOME/.local/bin:*)
-            : ;;
-        *)
-            export PATH="$PATH:$HOME/.local/bin" ;;
-
-    esac
-
-    # enable pyenv commands
-    case ":$PATH:" in
-        *:$PYENV_ROOT/bin:*)
-            : ;;
-        *)
-            export PATH="$PYENV_ROOT/bin:$PATH"
-    esac
-
-    case ":$PATH:" in
-        *:$PYENV_ROOT/shims:*)
-            : ;;
-        *)
-            export PATH="$PYENV_ROOT/shims:$PATH"
-    esac
-
     # configure clang
     export CC="clang"
     export CFLAGS="-fsanitize=integer -fsanitize=undefined -ggdb3 -O0 -std=c11 -Wall -Werror -Wextra -Wno-sign-compare -Wshadow"
@@ -63,20 +20,10 @@ if [ "$(id -u)" != "0" ]; then
     # unconditionally make all targets
     alias make="make -B"
 
-    alias apachectl='echo "Please use apache50 instead!"'
-    alias mysql-ctl='echo "Please use mysql50 instead!"'
-    alias phpmyadmin-ctl='echo "Please use mysql50 instead!"'
-
     # shift out and in of block character palettes
     alias break50="printf '\x0e'"
     alias fix50="printf '\x0f'"
 fi
-
-# set maximum file size to 512MB
-ulimit -f 524288
-
-# disable auto-logout
-export TMOUT="0"
 
 # java
 export CLASSPATH=".:/usr/share/java/cs50.jar"
@@ -212,11 +159,6 @@ _http_server()
             fi
         done
 }
-
-# language
-if [ -f /home/ubuntu/.cs50/language ]; then
-    source /home/ubuntu/.cs50/language
-fi
 
 # can't have dash in sh function names
 alias http-server="_http_server"
