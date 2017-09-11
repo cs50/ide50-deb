@@ -163,6 +163,9 @@ PYTHON_PACKAGES="check50==2.0.4 \
 ( sudo -H pip3 install $PYTHON_PACKAGES )
 /opt/pyenv/bin/pyenv rehash
 
+# install ruby 2.4.0 and make it default
+rvm install ruby-2.4.0 --default
+
 echo "Update complete!"
 
 # restart terminals and reload page
