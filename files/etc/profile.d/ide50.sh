@@ -81,6 +81,9 @@ export TMOUT="0"
 # java
 export CLASSPATH=".:/usr/share/java/cs50.jar"
 
+# c9 open
+alias open="c9 open"
+
 # python3
 alias pip="pip3"
 alias pylint="pylint3"
