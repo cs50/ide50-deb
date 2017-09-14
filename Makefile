@@ -8,7 +8,7 @@ VERSION_FILE := $(FILES_DIR)/etc/version50
 PLUGINS := audioplayer cat debug gist hex info presentation simple theme
 
 NAME := ide50
-VERSION := 114
+VERSION := 115
 
 define getplugin
 	@echo "\nFetching $(1)..."
@@ -58,7 +58,7 @@ deb: clean Makefile
 		git-lfs, \
 		gdbserver, \
 		inotify-tools, \
-		libcs50 (>= 8.0.7-0ubuntu1), \
+		libcs50 (>= 8.1.0-0ubuntu1), \
 		libcs50-java (>= 2.0.2-0ubuntu1), \
 		libphp-phpmailer, \
 		libxslt1-dev, \

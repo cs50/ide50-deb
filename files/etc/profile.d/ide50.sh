@@ -81,6 +81,9 @@ export TMOUT="0"
 # java
 export CLASSPATH=".:/usr/share/java/cs50.jar"
 
+# c9 open
+alias open="c9 open"
+
 # python3
 alias pip="pip3"
 alias pylint="pylint3"
@@ -151,7 +154,7 @@ flask()
 }
 
 # http-server
-http_server()
+_http_server()
 {
     # default options
     a="-a 0.0.0.0"
@@ -219,7 +222,7 @@ if [ -f /home/ubuntu/.cs50/language ]; then
 fi
 
 # can't have dash in sh function names
-alias http-server="http_server"
+alias http-server="_http_server"
 
 # valgrind defaults
 export VALGRIND_OPTS="--memcheck:leak-check=full --memcheck:track-origins=yes"

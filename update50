@@ -156,12 +156,15 @@ PYTHON_PACKAGES="check50==2.0.4 \
     render50==2.0.1 \
     SQLAlchemy \
     style50==2.1.4 \
-    submit50==2.4.2 \
+    submit50==2.4.3 \
     termcolor \
     twython \
     virtualenv"
 ( sudo -H pip3 install $PYTHON_PACKAGES )
 /opt/pyenv/bin/pyenv rehash
+
+# install ruby 2.4.0 and make it default
+rvm install ruby-2.4.0 --default
 
 echo "Update complete!"
 
@@ -174,5 +177,5 @@ fi
 
 # avoid running when building Docker image
 if [ -x "$C9" ]; then
-    $C9 exec restart_terminals
+    $C9 exec complete_update
 fi
