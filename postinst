@@ -9,9 +9,11 @@ chown -R ubuntu:ubuntu /var/c9sdk/configs/ > /dev/null 2>&1
 
 chown -R ubuntu:ubuntu /home/ubuntu/.local/ 2>&1
 chown -R ubuntu:ubuntu /home/ubuntu/.cs50/ 2>&1
-chmod a+r /etc/apt/sources.list.d/cs50.list > /dev/null 2>&1 || true
-chmod a+r /home/ubuntu/workspace/.eslintrc 2>&1 || true
-chmod a+r /home/ubuntu/.cs50/py_modules/pylint50.py || true
+chmod 644 /etc/apt/sources.list.d/cs50.list > /dev/null 2>&1 || true
+chmod 644 /home/ubuntu/workspace/.eslintrc 2>&1 || true
+chmod 644 /home/ubuntu/.cs50/py_modules/pylint50.py || true
+
+chmod 644 /etc/bash_completion.d/make
 
 # remove dropbox functions
 sed -i 's:source /home/ubuntu/.dropbox50::g' ~/.bashrc
