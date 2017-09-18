@@ -116,8 +116,9 @@ fi
 
 echo "FYI: installing Python may take a while. Thank you for your patience! <3"
 sudo chown -R ubuntu:ubuntu /opt/pyenv
+/opt/pyenv/bin/pyenv install --skip-existing 2.7.13
 /opt/pyenv/bin/pyenv install --skip-existing 3.6.0
-/opt/pyenv/bin/pyenv global 3.6.0
+/opt/pyenv/bin/pyenv global 2.7.13 3.6.0
 
 echo "Removing unneeded packages..."
 sudo apt-get autoremove -y
