@@ -8,7 +8,7 @@ VERSION_FILE := $(FILES_DIR)/etc/version50
 PLUGINS := audioplayer cat debug gist hex info presentation simple statuspage theme
 
 NAME := ide50
-VERSION := 117
+VERSION := 118
 
 define getplugin
 	@echo "\nFetching $(1)..."
