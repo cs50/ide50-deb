@@ -142,7 +142,7 @@ unset PYTHONPATH
 export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
 
 # install python packages
-PYTHON_PACKAGES="check50==2.0.6 \
+PYTHON_PACKAGES="check50==2.1.0 \
     cs50==2.2.0 \
     feedparser \
     Flask \
@@ -156,7 +156,7 @@ PYTHON_PACKAGES="check50==2.0.6 \
     render50==2.0.1 \
     SQLAlchemy \
     style50==2.1.6 \
-    submit50==2.4.3 \
+    submit50==2.4.5 \
     termcolor \
     twython \
     virtualenv"

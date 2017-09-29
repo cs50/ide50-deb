@@ -75,6 +75,9 @@ fi
 # set maximum file size to 512MB
 ulimit -f 524288
 
+# workspace type
+export C9_TEMPLATE=ide50
+
 # disable auto-logout
 export TMOUT="0"
 
