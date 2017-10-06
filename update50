@@ -164,7 +164,7 @@ PYTHON_PACKAGES="check50==2.1.3 \
 /opt/pyenv/bin/pyenv rehash
 
 # install ruby 2.4.0 and make it default
-rvm install ruby-2.4.0 --default
+rvm install ruby-2.4.0 --default &> /dev/null
 
 echo "Update complete!"
 
