@@ -136,7 +136,7 @@ flask()
             elif echo "$1" | egrep -q "^--with(out)?-threads$"; then
                 threads="$1"
             else
-                options="$options $1"
+                options+=" $1"
             fi
             shift
         done
