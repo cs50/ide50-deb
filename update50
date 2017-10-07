@@ -130,7 +130,7 @@ if [ ! -w "$npm_prefix" ]; then
 fi
 
 echo "Installing npm packages..."
-npm install -g http-server
+npm install -g github:indexzero/http-server
 
 echo "Installing Python packages..."
 

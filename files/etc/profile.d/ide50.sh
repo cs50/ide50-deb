@@ -162,7 +162,7 @@ _http_server()
     local cors="--cors"
     local i="-i false"
     local p="-p 8080"
-    local options=""
+    local options="--no-dotfiles"
 
     # override default options
     while test ${#} -gt 0
