@@ -120,9 +120,10 @@ flask()
         fi
 
         # default options
-        host="--host=0.0.0.0"
-        port="--port=8080"
-        threads="--with-threads"
+        local host="--host=0.0.0.0"
+        local port="--port=8080"
+        local threads="--with-threads"
+        local options=""
 
         # override default options
         shift
@@ -135,11 +136,7 @@ flask()
             elif echo "$1" | egrep -q "^--with(out)?-threads$"; then
                 threads="$1"
             else
-                if [ -z "$options" ]; then
-                    options="$1"
-                else
-                    options="$options $1"
-                fi
+                options+=" $1"
             fi
             shift
         done
@@ -160,11 +157,12 @@ flask()
 _http_server()
 {
     # default options
-    a="-a 0.0.0.0"
-    c="-c-1"
-    cors="--cors"
-    i="-i false"
-    p="-p 8080"
+    local a="-a 0.0.0.0"
+    local c="-c-1"
+    local cors="--cors"
+    local i="-i false"
+    local p="-p 8080"
+    local options="--no-dotfiles"
 
     # override default options
     while test ${#} -gt 0
@@ -188,11 +186,7 @@ _http_server()
             shift
             shift
         else
-            if [ -z "$options" ]; then
-                options="$1"
-            else
-                options+=" $1"
-            fi
+            options+=" $1"
             shift
         fi
     done
