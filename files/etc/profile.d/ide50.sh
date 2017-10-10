@@ -156,6 +156,11 @@ flask()
 # http-server
 _http_server()
 {
+
+    # kill running instances of http-server before starting new one
+    pid=$(pgrep -f http-server)
+    kill -HUP $pid &> /dev/null
+
     # default options
     local a="-a 0.0.0.0"
     local c="-c-1"
@@ -212,6 +217,9 @@ _http_server()
             fi
         done
 }
+
+# else won't be seen by subshells
+export -f _http_server
 
 # language
 if [ -f /home/ubuntu/.cs50/language ]; then
