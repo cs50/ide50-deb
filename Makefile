@@ -8,7 +8,7 @@ VERSION_FILE := $(FILES_DIR)/etc/version50
 PLUGINS := audioplayer cat debug gist hex info presentation simple statuspage theme
 
 NAME := ide50
-VERSION := 120
+VERSION := 121
 
 define getplugin
 	@echo "\nFetching $(1)..."
@@ -51,7 +51,7 @@ deb: clean Makefile
 		"apache2, \
 		astyle (>= 3.0.1), \
 		bc, \
-		clang-3.6, \
+		clang-3.8, \
 		dnsutils, \
 		dos2unix, \
 		git (>= 1:2.13.0-0ppa1~ubuntu14.04.1), \
