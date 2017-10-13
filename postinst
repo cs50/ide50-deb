@@ -26,7 +26,7 @@ adduser --gecos "CS50,,,," --ingroup courses --disabled-login --system cs50 > /d
 chown -R cs50.courses /home/cs50
 
 # executables, scripts, and directories
-chmod -R 755 /home/cs50
+chmod -R 755 /home/cs50 /home/ubuntu/.cs50/bin
 
 # non-executables
 find /home/cs50/ -type f -name *.* -exec chmod 644 {} \;
