@@ -106,60 +106,17 @@ export DEBIAN_FRONTEND=noninteractive
 # flask
 export FLASK_APP="application.py"
 export FLASK_DEBUG="1"
-flask()
-{
-    # flask run
-    if [ "$1" == "run" ]; then
 
-        # otherwise FLASK_DEBUG=1 suppresses this error in shell
-        if [ "$FLASK_DEBUG" ] && [ ! -z "$FLASK_APP" ] && [ ! -f "$FLASK_APP" ]; then
-            echo "Usage: flask run [OPTIONS]"
-            echo
-            echo "Error: The file/path provided ($FLASK_APP) does not appear to exist.  Please verify the path is correct.  If app is not on PYTHONPATH, ensure the extension is .py"
-            return 1
-        fi
+# flask wrapper
+alias flask="/home/ubuntu/.cs50/bin/flask"
 
-        # default options
-        local host="--host=0.0.0.0"
-        local port="--port=8080"
-        local threads="--with-threads"
-        local options=""
-
-        # override default options
-        shift
-        while test ${#} -gt 0
-        do
-            if echo "$1" | egrep -q "^--host="; then
-                host="$1"
-            elif echo "$1" | egrep -q "^--port="; then
-                port="$1"
-            elif echo "$1" | egrep -q "^--with(out)?-threads$"; then
-                threads="$1"
-            else
-                options+=" $1"
-            fi
-            shift
-        done
-
-        # spawn flask
-        script --flush --quiet --return /dev/null --command "FLASK_APP=\"$FLASK_APP\" FLASK_DEBUG=\"$FLASK_DEBUG\" flask run $host $port $threads $options" |
-            while IFS= read -r line
-            do
-                # rewrite address as hostname50
-                echo "$line" | sed "s#\( *Running on http://\)[^:]\+\(:.\+\)#\1$(hostname50)\2#"
-            done
-    else
-        command flask "$@"
-    fi
-}
+# http-server wrapper
+alias http-server="/home/ubuntu/.cs50/bin/http-server"
 
 # language
 if [ -f /home/ubuntu/.cs50/language ]; then
     source /home/ubuntu/.cs50/language
 fi
-
-# can't have dash in sh function names
-alias http-server="/home/ubuntu/.cs50/bin/http-server"
 
 # valgrind defaults
 export VALGRIND_OPTS="--memcheck:leak-check=full --memcheck:track-origins=yes"
