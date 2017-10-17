@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # flask run
-if [ "$1" == "run" ]; then
+if [[ "$1" == "run" ]]; then
 
     # otherwise FLASK_DEBUG=1 suppresses this error in shell
-    if [ "$FLASK_DEBUG" ] && [ ! -z "$FLASK_APP" ] && [ ! -f "$FLASK_APP" ]; then
+    if [[ "$FLASK_DEBUG" && ! -z "$FLASK_APP" && ! -f "$FLASK_APP" ]]; then
         echo "Usage: flask run [OPTIONS]"
         echo
         echo "Error: The file/path provided ($FLASK_APP) does not appear to exist.  Please verify the path is correct.  If app is not on PYTHONPATH, ensure the extension is .py"
-        return 1
+        exit 1
     fi
 
     # default options
@@ -21,11 +21,11 @@ if [ "$1" == "run" ]; then
     shift
     while test ${#} -gt 0
     do
-        if echo "$1" | egrep -q "^--host="; then
+        if [[ "$1" =~ ^--host= ]]; then
             host="$1"
-        elif echo "$1" | egrep -q "^--port="; then
+        elif [[ "$1" =~ ^--port= ]]; then
             port="$1"
-        elif echo "$1" | egrep -q "^--with(out)?-threads$"; then
+        elif [[ "$1" =~ ^--with(out)?-threads$ ]]; then
             threads="$1"
         else
             options+=" $1"

@@ -15,21 +15,21 @@ options="--no-dotfiles"
 # override default options
 while test ${#} -gt 0
 do
-	if echo "$1" | egrep -q "^-a$"; then
+	if [[ "$1" =~ ^-a$ ]]; then
 		a="$1 $2"
 		shift
 		shift
-	elif echo "$1" | egrep -q "^-c-?[0-9]+$"; then
+	elif [[ "$1" =~ ^-c-?[0-9]+$ ]]; then
 		c="$1"
 		shift
-	elif echo "$1" | egrep -q "^--cors(=.*)?$"; then
+	elif [[ "$1" =~ ^--cors(=.*)?$ ]]; then
 		cors="$1"
 		shift
-	elif echo "$1" | egrep -q "^-i$"; then
+	elif [[ "$1" =~ ^-i$ ]]; then
 		i="$1 $2"
 		shift
 		shift
-	elif echo "$1" | egrep -q "^-p$"; then
+	elif [[ "$1" =~ ^-p$ ]]; then
 		p="$1 $2"
 		shift
 		shift
@@ -44,13 +44,13 @@ script --flush --quiet --return /dev/null --command "http-server $a $c $cors $i 
 	while IFS= read -r line
 	do
 		# rewrite address as hostname50
-		if command -v hostname50 > /dev/null 2>&1 && echo "$line" | egrep -q "Available on:"; then
+		if command -v hostname50 > /dev/null 2>&1 && [[ "$line" =~ "Available on:" ]]; then
 			echo "$line"
 			IFS= read -r line
 			echo "$line" | sed "s#\(.*http://\)[^:]\+\(:.\+\)#\1$(hostname50)\2#"
 			while IFS= read -r line
 			do
-				if echo "$line" | egrep -q "Hit CTRL-C to stop the server"; then
+				if [[ "$line" =~ "Hit CTRL-C to stop the server" ]]; then
 					echo "$line"
 					break
 				fi
