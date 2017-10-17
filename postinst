@@ -31,11 +31,12 @@ chmod -R 755 /home/cs50
 # non-executables
 find /home/cs50/ -type f -name *.* -exec chmod 644 {} \;
 
-# add symlink to clang-3.6 when missing
-if [ ! -f /usr/bin/clang ] && [ -f /usr/bin/clang-3.6 ]; then
-    ln -s /usr/bin/clang-3.6 /usr/bin/clang
-    ln -s /usr/bin/clang-3.6 /usr/bin/clang++
-fi
+# use clang 3.8 by default
+update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.8 380 \
+    --slave /usr/bin/clang++ clang++ /usr/bin/clang++-3.8 \
+    --slave /usr/bin/clang-check clang-check /usr/bin/clang-check-3.8 \
+    --slave /usr/bin/clang-query clang-query /usr/bin/clang-query-3.8 \
+    --slave /usr/bin/clang-rename clang-rename /usr/bin/clang-rename-3.8
 
 # otherwise lsof doesn't see server
 chown ubuntu:courses /home/cs50/pset6/server
