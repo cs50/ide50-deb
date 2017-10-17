@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# kill running instances of http-server before starting new one
-pid=$(pgrep --full "node.*http-server")
-kill -HUP $pid &> /dev/null
-
 # default options
 a="-a 0.0.0.0"
 c="-c-1"
@@ -38,6 +34,11 @@ do
 		shift
 	fi
 done
+
+if [[ "$p" =~ 8081 ]]; then
+    # kill any process listening on 8081
+    fuser --kill 8081/tcp &> /dev/null
+fi
 
 # spawn http-server, retaining colorized output
 script --flush --quiet --return /dev/null --command "http-server $a $c $cors $i $p $options" |
