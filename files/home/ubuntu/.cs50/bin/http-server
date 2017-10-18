@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# default options
+a="-a 0.0.0.0"
+c="-c-1"
+cors="--cors"
+i="-i false"
+p="-p 8080"
+options="--no-dotfiles"
+
+# override default options
+while test ${#} -gt 0
+do
+	if [[ "$1" =~ ^-a$ ]]; then
+		a="$1 $2"
+		shift
+		shift
+	elif [[ "$1" =~ ^-c-?[0-9]+$ ]]; then
+		c="$1"
+		shift
+	elif [[ "$1" =~ ^--cors(=.*)?$ ]]; then
+		cors="$1"
+		shift
+	elif [[ "$1" =~ ^-i$ ]]; then
+		i="$1 $2"
+		shift
+		shift
+	elif [[ "$1" =~ ^-p$ ]]; then
+		p="$1 $2"
+		shift
+		shift
+	else
+		options+=" $1"
+		shift
+	fi
+done
+
+if [[ "$p" =~ 8081 ]]; then
+    # kill any process listening on 8081
+    fuser --kill 8081/tcp &> /dev/null
+fi
+
+# spawn http-server, retaining colorized output
+script --flush --quiet --return /dev/null --command "http-server $a $c $cors $i $p $options" |
+	while IFS= read -r line
+	do
+		# rewrite address as hostname50
+		if command -v hostname50 > /dev/null 2>&1 && [[ "$line" =~ "Available on:" ]]; then
+			echo "$line"
+			IFS= read -r line
+			echo "$line" | sed "s#\(.*http://\)[^:]\+\(:.\+\)#\1$(hostname50)\2#"
+			while IFS= read -r line
+			do
+				if [[ "$line" =~ "Hit CTRL-C to stop the server" ]]; then
+					echo "$line"
+					break
+				fi
+			done
+		else
+			echo "$line"
+		fi
+	done
