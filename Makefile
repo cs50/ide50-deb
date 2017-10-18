@@ -71,7 +71,7 @@ deb: clean Makefile
 		php5-curl, \
 		php5-sqlite, \
 		php5-xdebug, \
-		phpliteadmin (>= 1.2.4), \
+		phpliteadmin (>= 1.2.5), \
 		sqlite3, \
 		telnet, \
 		traceroute, \
