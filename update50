@@ -163,6 +163,9 @@ PYTHON_PACKAGES="check50==2.1.3 \
 ( sudo -H pip3 install $PYTHON_PACKAGES )
 /opt/pyenv/bin/pyenv rehash
 
+echo "Installing nltk data..."
+sudo python -m nltk.downloader -d /usr/share/nltk_data/ punkt &> /dev/null
+
 # install ruby 2.4.0 and make it default
 rvm install ruby-2.4.0 --default &> /dev/null
 
