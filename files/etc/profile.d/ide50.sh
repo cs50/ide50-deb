@@ -105,12 +105,9 @@ export DEBIAN_FRONTEND=noninteractive
 
 # flask
 export FLASK_APP="application.py"
-export FLASK_DEBUG="1"
-
-# flask wrapper
 alias flask="/home/ubuntu/.cs50/bin/flask"
 
-# http-server wrapper
+# http-server
 alias http-server="/home/ubuntu/.cs50/bin/http-server"
 
 # language
