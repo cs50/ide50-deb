@@ -156,7 +156,7 @@ PYTHON_PACKAGES="check50==2.2.1 \
     render50==2.2.0 \
     SQLAlchemy \
     style50==2.3.3 \
-    submit50==2.4.5 \
+    submit50==2.4.6 \
     termcolor \
     twython \
     virtualenv"
