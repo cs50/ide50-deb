@@ -160,7 +160,8 @@ PYTHON_PACKAGES="check50==2.2.1 \
     termcolor \
     twython \
     virtualenv"
-( sudo -H pip3 install $PYTHON_PACKAGES )
+
+sudo -H pip3 install $PYTHON_PACKAGES
 /opt/pyenv/bin/pyenv rehash
 
 echo "Installing nltk data..."
