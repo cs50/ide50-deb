@@ -155,7 +155,7 @@ PYTHON_PACKAGES="check50==2.2.1 \
     plotly \
     render50==2.2.0 \
     SQLAlchemy \
-    style50==2.3.3 \
+    style50==2.4.0 \
     submit50==2.4.6 \
     termcolor \
     twython \
