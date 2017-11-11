@@ -105,7 +105,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 # flask
 export FLASK_APP="application.py"
-export FLASK_DEBUG="0"
+export FLASK_DEBUG="1"
 alias flask="/home/ubuntu/.cs50/bin/flask"
 
 # http-server
