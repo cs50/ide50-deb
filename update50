@@ -153,6 +153,9 @@ PYTHON_PACKAGES="check50==2.2.1 \
     nltk \
     passlib \
     plotly \
+    pylint \
+    pylint_django \
+    pylint_flask \
     render50==2.2.0 \
     SQLAlchemy \
     style50==2.4.0 \
@@ -162,6 +165,10 @@ PYTHON_PACKAGES="check50==2.2.1 \
     virtualenv"
 
 sudo -H pip3 install $PYTHON_PACKAGES
+
+# create pylint3 as symlink to pylint
+ln -sf /opt/pyenv/versions/3.6.0/bin/{pylint,pylint3}
+
 /opt/pyenv/bin/pyenv rehash
 
 echo "Installing nltk data..."
