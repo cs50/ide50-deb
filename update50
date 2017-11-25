@@ -146,6 +146,7 @@ PYTHON_PACKAGES="check50==2.2.1 \
     cs50==2.3.2 \
     feedparser \
     Flask \
+    Flask-AutoIndex \
     Flask-JSGlue \
     Flask-SQLAlchemy \
     Flask-Session \
