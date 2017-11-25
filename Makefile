@@ -8,7 +8,7 @@ VERSION_FILE := $(FILES_DIR)/etc/version50
 PLUGINS := audioplayer browser cat debug gist hex info presentation simple statuspage theme
 
 NAME := ide50
-VERSION := 126
+VERSION := 127
 
 define getplugin
 	@echo "\nFetching $(1)..."
@@ -66,6 +66,7 @@ deb: clean Makefile
 		ngrok-client, \
 		nodejs, \
 		openjdk-7-jdk, \
+		pgloader, \
 		php-cs50 (>= 6.0.0-0ubuntu1), \
 		php5-cgi, \
 		php5-curl, \

@@ -49,6 +49,15 @@ if [ ! -f /etc/apt/sources.list.d/github_git-lfs.list ]; then
         -o Dir::Etc::sourceparts="-"
 fi
 
+# install pgloader apt repo
+# https://wiki.postgresql.org/wiki/Apt
+if [ ! -f /etc/apt/sources.list.d/pgdg.list ]; then
+    echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+    curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+    sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/pgdg.list" \
+        -o Dir::Etc::sourceparts="-"
+fi
+
 echo "Updating sources..."
 # try to fix dpkg before updating
 sudo dpkg --configure -a
