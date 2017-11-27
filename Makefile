@@ -48,7 +48,7 @@ deb: clean Makefile
 	--deb-no-default-config-files \
 	--deb-priority optional \
 	--depends \
-		"adminer (>= 1.0.0), \
+		"adminer50 (>= 1.0.0), \
 		apache2, \
 		astyle (>= 3.0.1), \
 		bc, \
