@@ -8,7 +8,7 @@ VERSION_FILE := $(FILES_DIR)/etc/version50
 PLUGINS := audioplayer browser cat debug gist hex info presentation simple statuspage theme
 
 NAME := ide50
-VERSION := 126
+VERSION := 127
 
 define getplugin
 	@echo "\nFetching $(1)..."
@@ -48,7 +48,8 @@ deb: clean Makefile
 	--deb-no-default-config-files \
 	--deb-priority optional \
 	--depends \
-		"apache2, \
+		"adminer50 (>= 1.0.0), \
+		apache2, \
 		astyle (>= 3.0.1), \
 		bc, \
 		clang-3.8, \
