@@ -8,7 +8,7 @@ VERSION_FILE := $(FILES_DIR)/etc/version50
 PLUGINS := audioplayer browser cat debug gist hex info presentation simple statuspage theme
 
 NAME := ide50
-VERSION := 127
+VERSION := 130
 
 define getplugin
 	@echo "\nFetching $(1)..."
@@ -48,7 +48,7 @@ deb: clean Makefile
 	--deb-no-default-config-files \
 	--deb-priority optional \
 	--depends \
-		"adminer50 (>= 1.0.0), \
+		"adminer50 (>= 1.0.1), \
 		apache2, \
 		astyle (>= 3.0.1), \
 		bc, \
@@ -67,12 +67,13 @@ deb: clean Makefile
 		ngrok-client, \
 		nodejs, \
 		openjdk-7-jdk, \
+		pgloader, \
 		php-cs50 (>= 6.0.0-0ubuntu1), \
 		php5-cgi, \
 		php5-curl, \
 		php5-sqlite, \
 		php5-xdebug, \
-		phpliteadmin (>= 1.3.1), \
+		phpliteadmin (>= 1.3.3), \
 		sqlite3, \
 		telnet, \
 		traceroute, \
