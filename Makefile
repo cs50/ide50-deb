@@ -8,7 +8,7 @@ VERSION_FILE := $(FILES_DIR)/etc/version50
 PLUGINS := audioplayer browser cat debug gist hex info presentation simple statuspage theme
 
 NAME := ide50
-VERSION := 128
+VERSION := 129
 
 define getplugin
 	@echo "\nFetching $(1)..."
@@ -73,7 +73,7 @@ deb: clean Makefile
 		php5-curl, \
 		php5-sqlite, \
 		php5-xdebug, \
-		phpliteadmin (>= 1.3.1), \
+		phpliteadmin (>= 1.3.2), \
 		sqlite3, \
 		telnet, \
 		traceroute, \
