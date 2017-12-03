@@ -67,7 +67,7 @@ deb: clean Makefile
 		ngrok-client, \
 		nodejs, \
 		openjdk-7-jdk, \
-		pgloader, \
+		pgloader (>= 3.4.1+dfsg-1~pgdg14.04+1), \
 		php-cs50 (>= 6.0.0-0ubuntu1), \
 		php5-cgi, \
 		php5-curl, \
