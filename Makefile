@@ -55,20 +55,20 @@ deb: clean Makefile
 		clang-3.8, \
 		dnsutils, \
 		dos2unix, \
-		git (>= 1:2.13.0-0ppa1~ubuntu14.04.1), \
+		git (>= 1:2.13.0), \
 		git-lfs, \
 		gdbserver, \
 		inotify-tools, \
-		libcs50 (>= 8.1.0-0ubuntu1), \
-		libcs50-java (>= 2.0.2-0ubuntu1), \
+		libcs50 (>= 8.1.0), \
+		libcs50-java (>= 2.0.2), \
 		libphp-phpmailer, \
 		libxslt1-dev, \
 		manpages-dev, \
 		ngrok-client, \
 		nodejs, \
 		openjdk-7-jdk, \
-		pgloader (>= 3.4.1+dfsg-1~pgdg14.04+1), \
-		php-cs50 (>= 6.0.0-0ubuntu1), \
+		pgloader (>= 3.4.1), \
+		php-cs50 (>= 6.0.0), \
 		php5-cgi, \
 		php5-curl, \
 		php5-sqlite, \
