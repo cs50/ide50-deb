@@ -24,8 +24,14 @@ if [[ "$1" == "run" ]]; then
     do
         if [[ "$1" =~ ^--host= ]]; then
             host="$1"
+        elif [[ "$1" == "-h" ]]; then
+            host="$1 $2"
+            shift 2
         elif [[ "$1" =~ ^--port= ]]; then
             port="$1"
+        elif [[ "$1" == "-p" ]]; then
+            port="$1 $2"
+            shift 2
         elif [[ "$1" =~ ^--(no-)?reload$ ]]; then
             reload="$1"
         elif [[ "$1" =~ ^--with(out)?-threads$ ]]; then
