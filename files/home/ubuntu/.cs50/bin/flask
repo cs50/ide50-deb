@@ -22,14 +22,14 @@ if [[ "$1" == "run" ]]; then
     shift
     while test ${#} -gt 0
     do
-        if [[ "$1" =~ ^--host= ]]; then
+        if [[ "$1" =~ ^--host= || "$1" =~ ^-h[^\s]+ ]]; then
             host="$1"
-        elif [[ "$1" =~ ^--?h ]]; then
+        elif [[ "$1" == "-h" || "$1" == "--host" ]]; then
             host="$1 $2"
             shift
-        elif [[ "$1" =~ ^--port= ]]; then
+        elif [[ "$1" =~ ^--port= || "$1" =~ ^-p[^\s]+ ]]; then
             port="$1"
-        elif [[ "$1" =~ ^--?p ]]; then
+        elif [[ "$1" == "-p" || "$1" == "--port"  ]]; then
             port="$1 $2"
             shift
         elif [[ "$1" =~ ^--(no-)?reload$ ]]; then
