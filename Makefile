@@ -8,7 +8,7 @@ VERSION_FILE := $(FILES_DIR)/etc/version50
 PLUGINS := audioplayer browser cat debug gist hex info presentation simple statuspage theme
 
 NAME := ide50
-VERSION := 130
+VERSION := 131
 
 define getplugin
 	@echo "\nFetching $(1)..."
@@ -56,7 +56,7 @@ deb: clean Makefile
 		dnsutils, \
 		dos2unix, \
 		git (>= 1:2.13.0), \
-		git-lfs, \
+		git-lfs (>= 2.3.4), \
 		gdbserver, \
 		inotify-tools, \
 		libcs50 (>= 8.1.0), \
