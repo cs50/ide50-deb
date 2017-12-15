@@ -36,6 +36,9 @@ if [[ "$1" == "run" ]]; then
         shift
     done
 
+    # kill any process listing on the specified port
+    fuser --kill "${port//[^0-9]}/tcp" &> /dev/null
+
     # spawn flask
     script --flush --quiet --return /dev/null --command "FLASK_APP=\"$FLASK_APP\" FLASK_DEBUG=\"$FLASK_DEBUG\" flask run $host $port $reload $threads $options" |
         while IFS= read -r line
