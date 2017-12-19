@@ -166,7 +166,7 @@ PYTHON_PACKAGES="check50==2.2.1 \
     pylint \
     pylint_django \
     pylint_flask \
-    render50==2.4.1 \
+    render50==2.4.2 \
     SQLAlchemy \
     style50==2.4.0 \
     submit50==2.4.6 \
