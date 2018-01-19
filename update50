@@ -1,12 +1,33 @@
 #!/bin/bash
 
-set -e
+# exit on error, inherit ERR trap
+set -eE
+
+# redirect output of all commands to $LOG
+mkdir -p /home/ubuntu/.cs50/logs
+LOG="/home/ubuntu/.cs50/logs/update50.log"
+
+# merge old log file (if exists)
+if [ -f /home/ubuntu/lib/ide50.log ]; then
+    mv /home/ubuntu/lib/ide50.log "$LOG" &>/dev/null
+    rm -f /home/ubuntu/lib/ide50.log &>/dev/null
+fi
+
+exec > >(sudo tee -a "$LOG")
+
+echo -e "\nDO NOT CLOSE THIS WINDOW OR PUT YOUR COMPUTER TO SLEEP <3\n"
+sleep 2
+
+echo -e "update50 - $(date -R)"
 
 # ensure workspace has disk size < 5GB
 if [ $(df --output=size / |  awk 'NR==2 {print $1}') -lt 5242880 ]; then
     echo "You have an old workspace. See https://cs50.ly/disk for instructions on how to upgrade your workspace!"
-    exit 0
+    exit 1
 fi
+
+# error message
+trap "echo 'Something went wrong! The output has been logged in $LOG'" ERR
 
 # suppress CS50 compilation preferences
 unset CC CFLAGS LDLIBS
