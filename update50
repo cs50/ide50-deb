@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# exit on error, inherit ERR trap
-set -eE
+# exit on error
+set -e
 
 # redirect output of all commands to $LOG
 mkdir -p /home/ubuntu/.cs50/logs
