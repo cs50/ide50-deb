@@ -12,7 +12,7 @@ exec > >(sudo tee -a "$LOG")
 echo -e "\nDO NOT CLOSE THIS WINDOW OR PUT YOUR COMPUTER TO SLEEP <3\n"
 sleep 2
 
-echo -e "update50 - $(date -R)"
+echo -e "update50 - v$(version50)\n$(date -R)\n"
 
 # ensure workspace has disk size < 5GB
 if [ $(df --output=size / |  awk 'NR==2 {print $1}') -lt 5242880 ]; then
