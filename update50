@@ -4,15 +4,15 @@
 set -e
 
 # redirect output of all commands to $LOG
-mkdir -p /home/ubuntu/.cs50/logs
-LOG="/home/ubuntu/.cs50/logs/update50.log"
+# mkdir -p /home/ubuntu/.cs50/logs
+# LOG="/home/ubuntu/.cs50/logs/update50.log"
 
-exec > >(sudo tee -a "$LOG")
+# exec > >(sudo tee -a "$LOG")
 
-echo -e "\nDO NOT CLOSE THIS WINDOW OR PUT YOUR COMPUTER TO SLEEP <3\n"
-sleep 2
+# echo -e "\nDO NOT CLOSE THIS WINDOW OR PUT YOUR COMPUTER TO SLEEP <3\n"
+# sleep 2
 
-echo -e "update50 - v$(version50)\n$(date -R)\n"
+# echo -e "update50 - v$(version50)\n$(date -R)\n"
 
 # ensure workspace has disk size < 5GB
 if [ $(df --output=size / |  awk 'NR==2 {print $1}') -lt 5242880 ]; then
@@ -21,7 +21,7 @@ if [ $(df --output=size / |  awk 'NR==2 {print $1}') -lt 5242880 ]; then
 fi
 
 # error message
-trap "echo 'Something went wrong! The output has been logged in $LOG'." ERR
+# trap "echo 'Something went wrong! The output has been logged in $LOG'." ERR
 
 # suppress CS50 compilation preferences
 unset CC CFLAGS LDLIBS
