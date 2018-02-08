@@ -183,7 +183,7 @@ PYTHON_PACKAGES="check50==2.2.1 \
     pylint_flask \
     render50==2.4.4 \
     SQLAlchemy \
-    style50==2.4.1 \
+    style50==2.4.2 \
     submit50==2.4.6 \
     termcolor \
     twython \
