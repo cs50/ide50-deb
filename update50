@@ -167,7 +167,7 @@ export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
 
 # install python packages
 PYTHON_PACKAGES="check50==2.2.1 \
-    cs50==2.3.3 \
+    cs50==2.4.0 \
     feedparser \
     Flask \
     Flask-AutoIndex \
