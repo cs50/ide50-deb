@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# fail on error
+set -e
+
+# packages root
+DEBPATH=".travis/ide50/2015/dists/trusty/main/binary-amd64"
+
+# move built deb to DEBPATH
+mv *amd64.deb $DEBPATH 2> /dev/null
+cd $DEBPATH
+
+# remove index files
+rm Release InRelease Release.gpg Packages Packages.gz
+
+# create Packages index (lists packages metadata)
+dpkg-scanpackages . > Packages
+
+# remove leading "./" from deb paths
+# https://wiki.debian.org/DebianRepository/Format?action=show&redirect=RepositoryFormat#Filename
+sed -i 's/\.\///g' Packages
+
+# create compressed version of Packages (used by some clients)
+gzip -9c Packages > Packages.gz
+
+# create Release file (contains indices checksums) and sign it
+# used by old clients
+apt-ftparchive release . > Release
+gpg --yes -abs -o Release.gpg Release
+
+# create InRelease (Release + text signature combined)
+# used by new clients
+gpg --yes --clearsign -o InRelease Release
+
+# upload new packages to mirror
+aws s3 sync $TRAVIS_BUILD_DIR/.travis/ide50/ s3://mirror.cs50.net/ide50/
