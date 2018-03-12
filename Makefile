@@ -1,7 +1,7 @@
 FILES_DIR := files
 C9SDK_DIR := $(FILES_DIR)/var/c9sdk
 CONFIGS_DIR := $(C9SDK_DIR)/configs/ide
-OFFLINE_DIR := /tmp/ide50-offline
+OFFLINE_DIR := /tmp/ide
 PLUGINS_DIR := $(C9SDK_DIR)/plugins
 VERSION_FILE := $(FILES_DIR)/etc/version50
 
@@ -14,7 +14,7 @@ define getplugin
 	@echo "\nFetching $(1)..."
 	@plugin_dir="$(PLUGINS_DIR)/c9.ide.cs50.$(1)"; \
 	mkdir -p "$$plugin_dir"; \
-	git clone --depth=1 "git@github.com:cs50/harvard.cs50.$(1).git" "$$plugin_dir"; \
+	git clone --depth=1 "https://github.com/cs50/harvard.cs50.$(1).git" "$$plugin_dir"; \
 	rm -rf "$$plugin_dir/README.md" "$$plugin_dir/.git"*
 
 endef
@@ -30,7 +30,7 @@ deb: clean Makefile
 
 	@echo "\nFetching latest offline configs..."
 	mkdir -p "$(CONFIGS_DIR)"
-	git clone --depth=1 git@github.com:cs50/ide50-offline.git "$(OFFLINE_DIR)"
+	git clone --depth=1 https://github.com/cs50/ide.git "$(OFFLINE_DIR)"
 	@cp "$(OFFLINE_DIR)"/files/workspace-cs50.js "$(CONFIGS_DIR)"
 
 	@echo "\nBuilding Deb..."
