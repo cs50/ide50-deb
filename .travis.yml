@@ -1,0 +1,17 @@
+language: python
+
+before_install:
+  - gem install fpm
+  - pip install awscli
+
+script: make deb
+
+before_deploy:
+  - aws s3 sync s3://mirror.cs50.net/ide50/ .travis/ide50/
+  - echo -e $GPG_SECRET | gpg --import
+deploy:
+  provider: script
+  script: .travis/deb64
+  skip_cleanup: true
+  on:
+    branch: master
