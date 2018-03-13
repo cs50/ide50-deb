@@ -90,11 +90,11 @@ sudo -E apt-get -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force
 
 echo "Installing other packages..."
 
-# node 8.10.0
+# node 9.8.0
 export NVM_DIR="/home/ubuntu/.nvm"
 . $NVM_DIR/nvm.sh
-nvm install 8.10.0
-nvm alias default 8.10.0
+nvm install 9.8.0
+nvm alias default 9.8.0
 
 # composer
 # https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-14-04
