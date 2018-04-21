@@ -13,7 +13,8 @@ if [[ "$1" == "run" ]]; then
 
     # default options
     host="--host=0.0.0.0"
-    port="--port=8080"
+    port="8080"
+    p="--port=$port"
     reload="--reload"
 
     # remove when https://github.com/miguelgrinberg/Flask-SocketIO/pull/659 is merged
@@ -48,7 +49,7 @@ if [[ "$1" == "run" ]]; then
     done
 
     # kill any process listing on the specified port
-    fuser --kill "${port//[^0-9]}/tcp" &> /dev/null
+    fuser --kill "$port/tcp" &> /dev/null
 
     # spawn flask
     script --flush --quiet --return /dev/null --command "FLASK_APP=\"$FLASK_APP\" FLASK_DEBUG=\"$FLASK_DEBUG\" flask run $host $port $reload $threads $options" |
