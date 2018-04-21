@@ -48,6 +48,7 @@ if [[ "$1" == "run" ]]; then
     done
 
     # kill any process listing on the specified port
+    # regex to handle -pxxxx, -p xxxx, --port xxxx, --port=xxxx
     fuser --kill "${port//[^0-9]}/tcp" &> /dev/null
 
     # spawn flask
