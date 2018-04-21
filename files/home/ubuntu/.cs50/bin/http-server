@@ -5,7 +5,8 @@ a="-a 0.0.0.0"
 c="-c-1"
 cors="--cors"
 i="-i false"
-p="-p 8080"
+port="8080"
+p="-p $port"
 options="--no-dotfiles"
 
 # override default options
@@ -26,7 +27,8 @@ do
 		shift
 		shift
 	elif [[ "$1" =~ ^-p$ ]]; then
-		p="$1 $2"
+	        port="$2"
+		p="$1 $port"
 		shift
 		shift
 	else
@@ -35,10 +37,8 @@ do
 	fi
 done
 
-if [[ "$p" =~ 8081 ]]; then
-    # kill any process listening on 8081
-    fuser --kill 8081/tcp &> /dev/null
-fi
+# kill any process listing on the specified port
+fuser --kill "$port/tcp" &> /dev/null
 
 # spawn http-server, retaining colorized output
 script --flush --quiet --return /dev/null --command "http-server $a $c $cors $i $p $options" |
