@@ -38,7 +38,7 @@ do
 done
 
 # kill any process listing on the specified port
-fuser --kill "${port//[^0-9]}/tcp" &> /dev/null
+fuser --kill "$port/tcp" &> /dev/null
 
 # spawn http-server, retaining colorized output
 script --flush --quiet --return /dev/null --command "http-server $a $c $cors $i $p $options" |
