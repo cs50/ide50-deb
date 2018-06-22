@@ -1,0 +1,118 @@
+#!/usr/bin/env python3
+
+# restore: restore (undelete) files from the cloud9 versioning database
+# created by Simon Pauw, May 2018
+
+# installation:
+# chmod a+x restore
+# mv ./restore ~/bin/restore
+
+# example:
+# $ restore
+# The following files can be restored:
+#
+# file# | last modified  | filename
+# ------|----------------|------------------------------------------
+#     0 | (Wed 02-14-18) | ~/workspace/pset1/some-file-I-deleted.c
+#     1 | (Wed 04-04-18) | ~/workspace/pset1/some-other-file-I-deleted.c
+# ------------------------------------------------------------------
+# Enter file# to restore (or anything else to quit): 0
+# Restored ~/workspace/pset1/some-file-I-deleted.c
+# ------------------------------------------------------------------
+# Enter file# to restore (or anything else to quit): q
+# 1 file restored
+
+import sqlite3
+from pathlib import Path, PurePath
+import os
+import sys
+import shutil
+import datetime
+
+
+def main():
+    # locate the versioning database
+    db_file = str(get_db_path())
+
+    # open versioning db
+    connection = sqlite3.connect(db_file)
+    cursor = connection.cursor()
+
+    # retrieve and list all missing files
+    print("The following files can be restored:")
+    print()
+    print("file# | last modified  | filename")
+    print("------|----------------|------------------------------------------")
+    deleted_files = []
+    file_number = 0
+
+    # get files from db and sort by date
+    files = list(cursor.execute('''SELECT * from Documents'''))
+    files.sort(key = lambda x: x[8])
+
+    # display all files that do not exist in file system
+    for row in files:
+        fname = full_path(row[1])
+        if not fname.exists():
+            deleted_files.append(row)
+            print("{:5n} | ({:12s}) | ~/workspace/{}".format(file_number, pretty_time(row[8]), row[1]))
+            file_number += 1
+
+    # close db
+    connection.close()
+
+    restored = []
+    while True:
+        # get file to restore
+        print("------------------------------------------------------------------")
+        inp = input("Enter file# to restore (or anything else to quit): ")
+        try:
+            filenumber = int(inp)
+        except ValueError:
+            quit(len(restored))
+        if filenumber >= len(deleted_files) or filenumber < 0:
+            print("File number {} is not valid".format(filenumber))
+        else:
+            # restore
+            file_entry = deleted_files[filenumber]
+            if filenumber in restored:
+                print("File ~/workspace/{} is already restored.".format(file_entry[1]))
+            else:
+                restored.append(filenumber)
+                path = full_path(file_entry[1])
+                # restore dir if needed
+                path.parent.mkdir(parents=True, exist_ok=True)
+                # write last contents back to file
+                path.write_bytes(file_entry[2])
+                print("Restored ~/workspace/{}".format(file_entry[1]))
+
+def get_db_path():
+    # find db file (~/.c9/somenumber/collab.db)
+    c9path = Path(Path.home(), '.c9')
+    for p in c9path.iterdir():
+        try:
+            i = int(str(p.stem))
+            full_db_path = Path(p, 'collab.db')
+            if(full_db_path.exists()):
+                return full_db_path
+        except ValueError:
+            pass
+    return None
+
+def full_path(rel_path):
+    return Path(Path.home(), 'workspace', rel_path)
+
+weekday = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+def pretty_time(time):
+    time = datetime.datetime.strptime(time,'%Y-%m-%d %H:%M:%S')
+    today = datetime.date.today()
+    if(time.date() == today):
+        return "today, " + time.strftime('%H:%M')
+    return "{} {}".format(weekday[time.weekday()], time.strftime('%m-%d-%y'))
+
+def quit(n):
+    print("{} file{} restored".format("No" if n < 1 else n, "" if n == 1 else "s"))
+    return sys.exit()
+
+if __name__ == "__main__":
+    main()
