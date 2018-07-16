@@ -180,7 +180,7 @@ PYTHON_PACKAGES="check50==2.2.1 \
     pylint_django \
     pylint_flask \
     pyyaml \
-    render50==2.4.4 \
+    render50==3.0.1 \
     SQLAlchemy \
     style50==2.5.0 \
     submit50==2.4.8 \
