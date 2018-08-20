@@ -168,7 +168,7 @@ PYTHON_PACKAGES="check50==2.2.1 \
     cs50==2.4.1 \
     django \
     feedparser \
-    Flask \
+    Flask==1.0.2 \
     Flask-AutoIndex \
     Flask-JSGlue \
     Flask-SQLAlchemy \
