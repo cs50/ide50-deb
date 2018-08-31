@@ -163,6 +163,9 @@ sudo rm -rf /tmp/pip_build_root/*
 unset PYTHONPATH
 export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
 
+# upgrade pip to latest
+sudo -H pip3 install --upgrade pip
+
 # install python packages
 PYTHON_PACKAGES="check50==2.2.1 \
     cs50==2.4.1 \
