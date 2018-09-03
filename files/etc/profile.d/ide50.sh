@@ -136,6 +136,4 @@ export rvm_project_rvmrc="0"
 
 # history
 # https://www.shellhacks.com/tune-command-line-history-bash/
-shopt -s histappend  # Append Bash Commands to History File
 export PROMPT_COMMAND='history -a'  # Store Bash History Immediately
-shopt -s cmdhist  # Use one command per line
