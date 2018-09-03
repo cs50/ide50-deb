@@ -15,3 +15,4 @@ deploy:
   skip_cleanup: true
   on:
     branch: master
+after_deploy: aws cloudfront create-invalidation --distribution-id "$MIRROR_DIST_ID" --paths "/ide50/*"
