@@ -60,9 +60,6 @@ if [ "$(id -u)" != "0" ]; then
     # suppress gdb's startup output
     alias gdb="gdb -q"
 
-    # unconditionally make all targets
-    alias make="make -B"
-
     alias apachectl='echo "Please use apache50 instead!"'
     alias mysql-ctl='echo "Please use mysql50 instead!"'
     alias phpmyadmin-ctl='echo "Please use mysql50 instead!"'

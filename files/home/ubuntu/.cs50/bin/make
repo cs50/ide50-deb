@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Ensure no targets end with .c
+args=""
+invalid_args=0
+for arg in $*; do
+    [[ "$arg" == *.c ]] && arg=${arg%.c} && invalid_args=1
+    args="$args $arg"
+done
+
+if [[ $invalid_args -eq 1 ]]; then
+    echo "Did you mean 'make$args'?"
+    exit 1
+else
+    command make -B $*
+fi
