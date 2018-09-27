@@ -56,7 +56,7 @@ if [[ "$1" == "run" ]]; then
         while IFS= read -r line
         do
             # rewrite address as hostname50
-            echo "$line" | sed "s#\( *Running on http://\)[^:]\+\(:.\+\)#\1$(hostname50)\2#"
+            echo "$line" | sed "s#\( *Running on \)http://[^:]\+\(:.\+\)#\1$(hostname50 --protocol)\2#"
         done
 else
     command flask "$@"

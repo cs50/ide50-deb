@@ -46,6 +46,11 @@ if [ ! -f /etc/apt/sources.list.d/cs50-ppa-trusty.list ]; then
         -o Dir::Etc::sourceparts="-"
 fi
 
+# install cs50 packagecloud repo
+if [ ! -f /etc/apt/sources.list.d/cs50_repo.list ]; then
+    curl -s https://packagecloud.io/install/repositories/cs50/repo/script.deb.sh | sudo bash
+fi
+
 # install git-core ppa
 if [ ! -f /etc/apt/sources.list.d/git-core-ppa-trusty.list ]; then
     sudo add-apt-repository ppa:git-core/ppa
