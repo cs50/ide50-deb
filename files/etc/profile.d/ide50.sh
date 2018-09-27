@@ -60,9 +60,6 @@ if [ "$(id -u)" != "0" ]; then
     # suppress gdb's startup output
     alias gdb="gdb -q"
 
-    # unconditionally make all targets
-    alias make="make -B"
-
     alias apachectl='echo "Please use apache50 instead!"'
     alias mysql-ctl='echo "Please use mysql50 instead!"'
     alias phpmyadmin-ctl='echo "Please use mysql50 instead!"'
@@ -137,3 +134,23 @@ export rvm_project_rvmrc="0"
 # history
 # https://www.shellhacks.com/tune-command-line-history-bash/
 export PROMPT_COMMAND='history -a'  # Store Bash History Immediately
+
+# ensure no make targets end with .c
+make () {
+    local args=""
+    local invalid_args=0
+
+    for arg; do
+        case "$arg" in
+            (*.c) arg=${arg%.c}; invalid_args=1;;
+        esac
+        args="$args $arg"
+    done
+
+    if [ $invalid_args -eq 1 ]; then
+        echo "Did you mean 'make$args'?"
+        return 1
+    else
+        command make -B $*
+    fi
+}

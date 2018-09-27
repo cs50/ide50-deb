@@ -50,7 +50,7 @@ script --flush --quiet --return /dev/null --command "http-server $a $c $cors $i 
         if command -v hostname50 > /dev/null 2>&1 && [[ "$line" =~ "Available on:" ]]; then
             echo "$line"
             IFS= read -r line
-            echo "$line" | sed "s#\(.*http://\)[^:]\+\(:.\+\)#\1$(hostname50)\2#"
+            echo "$line" | sed "s#\(.*\)http://[^:]\+\(:.\+\)#\1$(hostname50 --protocol)\2#"
             while IFS= read -r line
             do
                 if [[ "$line" =~ "Hit CTRL-C to stop the server" ]]; then
