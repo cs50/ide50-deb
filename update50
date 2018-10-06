@@ -182,7 +182,7 @@ PYTHON_PACKAGES="check50==2.2.1 \
     Flask-SQLAlchemy \
     Flask-Session \
     git+git://github.com/cmorisse/ikp3db \
-    help50==2.0.0 \
+    help50==2.0.1 \
     nltk \
     passlib \
     plotly \
