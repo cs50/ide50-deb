@@ -172,7 +172,7 @@ export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
 sudo -H pip3 install --upgrade pip
 
 # install python packages
-PYTHON_PACKAGES="check50==2.2.1 \
+PYTHON_PACKAGES="check50==2.2.5 \
     cs50==2.4.1 \
     django \
     feedparser \
@@ -192,7 +192,7 @@ PYTHON_PACKAGES="check50==2.2.1 \
     pyyaml \
     render50==3.0.1 \
     SQLAlchemy \
-    style50==2.5.0 \
+    style50==2.6.2 \
     submit50==2.4.8 \
     termcolor \
     twython \
