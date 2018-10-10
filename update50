@@ -20,8 +20,16 @@ if [ $(df --output=size / |  awk 'NR==2 {print $1}') -lt 5242880 ]; then
     exit 1
 fi
 
-# error message
-# trap "echo 'Something went wrong! The output has been logged in $LOG'." ERR
+echo "Updating sources..."
+
+# try to fix dpkg before updating
+sudo dpkg --configure -a
+
+# if requested, flush the apt-get Packages file cache
+if [ "$1" == "-f" ]; then
+    echo "CLEARING PACKAGE CACHE"
+    sudo rm -rf /var/lib/apt/lists/*
+fi
 
 # suppress CS50 compilation preferences
 unset CC CFLAGS LDLIBS
@@ -76,16 +84,6 @@ if [ ! -f /etc/apt/sources.list.d/pgdg.list ]; then
     curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
     sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/pgdg.list" \
         -o Dir::Etc::sourceparts="-"
-fi
-
-echo "Updating sources..."
-# try to fix dpkg before updating
-sudo dpkg --configure -a
-
-# if requested, flush the apt-get Packages file cache
-if [ "$1" == "-f" ]; then
-    echo "CLEARING PACKAGE CACHE"
-    sudo rm -rf /var/lib/apt/lists/*
 fi
 
 sudo apt-get update
