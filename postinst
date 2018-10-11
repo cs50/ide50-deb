@@ -18,6 +18,15 @@ chmod 644 /etc/bash_completion.d/make
 # remove dropbox functions
 sed -i 's:source /home/ubuntu/.dropbox50::g' ~/.bashrc
 
+# export make function
+if ! grep -q 'export -f make' ~/.bashrc; then
+    cat >> ~/.bashrc << EOF
+if declare -f make &>/dev/null; then
+    export -f make
+fi
+EOF
+fi
+
 # add courses group and cs50 user
 groupadd -r courses > /dev/null 2>&1 || true
 adduser --gecos "CS50,,,," --ingroup courses --disabled-login --system cs50 > /dev/null 2>&1 || true
