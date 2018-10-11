@@ -25,10 +25,14 @@ echo "Updating sources..."
 # try to fix dpkg before updating
 sudo dpkg --configure -a
 
+# TODO temporary until most people move to new version
+# git-lfs repo bug causing apt-get update to fail
+echo "CLEARING PACKAGE CACHE"
+sudo rm -rf /var/lib/apt/lists/*
+
 # if requested, flush the apt-get Packages file cache
 if [ "$1" == "-f" ]; then
-    echo "CLEARING PACKAGE CACHE"
-    sudo rm -rf /var/lib/apt/lists/*
+    :
 fi
 
 # suppress CS50 compilation preferences
