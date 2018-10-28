@@ -175,7 +175,7 @@ sudo -H pip3 install --upgrade pip
 
 # install python packages
 PYTHON_PACKAGES="check50==2.2.5 \
-    cs50==2.4.1 \
+    cs50==2.4.2 \
     django \
     feedparser \
     Flask==1.0.2 \
