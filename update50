@@ -175,7 +175,7 @@ sudo -H pip3 install --upgrade pip
 
 # install python packages
 PYTHON_PACKAGES="check50==2.2.5 \
-    cs50==2.4.2 \
+    cs50==2.4.3 \
     django \
     feedparser \
     Flask==1.0.2 \
@@ -192,7 +192,7 @@ PYTHON_PACKAGES="check50==2.2.5 \
     pylint_django \
     pylint_flask \
     pyyaml \
-    render50==3.0.1 \
+    render50==3.0.2 \
     SQLAlchemy \
     style50==2.6.2 \
     submit50==2.4.8 \
