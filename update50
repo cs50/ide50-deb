@@ -188,7 +188,7 @@ PYTHON_PACKAGES="check50==2.2.5 \
     nltk \
     passlib \
     plotly \
-    pylint \
+    pylint==1.9.3 `# pylint-flask doesn't support pylint 2 yet` \
     pylint_django \
     pylint_flask \
     pyyaml \
