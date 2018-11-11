@@ -22,7 +22,7 @@ fi
 
 # disable dropbox apt repository
 if [ -f /etc/apt/sources.list.d/dropbox.list ]; then
-    sudo mv /etc/apt/sources.list.d/dropbox.{list,disabled}
+    sudo mv /etc/apt/sources.list.d/dropbox.list{,.disabled}
 fi
 
 echo "Updating sources..."
