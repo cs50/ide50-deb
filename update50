@@ -20,6 +20,11 @@ if [ $(df --output=size / |  awk 'NR==2 {print $1}') -lt 5242880 ]; then
     exit 1
 fi
 
+# disable dropbox apt repository
+if [ -f /etc/apt/sources.list.d/dropbox.list ]; then
+    sudo mv /etc/apt/sources.list.d/dropbox.{list,disabled}
+fi
+
 echo "Updating sources..."
 
 # try to fix dpkg before updating
