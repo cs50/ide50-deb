@@ -100,6 +100,8 @@ sudo apt-get update
 echo "Reinstalling ide package..."
 sudo -E apt-get -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite" install --reinstall --yes --force-yes --assume-yes ide50
 
+sudo apt-get install -y libcs50=8.1.2
+
 echo "Installing other packages..."
 
 # node 9.8.0
