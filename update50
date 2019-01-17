@@ -201,7 +201,7 @@ PYTHON_PACKAGES="check50==2.2.5 \
     pyyaml \
     render50==3.0.2 \
     SQLAlchemy \
-    style50==2.6.2 \
+    style50==2.6.4 \
     submit50==2.4.8 \
     termcolor \
     twython \
