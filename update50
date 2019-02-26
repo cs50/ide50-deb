@@ -181,7 +181,7 @@ export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
 sudo -H pip3 install --upgrade pip
 
 # install python packages
-PYTHON_PACKAGES="cs50==3.0.1 \
+PYTHON_PACKAGES="cs50==2.4.4 \
     django \
     feedparser \
     Flask==1.0.2 \
