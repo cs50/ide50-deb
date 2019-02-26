@@ -181,8 +181,7 @@ export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
 sudo -H pip3 install --upgrade pip
 
 # install python packages
-PYTHON_PACKAGES="check50==2.2.5 \
-    cs50==2.4.4 \
+PYTHON_PACKAGES="cs50==2.4.4 \
     django \
     feedparser \
     Flask==1.0.2 \
@@ -202,12 +201,13 @@ PYTHON_PACKAGES="check50==2.2.5 \
     render50==3.0.2 \
     SQLAlchemy \
     style50==2.6.4 \
-    submit50==2.4.8 \
     termcolor \
     twython \
     virtualenv"
 
 sudo -H pip3 install $PYTHON_PACKAGES
+
+sudo -H pip3 install --upgrade 'check50<3' 'submit50<3'
 
 # create pylint3 as symlink to pylint
 ln -sf /opt/pyenv/versions/3.6.0/bin/{pylint,pylint3}
